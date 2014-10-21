@@ -59,6 +59,9 @@
 BUILD USAGE
 ------------------------------------------------------------------------------------------
 
+    Ensure that the Oracle database JDBC driver file 'ojdbc6.jar' is available under
+        [${webcontent.webinf.lib.path}] otherwise the build will fail.
+
     To build the Spiracle Test Application WAR file, run:
         ant
     or
@@ -86,6 +89,7 @@ BUILD USAGE
     <target name="build" depends="
                 clean,
                 echo-useful-info,
+                -check-dependencies,
                 -init,
                 -compile,
                 -deploy
@@ -101,12 +105,22 @@ BUILD USAGE
         <echo message="Javac source / target version:  [${javac.major.version}]" />
         <echo message="User:                           [${user.name}]" />
         <echo message="Timestamp:                      [${timestamp}]" />
-        <echo message="Generated WAR file:              [${war.filepath}]" />
+        <echo message="Generated WAR file:             [${war.filepath}]" />
     </target>
 
     <!--
         Private targets.
     -->
+
+	<target name="-check-dependencies">
+        <fail message="The Oracle database JDBC driver file 'ojdbc6.jar' not found! Please ensure this file exists at [${webcontent.webinf.lib.path}].">
+            <condition>
+                 <not>
+                 <available type="file" file="${webcontent.webinf.lib.path}/ojdbc6.jar" />
+                </not>
+            </condition>
+        </fail>
+    </target>
 
     <target name="-init">
         <mkdir dir="${build.classes.path}" />
@@ -127,10 +141,14 @@ BUILD USAGE
             <attribute name="Built-By" value="${user.name}" />
             <attribute name="Creation-Timestamp" value="${timestamp}" />
         </manifest>
-        <war needxmlfile='false' destfile="${war.filepath}" manifest="${manifest.filepath}">
-
+        <war
+               needxmlfile='false'
+               destfile="${war.filepath}"
+               manifest="${manifest.filepath}"
+               duplicate="fail">
             <fileset dir="${webcontent.path}">
                 <include name="**/*.*" />
+                <exclude name="**/WEB-INF/lib/**/*" />
             </fileset>
             <lib dir="${webcontent.webinf.lib.path}" />
             <classes dir="${build.classes.path}" />
