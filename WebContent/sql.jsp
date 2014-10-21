@@ -119,15 +119,15 @@
                 <td><code>"SELECT * FROM users WHERE id = " + id;</code>
               </tr>
               <tr>
-                <td><a href="Update_User?id=1&amp;name=Joe&amp;surname=Soap">Update_User?id=1&amp;name=Joe&amp;surname=Soap</a></td>
+                <td><a href="Update_User?id=1&amp;name=Joe&amp;surname=Soap">Update User</a></td>
                 <td><code>"UPDATE users SET name = '" + name + "', surname = '" + surname + "' WHERE id = " + id;</code>
               </tr>
               <tr>
-                <td><a href="Delete_User?id=1&amp;name=Joe">Delete_User?id=1&amp;name=Joe</a></td>
+                <td><a href="Delete_User?id=1&amp;name=Joe">Delete User</a></td>
                 <td><code>"DELETE FROM users WHERE id = " + id  + " OR name = '" + name + "'";</code>
               </tr>
               <tr>
-                <td><a href="Insert_User?id=101&amp;name=Joe&amp;surname=Soap&amp;dob=01-Jan-1970&amp;credit_card=1111-1111-1111-1111&amp;cvv=999">Insert_User?id=101&amp;name=Joe&amp;surname=Soap&amp;dob=01-Jan-1970&amp;credit_card=1111-1111-1111-1111&amp;cvv=999</a></td>
+                <td><a href="Insert_User?id=101&amp;name=Joe&amp;surname=Soap&amp;dob=01-Jan-1970&amp;credit_card=1111-1111-1111-1111&amp;cvv=999">Insert User</a></td>
                 <td><code>"INSERT INTO users VALUES (" + id + ", '" + name + "', '" + surname + "', '" + dob + "', '" + credit_card + "', '" + cvv + "')";</code>
               </tr>
               <tr>
