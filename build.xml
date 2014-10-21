@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="spiracle" default="build" basedir=".">
+
+    <!--
+        Properties - non path related.
+    -->
+
+    <tstamp>
+        <format property="timestamp" pattern="yyyy-MM-dd_HH-MM-ss" />
+    </tstamp>
+
+    <property name="war.name" value="spiracle.war" />
+
+    <property name="javac.major.version" value="1.6" />
+
+    <!--
+        Properties - paths related.
+    -->
+
+    <property name="root.path" value="${basedir}" />
+
+    <property name="build.path" value="${root.path}/build" />
+    <property name="lib.path" value="${root.path}/lib" />
+    <property name="src.path" value="${root.path}/src" />
+    <property name="webcontent.path" value="${root.path}/WebContent" />
+
+    <property name="build.classes.path" value="${build.path}/classes" />
+
+    <property name="webcontent.conf.path" value="${webcontent.path}/conf" />
+    <property name="webcontent.css.path" value="${webcontent.path}/css" />
+    <property name="webcontent.fonts.path" value="${webcontent.path}/fonts" />
+    <property name="webcontent.img.path" value="${webcontent.path}/img" />
+    <property name="webcontent.js.path" value="${webcontent.path}/js" />
+
+    <property name="webcontent.webinf.path" value="${webcontent.path}/WEB-INF" />
+    <property name="webcontent.webinf.lib.path" value="${webcontent.webinf.path}/lib" />
+
+    <property name="manifest.filepath" value="${build.path}/MANIFEST.MF" />
+
+    <property name="war.filepath" value="${build.path}/${war.name}" />
+
+    <path id="javac.classpath">
+        <fileset dir="${webcontent.webinf.lib.path}">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="${lib.path}">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <!--
+        Public targets.
+    -->
+
+    <target name="help">
+        <echo xml:space="preserve">
+------------------------------------------------------------------------------------------
+BUILD USAGE
+------------------------------------------------------------------------------------------
+
+    To build the Spiracle Test Application WAR file, run:
+        ant
+    or
+        ant build
+
+    To clean the build infrastructure, run:
+        ant clean
+
+    To echo some useful information about locations, what source and target versions of
+    [javac] are being used, run:
+        ant echo-useful-info
+
+    All builds run the [clean] target before initialising, compiling or deploying.
+
+    This build infrastructure uses a version of [servlet-api.jar] to compile the source.
+    However, [servlet-api.jar] will be omitted from the WARs [WEB-INF\lib] directory.
+
+    The WAR file will be output to:
+        [${war.filepath}]
+
+------------------------------------------------------------------------------------------
+        </echo>
+    </target>
+
+    <target name="build" depends="
+                clean,
+                echo-useful-info,
+                -init,
+                -compile,
+                -deploy
+            " />
+
+    <target name="clean">
+        <delete dir="${build.path}" />
+    </target>
+
+    <target name="echo-useful-info">
+        <echo message="Root directory / basedir:       [${root.path}]" />
+        <echo message="Build / artefact directory:     [${build.path}]" />
+        <echo message="Javac source / target version:  [${javac.major.version}]" />
+        <echo message="User:                           [${user.name}]" />
+        <echo message="Timestamp:                      [${timestamp}]" />
+        <echo message="Generated WAR file:              [${war.filepath}]" />
+    </target>
+
+    <!--
+        Private targets.
+    -->
+
+    <target name="-init">
+        <mkdir dir="${build.classes.path}" />
+    </target>
+
+    <target name="-compile">
+        <javac srcdir="${src.path}" destdir="${build.classes.path}" source="${javac.major.version}" target="${javac.major.version}" compiler="modern" nowarn="on" encoding="UTF-8" includeantruntime="false" fork="true">
+            <include name="**/*.java" />
+            <classpath refid="javac.classpath" />
+        </javac>
+    </target>
+
+    <target name="-deploy">
+        <manifest file="${manifest.filepath}">
+            <attribute name="Implementation-Vendor" value="Waratek Limited" />
+            <attribute name="Implementation-Title" value="Spiracle" />
+            <attribute name="Javac-Source-Target-Version" value="${javac.major.version}" />
+            <attribute name="Built-By" value="${user.name}" />
+            <attribute name="Creation-Timestamp" value="${timestamp}" />
+        </manifest>
+        <war needxmlfile='false' destfile="${war.filepath}" manifest="${manifest.filepath}">
+
+            <fileset dir="${webcontent.path}">
+                <include name="**/*.*" />
+            </fileset>
+            <lib dir="${webcontent.webinf.lib.path}" />
+            <classes dir="${build.classes.path}" />
+        </war>
+    </target>
+
+</project>
