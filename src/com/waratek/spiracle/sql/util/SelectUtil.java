@@ -18,32 +18,10 @@ public class SelectUtil {
         ServletOutputStream out = response.getOutputStream();
         String connectionType = null;
         Connection con = null;
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\"");
-        out.println("   href=\"css/bootstrap-theme.min.css\">");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">");
-        out.println("<script src=\"js/jquery-2.1.1.min.js\"></script>");
-        out.println("<script src=\"js/bootstrap.min.js\"></script>");
-        out.println("<title>JAF Test App</title>");
-        out.println("</head>");
-
-        out.println("<body>");
-        out.println("<div class=\"container\">");
-        out.println("<div class=\"page-header\">");
-        out.println("<img src=\"img/waratek.png\" alt=\"Waratek\">");
-        out.println("</div>");
         
-        out.println("<ul class=\"nav nav-tabs\" role=\"tablist\">");
-        out.println("<li><a href=\"index.jsp\">Home</a></li>");
-        out.println("<li><a href=\"file.jsp\">File</a></li>");
-        out.println("<li><a href=\"network.jsp\">Network</a></li>");
-        out.println("<li class=\"active\"><a href=\"sql.jsp\">SQL Injection</a></li>");
-        out.println("</ul>");
+        TagUtil.printPageHead(out);
+        TagUtil.printPageNavbar(out);
+        TagUtil.printContentDiv(out);
 
         try {
             //Checking if connectionType is not, defaulting it to c3p0 if not set.
@@ -53,7 +31,7 @@ public class SelectUtil {
                 connectionType = request.getParameter("connectionType");
             }
             con = ConnectionUtil.getConnection(application, connectionType);            
-            
+            out.println("<div class=\"panel-body\">");
             out.println("<h1>SQL Query:</h1>");
             out.println("<pre>");
             out.println(sql);
@@ -87,9 +65,8 @@ public class SelectUtil {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            out.println("</div>");
-            out.println("</div>");
-            out.println("</BODY></HTML>");
+            
+            TagUtil.printPageFooter(out);
         }
 
     }
@@ -120,8 +97,7 @@ public class SelectUtil {
         }
 
         out.println("</TABLE>");
-        out.println("</div>");
-        out.println("</BODY></HTML>");
+        TagUtil.printPageFooter(out);
     }
 
     private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
