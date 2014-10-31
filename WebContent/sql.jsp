@@ -116,7 +116,7 @@
               </tr>
               <tr>
                 <td><a href="Get_string_no_quote?name='wu'">Get_string_no_quote?name='wu'</a></td>
-                <td><code>"SELECT * FROM users WHERE id = " + id;</code>
+                <td><code>"SELECT * FROM users WHERE name = "  + name;</code>
               </tr>
               <tr>
                 <td><a href="Update_User?id=1&amp;name=Joe&amp;surname=Soap">Update User</a></td>
