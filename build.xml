@@ -77,7 +77,7 @@ BUILD USAGE
     All builds run the [clean] target before initialising, compiling or deploying.
 
     This build infrastructure uses a version of [servlet-api.jar] to compile the source.
-    However, [servlet-api.jar] will be omitted from the WARs [WEB-INF\lib] directory.
+    However, [servlet-api.jar] will be omitted from the WARs [WEB-INF/lib] directory.
 
     The WAR file will be output to:
         [${war.filepath}]
