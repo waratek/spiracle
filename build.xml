@@ -59,8 +59,9 @@
 BUILD USAGE
 ------------------------------------------------------------------------------------------
 
-    Ensure that the Oracle database JDBC driver file 'ojdbc6.jar' is available under
-        [${webcontent.webinf.lib.path}] if you wish to use the database features.
+    If you wish to use the database features, ensure that the Oracle database JDBC driver
+    file 'ojdbc6.jar' is available under:
+        [${webcontent.webinf.lib.path}] 
 
     To build the Spiracle Test Application WAR file, run:
         ant
