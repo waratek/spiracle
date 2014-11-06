@@ -60,7 +60,7 @@ BUILD USAGE
 ------------------------------------------------------------------------------------------
 
     Ensure that the Oracle database JDBC driver file 'ojdbc6.jar' is available under
-        [${webcontent.webinf.lib.path}] otherwise the build will fail.
+        [${webcontent.webinf.lib.path}] if you wish to use the database features.
 
     To build the Spiracle Test Application WAR file, run:
         ant
@@ -89,7 +89,6 @@ BUILD USAGE
     <target name="build" depends="
                 clean,
                 echo-useful-info,
-                -check-dependencies,
                 -init,
                 -compile,
                 -deploy
@@ -111,16 +110,6 @@ BUILD USAGE
     <!--
         Private targets.
     -->
-
-	<target name="-check-dependencies">
-        <fail message="The Oracle database JDBC driver file 'ojdbc6.jar' not found! Please ensure this file exists at [${webcontent.webinf.lib.path}].">
-            <condition>
-                 <not>
-                 <available type="file" file="${webcontent.webinf.lib.path}/ojdbc6.jar" />
-                </not>
-            </condition>
-        </fail>
-    </target>
 
     <target name="-init">
         <mkdir dir="${build.classes.path}" />
