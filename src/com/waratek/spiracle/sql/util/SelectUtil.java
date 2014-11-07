@@ -66,6 +66,7 @@ public class SelectUtil {
                 e1.printStackTrace();
             }
             
+            out.println("</div>");
             TagUtil.printPageFooter(out);
         }
 
