@@ -42,8 +42,7 @@ public class UpdateUtil {
             PreparedStatement stmt = con.prepareStatement(sql);
             int result = stmt.executeUpdate();
             out.println("<h1>Altered Rows:</h1>");
-            out.print("<pre>" + result + "</pr>");
-            out.println("</TABLE>");
+            out.print("<pre>" + result + "</pre>");
             TagUtil.printPageFooter(out);
             out.close();
             stmt.close();
@@ -67,6 +66,7 @@ public class UpdateUtil {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
+            out.println("</div>");
             TagUtil.printPageFooter(out);
         }
     }
