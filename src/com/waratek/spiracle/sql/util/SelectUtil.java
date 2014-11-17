@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 public class SelectUtil {
 
     public static void executeQuery(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
-        ServletOutputStream out = response.getOutputStream();
+        response.setHeader("Content-Type", "text/html;charset=UTF-8");
+    	ServletOutputStream out = response.getOutputStream();
         String connectionType = null;
         Connection con = null;
         
