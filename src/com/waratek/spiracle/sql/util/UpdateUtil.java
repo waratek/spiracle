@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class UpdateUtil {
-	
 
-    
     public static void executeUpdate(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	response.setHeader("Content-Type", "text/html;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
         String connectionType = null;
         Connection con = null;
@@ -49,10 +48,10 @@ public class UpdateUtil {
             con.close();
             
         } catch(SQLException e) {
-            if(e.getMessage().contains("ORA")) {
-                response.setStatus(500);
-            } else {
+            if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
                 response.setStatus(550);
+            } else {
+                response.setStatus(500);
             }
             out.println("<div class=\"alert alert-danger\" role=\"alert\">");
             out.println("<strong>SQLException:</strong> " + e.getMessage() + "<BR>");
