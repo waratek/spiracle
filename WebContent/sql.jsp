@@ -119,6 +119,14 @@
                 <td><code>"SELECT * FROM users WHERE name = "  + name;</code>
               </tr>
               <tr>
+                <td><a href="Get_string_sanitised?name=wu">Get_string_sanitised?name=wu</a></td>
+                <td><code>"SELECT * FROM users WHERE name = '" + name + "'";</code>
+              </tr>
+              <tr>
+                <td><a href="Get_string_no_quote_sanitised?name='wu'">Get_string_no_quote_sanitised?name='wu'</a></td>
+                <td><code>"SELECT * FROM users WHERE name = "  + name;</code>
+              </tr>
+              <tr>
                 <td><a href="Update_User?id=1&amp;name=Joe&amp;surname=Soap">Update User</a></td>
                 <td><code>"UPDATE users SET name = '" + name + "', surname = '" + surname + "' WHERE id = " + id;</code>
               </tr>

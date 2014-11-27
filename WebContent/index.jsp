@@ -34,9 +34,10 @@
 
     <div class="container">
       <h1>Overview</h1>
-        <p>Spiracle is an insecure web application used to test system security controls.</p>
+        <p class="lead">Spiracle is an insecure web application used to test system security controls.</p>
         <p>It can be used to read/write arbitrary files and open network connections. The application is also vulnerable to SQL Injection.</p>
         <p>Due to its insecure design, this application should NOT be deployed on an unsecured network.</p>
+        <p><strong>NOTE:</strong> If you wish to use the database features, ensure that the <a href="http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html">Oracle database JDBC driver</a> file <code>ojdbc6.jar</code> is installed in the <code>{TOMCAT_DIR}/webapps/WEB-INF/lib</code> directory.
     </div>
 
     <!-- Bootstrap core JavaScript

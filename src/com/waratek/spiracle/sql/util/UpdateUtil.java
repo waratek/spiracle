@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class UpdateUtil {
-	
 
-    
     public static void executeUpdate(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	response.setHeader("Content-Type", "text/html;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
         String connectionType = null;
         Connection con = null;
@@ -42,18 +41,17 @@ public class UpdateUtil {
             PreparedStatement stmt = con.prepareStatement(sql);
             int result = stmt.executeUpdate();
             out.println("<h1>Altered Rows:</h1>");
-            out.print("<pre>" + result + "</pr>");
-            out.println("</TABLE>");
+            out.print("<pre>" + result + "</pre>");
             TagUtil.printPageFooter(out);
             out.close();
             stmt.close();
             con.close();
             
         } catch(SQLException e) {
-            if(e.getMessage().contains("ORA")) {
-                response.setStatus(500);
-            } else {
+            if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
                 response.setStatus(550);
+            } else {
+                response.setStatus(500);
             }
             out.println("<div class=\"alert alert-danger\" role=\"alert\">");
             out.println("<strong>SQLException:</strong> " + e.getMessage() + "<BR>");
@@ -67,6 +65,7 @@ public class UpdateUtil {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
+            out.println("</div>");
             TagUtil.printPageFooter(out);
         }
     }
