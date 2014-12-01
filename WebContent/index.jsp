@@ -40,6 +40,18 @@
         <p><strong>NOTE:</strong> If you wish to use the database features, ensure that the <a href="http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html">Oracle database JDBC driver</a> file <code>ojdbc6.jar</code> is installed in the <code>{TOMCAT_DIR}/webapps/WEB-INF/lib</code> directory.
     </div>
 
+    <footer class="footer">
+      <div class="container">
+        <ul class="list-inline">
+          <li><a href="./LICENSE.html">License</a></li>
+          <li>&middot;</li>
+          <li><a href="https://github.com/waratek/spiracle">GitHub</a></li>
+          <li>&middot;</li>
+          <li><a href="https://github.com/waratek/spiracle/releases">Releases</a></li>
+        </ul>
+      </div>
+    </footer>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

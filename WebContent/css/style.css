@@ -1,5 +1,22 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   padding-top: 70px;
+  margin-bottom: 50px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  border-top: 1px solid #e7e7e7;
+  padding-top: 10px;
+  text-align: center;
 }
 
 .navbar-default .navbar-brand {
