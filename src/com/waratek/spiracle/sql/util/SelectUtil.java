@@ -12,105 +12,117 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 public class SelectUtil {
+	private static final Logger logger = Logger.getLogger(SelectUtil.class);
 
-    public static void executeQuery(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
-        response.setHeader("Content-Type", "text/html;charset=UTF-8");
-    	ServletOutputStream out = response.getOutputStream();
-        String connectionType = null;
-        Connection con = null;
-        
-        TagUtil.printPageHead(out);
-        TagUtil.printPageNavbar(out);
-        TagUtil.printContentDiv(out);
 
-        try {
-            //Checking if connectionType is not, defaulting it to c3p0 if not set.
-            if(request.getParameter("connectionType") == null) {
-                connectionType = "c3p0";
-            } else {
-                connectionType = request.getParameter("connectionType");
-            }
-            con = ConnectionUtil.getConnection(application, connectionType);            
-            out.println("<div class=\"panel-body\">");
-            out.println("<h1>SQL Query:</h1>");
-            out.println("<pre>");
-            out.println(sql);
-            out.println("</pre>");
+	public static void executeQuery(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
+		response.setHeader("Content-Type", "text/html;charset=UTF-8");
+		ServletOutputStream out = response.getOutputStream();
+		String connectionType = null;
+		Connection con = null;
 
-            System.out.println(sql);
+		TagUtil.printPageHead(out);
+		TagUtil.printPageNavbar(out);
+		TagUtil.printContentDiv(out);
 
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+		try {
+			//Checking if connectionType is set, defaulting it to c3p0 if not set.
+			if(request.getParameter("connectionType") == null) {
+				connectionType = "c3p0";
+			} else {
+				connectionType = request.getParameter("connectionType");
+			}
+			con = ConnectionUtil.getConnection(application, connectionType);            
+			out.println("<div class=\"panel-body\">");
+			out.println("<h1>SQL Query:</h1>");
+			out.println("<pre>");
+			out.println(sql);
+			out.println("</pre>");
 
-            writeToResponse(allResults, showOutput, out, rs);
-            out.close();
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch(SQLException e) {
-            if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
-                response.setStatus(550);
-            } else {
-                response.setStatus(500);
-            }
-            out.println("<div class=\"alert alert-danger\" role=\"alert\">");
-            out.println("<strong>SQLException:</strong> " + e.getMessage() + "<BR>");
-            while((e = e.getNextException()) != null) {
-                out.println(e.getMessage() + "<BR>");
-            }
-            try {
-                con.rollback();
-                con.close();
-            } catch (SQLException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            
-            TagUtil.printPageFooter(out);
-        }
+			logger.info(sql);
 
-    }
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
 
-    private static void writeToResponse(Boolean allResults, Boolean showOutput, ServletOutputStream out, ResultSet rs) throws SQLException, IOException {
-        ResultSetMetaData metaData = rs.getMetaData();
+			writeToResponse(allResults, showOutput, out, rs);
+			out.close();
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch(SQLException e) {
+			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
+				response.setStatus(550);
+			} else {
+				response.setStatus(500);
+			}
+			out.println("<div class=\"alert alert-danger\" role=\"alert\">");
+			out.println("<strong>SQLException:</strong> " + e.getMessage() + "<BR>");
+			if(logger.isDebugEnabled()) {
+				logger.debug(e.getMessage(), e);
+			} else {
+				logger.error(e);
+			}
+			while((e = e.getNextException()) != null) {
+				out.println(e.getMessage() + "<BR>");
+			}
+			try {
+				con.rollback();
+				con.close();
+			} catch (SQLException e1) {
+				if(logger.isDebugEnabled()) {
+					logger.debug(e.getMessage(), e);
+				} else {
+					logger.error(e);
+				}
+			}
 
-        out.println("<h1>Results:</h1>");
-        out.println("<TABLE CLASS=\"table table-bordered table-striped\">");
-        out.println("<TR>");
-        for(int i = 1; i <= metaData.getColumnCount(); i++) {
-            String colName = metaData.getColumnName(i);
-            out.print("<TH>" + colName + "</TH>");
-        }
-        out.println("</TR>");
+			TagUtil.printPageFooter(out);
+		}
 
-        //Matching sqlmap's testenv option to suppress output
-        if(showOutput) {
-            //Matching sqlmap's testenv partial output option.
-            if(allResults) {
-                while(rs.next()) {
-                    writeRow(out, rs, metaData);
-                }
-            } else {
-                rs.next();
-                writeRow(out, rs, metaData);
-            }
-        }
+	}
 
-        out.println("</TABLE>");
-        TagUtil.printPageFooter(out);
-    }
+	private static void writeToResponse(Boolean allResults, Boolean showOutput, ServletOutputStream out, ResultSet rs) throws SQLException, IOException {
+		ResultSetMetaData metaData = rs.getMetaData();
 
-    private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
-        out.println("<TR>");
-        for(int i = 1; i <= metaData.getColumnCount(); i++) {           
-            Object content = rs.getObject(i);
-            if(content != null) {
-                out.println("<TD>" + content.toString() + "</TD>");
-            } else {
-                out.println("<TD></TD>");
-            }
-        }
-        out.println("</TR>");
-    }
+		out.println("<h1>Results:</h1>");
+		out.println("<TABLE CLASS=\"table table-bordered table-striped\">");
+		out.println("<TR>");
+		for(int i = 1; i <= metaData.getColumnCount(); i++) {
+			String colName = metaData.getColumnName(i);
+			out.print("<TH>" + colName + "</TH>");
+		}
+		out.println("</TR>");
+
+		//Matching sqlmap's testenv option to suppress output
+		if(showOutput) {
+			//Matching sqlmap's testenv partial output option.
+			if(allResults) {
+				while(rs.next()) {
+					writeRow(out, rs, metaData);
+				}
+			} else {
+				rs.next();
+				writeRow(out, rs, metaData);
+			}
+		}
+
+		out.println("</TABLE>");
+		TagUtil.printPageFooter(out);
+	}
+
+	private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
+		out.println("<TR>");
+		for(int i = 1; i <= metaData.getColumnCount(); i++) {           
+			Object content = rs.getObject(i);
+			if(content != null) {
+				out.println("<TD>" + content.toString() + "</TD>");
+			} else {
+				out.println("<TD></TD>");
+			}
+		}
+		out.println("</TR>");
+	}
 }

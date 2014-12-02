@@ -10,7 +10,12 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
+import com.waratek.spiracle.init.SpiracleInit;
+
 public class UpdateUtil {
+	private static final Logger logger = Logger.getLogger(UpdateUtil.class);
 
     public static void executeUpdate(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response) throws IOException{
     	response.setHeader("Content-Type", "text/html;charset=UTF-8");
@@ -36,7 +41,7 @@ public class UpdateUtil {
             out.println(sql);
             out.println("</pre>");
 
-            System.out.println(sql);
+            logger.info(sql);
 
             PreparedStatement stmt = con.prepareStatement(sql);
             int result = stmt.executeUpdate();
@@ -56,6 +61,11 @@ public class UpdateUtil {
             }
             out.println("<div class=\"alert alert-danger\" role=\"alert\">");
             out.println("<strong>SQLException:</strong> " + e.getMessage() + "<BR>");
+			if(logger.isDebugEnabled()) {
+				logger.debug(e.getMessage(), e);
+			} else {
+				logger.error(e);
+			}
             while((e = e.getNextException()) != null) {
                 out.println(e.getMessage() + "<BR>");
             }
@@ -63,8 +73,11 @@ public class UpdateUtil {
                 con.rollback();
                 con.close();
             } catch (SQLException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+    			if(logger.isDebugEnabled()) {
+    				logger.debug(e.getMessage(), e);
+    			} else {
+    				logger.error(e);
+    			}
             }
             TagUtil.printPageFooter(out);
         }
