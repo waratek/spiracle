@@ -68,7 +68,7 @@ public class Get_int_orderby extends HttpServlet {
 
         String id = nullSanitizedMap.get("id");
         
-        String sql = "SELECT * FROM users ORDER BY '" + id + "'";
+        String sql = "SELECT * FROM users ORDER BY " + id;
         
         Boolean showErrors = true;
         Boolean allResults = true;
