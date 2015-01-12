@@ -28,11 +28,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet implementation class FileServlet
  */
 @WebServlet("/FileServlet")
 public class FileServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(FileServlet.class);
     private static final long serialVersionUID = 1L;
 
     /**
@@ -64,7 +67,7 @@ public class FileServlet extends HttpServlet {
         String path = request.getParameter("filePath");
         String textData = request.getParameter("fileText");
 
-        System.out.println(method + " " + path + " " + textData);
+        logger.info(method + " " + path + " " + textData);
 
         if(method.equals("read")) {
             session.setAttribute("fileContents", readFile(path));
