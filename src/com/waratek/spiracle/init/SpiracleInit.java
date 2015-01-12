@@ -1,6 +1,8 @@
 package com.waratek.spiracle.init;
 
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,8 +42,10 @@ public class SpiracleInit implements ServletContextListener {
 
 	private Properties loadProperties(ServletContext application) {
 		Properties props = new Properties();
-		InputStream propStream = application.getResourceAsStream("conf/Spiracle.properties");       
+		File propsFile = new File(application.getRealPath("conf/Spiracle.properties"));
+		InputStream propStream;
 		try {
+			propStream = new FileInputStream(propsFile);
 			props.load(propStream);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
