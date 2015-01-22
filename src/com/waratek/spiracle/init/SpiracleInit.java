@@ -1,3 +1,18 @@
+/*
+*  Copyright 2014 Waratek Ltd.
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*/
 package com.waratek.spiracle.init;
 
 import java.beans.PropertyVetoException;
@@ -54,18 +69,18 @@ public class SpiracleInit implements ServletContextListener {
 			e.printStackTrace();
 		}
 		return props;
-	} 
+	}
 
-	private void loadLog4jConfig(Properties props) {	
+	private void loadLog4jConfig(Properties props) {
 		Boolean loggingEnabled = Boolean.parseBoolean(((String) props.get("application.loggingEnabled")));
-		if(loggingEnabled) {			
+		if(loggingEnabled) {
 			PropertyConfigurator.configure(props);
 			logger.info("Sucessfully loaded Spiracle log4j configuration.");
 		}
 	}
 
 	private void setConnectionPool(ServletContext application, ComboPooledDataSource ds) {
-		application.setAttribute("connectionPool", ds);     
+		application.setAttribute("connectionPool", ds);
 		application.setAttribute("connectionData", ds.toString());
 		logger.info("Added connection pool " + ds.getDataSourceName() + "to application context");
 	}
