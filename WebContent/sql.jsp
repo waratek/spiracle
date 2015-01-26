@@ -40,14 +40,6 @@
           <a class="btn btn-primary" role="button" href="CreateC3p0Connection">Initalize
             C3P0 Connection Pool</a>
         </div>
-        <div class="panel-body">
-          <form action=CreateC3p0Connection method="post">
-            Connection String: <input type="text" name="connectionUrl"><br>
-            Username: <input type="text" name="username"><br>
-            Password: <input type="password" name="password"><br>
-            <input type="submit" value=Submit>
-          </form>
-        </div>
         <%
           String connectionData = (String) application
               .getAttribute("connectionData");
