@@ -42,7 +42,7 @@ c3p0.username=test
 c3p0.password=test
 ----
 
-NOTE: It may be necessary to restart your application server after deploying the ojdbc6.jar or updating database configuration.
+NOTE: It may be necessary to restart your application server after deploying the `ojdbc6.jar` or updating database configuration.
 
 ==== MySQL
 
