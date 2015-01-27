@@ -9,7 +9,7 @@ CAUTION: Due to its insecure design, this application should NOT be deployed on 
 This application has been tested on the following application servers:
 
 * Apache Tomcat 7.x
-* IBM Liberty Core
+* IBM WebSphere Liberty Core 8.5.5.3
 
 Your mileage may vary with other application servers.
 
@@ -17,6 +17,7 @@ Your mileage may vary with other application servers.
 
 . Download pre-built `spiracle.war` file from the releases page: https://github.com/waratek/spiracle/releases
 . Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
+. For installation on WebSphere Liberty Core ensure that the application war file is extracted to your server's apps directory, Servlet 3.0 is enabled as a feature in server.xml and a webApplication tag referencing Spriacle is in server.xml.
 
 === Database setup
 
@@ -45,6 +46,24 @@ c3p0.password=test
 NOTE: It may be necessary to restart your application server after deploying the `ojdbc6.jar` or updating database configuration.
 
 ==== MySQL
+. Import the data:
++
+----
+$ mysql -u root -p test < setupdb_mysql.sql
+----
+
+NOTE: This will create a user `test` with password `test`. You should adjust usernames and/or connection URLs dependent on your environment
+
+Configuration parameters for the MySQL JDBC connection are defined in `conf/Spiracle.properties`.
+
+----
+c3p0.classname=com.mysql.jdbc.Driver
+c3p0.url=jdbc:jdbc:mysql://localhost:3306/test
+c3p0.username=test
+c3p0.password=test
+----
+
+NOTE: Spiracle is bundled with MySQL Connector 5.1.35. If this version is not compatible with your MySQL installation replace `mysql-connector-java-5.1.34-bin.jar` under `WEB-INF/lib/` with a compatible version.
 
 == Running
 
