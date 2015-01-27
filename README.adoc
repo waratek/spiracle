@@ -6,6 +6,54 @@ It can be used to read/write arbitrary files and open network connections. The a
 
 CAUTION: Due to its insecure design, this application should NOT be deployed on an unsecured network.
 
+This application has been tested on the following application servers:
+
+* Apache Tomcat 7.x
+* IBM Liberty Core
+
+Your mileage may vary with other application servers.
+
+== Installation
+
+. Download pre-built `spiracle.war` file from the releases page: https://github.com/waratek/spiracle/releases
+. Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
+
+=== Database setup
+
+If you would like to run the SQL injection tests, the database should be populated as follows. Data files are available in the web applications `spiracle/conf/` directory after the `spiracle.war` file has been deployed and exploded.
+
+==== Oracle
+
+. Ensure that the link:http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html[Oracle Database JDBC Driver] (ojdbc6.jar) is installed in the applications `WEB-INF/lib/` directory after the `spiracle.war` file is exploded on first run.
+. Import the data:
++
+----
+$ sqlplus SYS/password@//127.0.0.1:1521/XE AS SYSDBA < setupdb_oracle.sql
+----
+
+NOTE: This will create a user `test` with password `test`. You should adjust usernames and/or connection URLs dependent on your environment
+
+Configuration parameters for the Oracle JDBC connection are defined in `conf/Spiracle.properties`.
+
+----
+c3p0.classname=oracle.jdbc.driver.OracleDriver
+c3p0.url=jdbc:oracle:thin:@localhost:1521:XE
+c3p0.username=test
+c3p0.password=test
+----
+
+NOTE: It may be necessary to restart your application server after deploying the ojdbc6.jar or updating database configuration.
+
+==== MySQL
+
+== Running
+
+After deployment, the Spiracle application will be available at:
+
+----
+http://ip:port/spiracle/
+----
+
 == Building
 
 Prerequisites:
