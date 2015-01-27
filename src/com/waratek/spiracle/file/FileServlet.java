@@ -28,11 +28,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet implementation class FileServlet
  */
 @WebServlet("/FileServlet")
 public class FileServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(FileServlet.class);
     private static final long serialVersionUID = 1L;
 
     /**
@@ -64,8 +67,6 @@ public class FileServlet extends HttpServlet {
         String path = request.getParameter("filePath");
         String textData = request.getParameter("fileText");
 
-        System.out.println(method + " " + path + " " + textData);
-
         if(method.equals("read")) {
             session.setAttribute("fileContents", readFile(path));
 
@@ -73,7 +74,7 @@ public class FileServlet extends HttpServlet {
             File f = new File(path);
             FileWriter fw = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(textData);         
+            bw.write(textData);
             bw.close();
             fw.close();
 
@@ -84,6 +85,9 @@ public class FileServlet extends HttpServlet {
             f.delete();
             session.setAttribute("fileContents", "");
         }
+
+		logger.info(method + " " + path + " " + textData);
+
         response.sendRedirect("file.jsp");
     }
 
@@ -95,14 +99,14 @@ public class FileServlet extends HttpServlet {
             String lineSeparator = System.getProperty("line.separator");
 
             try {
-                while(scanner.hasNextLine()) {        
+                while(scanner.hasNextLine()) {
                     fileContents.append(scanner.nextLine() + lineSeparator);
                 }
                 return fileContents.toString();
             } finally {
                 scanner.close();
             }
-        } catch (IOException e) {           
+        } catch (IOException e) {
             e.printStackTrace();
             return e.getMessage();
         }
