@@ -167,12 +167,12 @@
 									address_3 FROM address WHERE id = " + id;</code></td>
 						</tr>
 						<tr>
-							<td><a href="Insert_Raw_Text&id=1;text=...">Insert_Raw_Text?id=1&text=...</a></td>
+							<td><a href="Insert_Raw_Text&amp;id=1;text=...">Insert_Raw_Text?id=1&amp;text=...</a></td>
 							<td><code>"INSERT INTO TEXT_STORE VALUES (" + id + ",
 									'" + text + "')";</code></td>
 						</tr>
 						<tr>
-							<td><a href="Insert_Raw_Text_Sanitised?id=1&text=...">Insert_Raw_Text_Sanitised?id=1&text=...</a></td>
+							<td><a href="Insert_Raw_Text_Sanitised?id=1&amp;text=...">Insert_Raw_Text_Sanitised?id=1&amp;text=...</a></td>
 							<td><code>"INSERT INTO TEXT_STORE VALUES (" + id + ",
 									'" + text + "')";</code></td>
 						</tr>
