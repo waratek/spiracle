@@ -124,15 +124,15 @@ If you wish to use the database features, ensure that the Oracle database JDBC d
 
 To build the Spiracle Test Application WAR file, run:
 
- ant
+ $ ant
 
 or
 
- ant build
+ $ ant build
 
 To clean the build infrastructure, run:
 
- ant clean
+ $ ant clean
 
 The WAR file will be output to:
 
