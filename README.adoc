@@ -15,15 +15,15 @@ Your mileage may vary with other application servers.
 
 == Installation
 
-. Download pre-built `spiracle.war` file from the releases page: https://github.com/waratek/spiracle/releases
+* Download pre-built `spiracle.war` file from the releases page: https://github.com/waratek/spiracle/releases
 
 === Tomcat
 
-. Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
+* Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
 
 === Liberty Core
 
-Ensure that the application war file is extracted to your server's apps directory:
+* Ensure that the application war file is extracted to your server's apps directory:
 
 ----
 $ mkdir ./wlp/usr/servers/defaultServer/apps/spiracle
@@ -31,7 +31,7 @@ $ cd ./wlp/usr/servers/defaultServer/apps/spiracle
 $ jar xvf /path/to/downloaded/spiracle.war
 ----
 
-Modify `server.xml` as follows:
+* Modify `server.xml` as follows:
 
 [source,xml]
 ----
