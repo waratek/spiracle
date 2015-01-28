@@ -19,7 +19,7 @@ Your mileage may vary with other application servers.
 
 === Tomcat
 
-* Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
+* Copy the war file to the `$CATALINA_HOME/webapps/` directory
 
 === Liberty Core
 
