@@ -17,7 +17,7 @@ Your mileage may vary with other application servers.
 
 . Download pre-built `spiracle.war` file from the releases page: https://github.com/waratek/spiracle/releases
 . Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
-. For installation on WebSphere Liberty Core ensure that the application war file is extracted to your server's apps directory, Servlet 3.0 is enabled as a feature in server.xml and a webApplication tag referencing Spriacle is in server.xml.
+. For installation on WebSphere Liberty Core ensure that the application war file is extracted to your server's apps directory, Servlet 3.0 is enabled as a feature in server.xml and a webApplication tag referencing Spiracle is in server.xml.
 
 === Database setup
 
