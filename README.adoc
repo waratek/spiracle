@@ -31,11 +31,11 @@ If you would like to run the SQL injection tests, the database should be populat
 ----
 $ sqlplus SYS/password@//127.0.0.1:1521/XE AS SYSDBA < setupdb_oracle.sql
 ----
-
++
 NOTE: This will create a user `test` with password `test`. You should adjust usernames and/or connection URLs dependent on your environment
-
-Configuration parameters for the Oracle JDBC connection are defined in `conf/Spiracle.properties`.
-
++
+. Configuration parameters for the Oracle JDBC connection are defined in `conf/Spiracle.properties`:
++
 ----
 c3p0.classname=oracle.jdbc.driver.OracleDriver
 c3p0.url=jdbc:oracle:thin:@localhost:1521:XE
@@ -51,11 +51,11 @@ NOTE: It may be necessary to restart your application server after deploying the
 ----
 $ mysql -u root -p test < setupdb_mysql.sql
 ----
-
++
 NOTE: This will create a user `test` with password `test`. You should adjust usernames and/or connection URLs dependent on your environment
-
-Configuration parameters for the MySQL JDBC connection are defined in `conf/Spiracle.properties`.
-
++
+. Configuration parameters for the MySQL JDBC connection are defined in `conf/Spiracle.properties`:
++
 ----
 c3p0.classname=com.mysql.jdbc.Driver
 c3p0.url=jdbc:jdbc:mysql://localhost:3306/test
