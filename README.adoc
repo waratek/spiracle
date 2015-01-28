@@ -20,7 +20,44 @@ Your mileage may vary with other application servers.
 === Tomcat
 
 . Copy the war file to the appropriate directory in your application server e.g. `$CATALINA_HOME/webapps/` for Tomcat
-. For installation on WebSphere Liberty Core ensure that the application war file is extracted to your server's apps directory, Servlet 3.0 is enabled as a feature in server.xml and a webApplication tag referencing Spiracle is in server.xml.
+
+=== Liberty Core
+
+Ensure that the application war file is extracted to your server's apps directory:
+
+----
+$ mkdir ./wlp/usr/servers/defaultServer/apps/spiracle
+$ cd ./wlp/usr/servers/defaultServer/apps/spiracle
+$ jar xvf /path/to/downloaded/spiracle.war
+----
+
+Modify `server.xml` as follows:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+  <!-- Enable features -->
+  <featureManager>
+    <feature>jsp-2.2</feature>
+    <feature>Servlet-3.0</feature> <!--1-->
+  </featureManager>
+
+  <webApplication contextRoot="spiracle" location="spiracle"/> <!--2-->
+  <httpSession idLength="28" /> <!--3-->
+
+  <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+  <httpEndpoint id="defaultHttpEndpoint" 
+                host="*" <!--4-->
+                httpPort="9080" 
+                httpsPort="9443"/>
+</server>
+----
+
+<1> Enable `Servlet-3.0` as a feature
+<2> Add a `webApplication` tag referencing Spiracle
+<3> Change `httpSession` parameter length 
+<4> Add a `host` attribute
 
 === Database setup
 
