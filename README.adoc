@@ -46,7 +46,6 @@ $ jar xvf /path/to/downloaded/spiracle.war
   <webApplication contextRoot="spiracle" location="spiracle"/> <!--2-->
   <httpSession idLength="28" /> <!--3-->
 
-  <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
   <httpEndpoint id="defaultHttpEndpoint" 
                 host="*" <!--4-->
                 httpPort="9080" 
