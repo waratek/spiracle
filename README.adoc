@@ -24,7 +24,7 @@ Your mileage may vary with other application servers.
 === Liberty Core
 
 * Ensure that the application war file is extracted to your server's apps directory:
-
++
 ----
 $ mkdir ./wlp/usr/servers/defaultServer/apps/spiracle
 $ cd ./wlp/usr/servers/defaultServer/apps/spiracle
@@ -32,7 +32,7 @@ $ jar xvf /path/to/downloaded/spiracle.war
 ----
 
 * Modify `server.xml` as follows:
-
++
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -52,7 +52,7 @@ $ jar xvf /path/to/downloaded/spiracle.war
                 httpsPort="9443"/>
 </server>
 ----
-
++
 <1> Enable `Servlet-3.0` as a feature
 <2> Add a `webApplication` tag referencing Spiracle
 <3> Change `httpSession` parameter length 
