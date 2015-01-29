@@ -47,6 +47,7 @@ public class SpiracleInit implements ServletContextListener {
 		ServletContext application = arg0.getServletContext();
 		Properties props = loadProperties(application);
 		loadLog4jConfig(props);
+		logServerInfo(application);
 		ComboPooledDataSource ds = getConnectionPool(props);
 		setConnectionPool(application, ds);
 		setFetchSize(application, props);
@@ -123,5 +124,10 @@ public class SpiracleInit implements ServletContextListener {
 		} catch (NumberFormatException e) {
 			logger.error("jdbc.fetchsize not specified, default value set(10).");
 		}
+	}
+	
+	void logServerInfo(ServletContext application) {
+		logger.info("Application Server Name: " + application.getServerInfo());
+		logger.info("Application Context Path:" + application.getRealPath(""));		
 	}
 }
