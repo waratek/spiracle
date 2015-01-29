@@ -86,9 +86,9 @@ public class UpdateUtil {
 				con.close();
 			} catch (SQLException e1) {
 				if(logger.isDebugEnabled()) {
-					logger.debug(e.getMessage(), e);
+					logger.debug(e1.getMessage(), e);
 				} else {
-					logger.error(e);
+					logger.error(e1);
 				}
 			}
 			out.println("</div>");
