@@ -39,7 +39,7 @@ public class SelectUtil {
 		String connectionType = null;
 		Connection con = null;
 		int fetchSize = (Integer) application.getAttribute("fetchSize");
-		
+
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
 		TagUtil.printContentDiv(out);
@@ -51,7 +51,7 @@ public class SelectUtil {
 			} else {
 				connectionType = request.getParameter("connectionType");
 			}
-			con = ConnectionUtil.getConnection(application, connectionType);            
+			con = ConnectionUtil.getConnection(application, connectionType);
 			out.println("<div class=\"panel-body\">");
 			out.println("<h1>SQL Query:</h1>");
 			out.println("<pre>");
@@ -71,7 +71,7 @@ public class SelectUtil {
 			con.close();
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
-				response.setStatus(550);				
+				response.setStatus(550);
 			} else {
 				response.setStatus(500);
 			}
@@ -132,7 +132,7 @@ public class SelectUtil {
 
 	private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
 		out.println("<TR>");
-		for(int i = 1; i <= metaData.getColumnCount(); i++) {           
+		for(int i = 1; i <= metaData.getColumnCount(); i++) {
 			Object content = rs.getObject(i);
 			if(content != null) {
 				out.println("<TD>" + content.toString() + "</TD>");
