@@ -38,7 +38,8 @@ public class SelectUtil {
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
-
+		int fetchSize = (Integer) application.getAttribute("fetchSize");
+		
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
 		TagUtil.printContentDiv(out);
@@ -60,6 +61,7 @@ public class SelectUtil {
 			logger.info(sql);
 
 			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setFetchSize(fetchSize);
 			ResultSet rs = stmt.executeQuery();
 
 			writeToResponse(allResults, showOutput, out, rs);
@@ -69,7 +71,7 @@ public class SelectUtil {
 			con.close();
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
-				response.setStatus(550);
+				response.setStatus(550);				
 			} else {
 				response.setStatus(500);
 			}
@@ -88,9 +90,9 @@ public class SelectUtil {
 				con.close();
 			} catch (SQLException e1) {
 				if(logger.isDebugEnabled()) {
-					logger.debug(e.getMessage(), e);
+					logger.debug(e1.getMessage(), e1);
 				} else {
-					logger.error(e);
+					logger.error(e1);
 				}
 			}
 
