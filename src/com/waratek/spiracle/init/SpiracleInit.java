@@ -114,7 +114,7 @@ public class SpiracleInit implements ServletContextListener {
 		ds.setMaxPoolSize(maxPoolSize);
 		return ds;
 	}
-	
+
 	private void setFetchSize(ServletContext application, Properties props) {
 		int fetchSize = 0;
 		try {
@@ -125,9 +125,9 @@ public class SpiracleInit implements ServletContextListener {
 			logger.error("jdbc.fetchsize not specified, default value set(10).");
 		}
 	}
-	
+
 	void logServerInfo(ServletContext application) {
 		logger.info("Application Server Name: " + application.getServerInfo());
-		logger.info("Application Context Path:" + application.getRealPath(""));		
+		logger.info("Application Context Path:" + application.getRealPath(""));
 	}
 }
