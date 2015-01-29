@@ -26,12 +26,17 @@ CREATE TABLE address (
     address_3 varchar(500)
 );
 
+CREATE TABLE TEXT_STORE
+(
+   ID    NUMBER,
+   DATA  LONG
+);
 
-INSERT INTO users (id, name, surname) VALUES (1, 'luther', 'blisset');
-INSERT INTO users (id, name, surname) VALUES (2, 'fluffy', 'bunny');
-INSERT INTO users (id, name, surname) VALUES (3, 'wu', 'ming');
-INSERT INTO users (id, name, surname) VALUES (4, 'sqlmap/1.0-dev (http://sqlmap.org)', 'user agent header');
-INSERT INTO users (id, name, surname) VALUES (5, NULL, 'nameisnull');
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (1, 'Patrick', 'Moss', '29-Aug-1955', '5566 0717 3093 3773', 341);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (2, 'Margaret', 'Thomas', '15-Jan-1959', '3461 7946 3370 838', 475);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (3, 'wu', 'ming', '21-May-1961', '3430 0267 4913 647', 486);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (4, 'Lindsay', 'Rowe', '12-Oct-1953', '5170 8914 2648 3769', 103);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (5, 'Luz', 'Day', '12-Sep-1977', '4716 7062 2383 5371', 444);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (6, 'Cristina', 'Jensen', '31-Jul-1947', '3740 8803 2906 433', 368);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (7, 'Brandi', 'Richardson', '06-Aug-1972', '5388 8850 8269 0335', 509);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (8, 'Jan', 'Patton', '13-Nov-1963', '4539 9992 8367 4419', 934);

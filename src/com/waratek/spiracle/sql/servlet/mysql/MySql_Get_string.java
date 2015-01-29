@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.mysql;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,18 +31,18 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_int_orderby
+ * Servlet implementation class Get_string
  */
-@WebServlet("/Get_int_orderby")
-public class Get_int_orderby extends HttpServlet {
+@WebServlet("/MySql_Get_string")
+public class MySql_Get_string extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_int_orderby() {
+    public MySql_Get_string() {
         super();
-     // TODO Auto-generated constructor stub
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -58,22 +58,23 @@ public class Get_int_orderby extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
-    
+
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-        queryStringList.add("id");
+        queryStringList.add("name");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String id = nullSanitizedMap.get("id");
+        String name = nullSanitizedMap.get("name");
         
-        String sql = "SELECT * FROM users ORDER BY " + id;
-        
+        String sql = "SELECT * FROM users WHERE name = '" + name + " '";
+
         Boolean showErrors = true;
         Boolean allResults = true;
         Boolean showOutput = true;
-        
+
         SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
+
 }
