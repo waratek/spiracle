@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.oracle.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_int_having
+ * Servlet implementation class Get_Union
  */
-@WebServlet("/Get_int_having")
-public class Get_int_having extends HttpServlet {
+@WebServlet("/Get_Union")
+public class Get_Union extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_int_having() {
+    public Get_Union() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,7 +58,7 @@ public class Get_int_having extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
-
+    
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
@@ -67,13 +67,14 @@ public class Get_int_having extends HttpServlet {
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
         String id = nullSanitizedMap.get("id");
-        
-        String sql = "SELECT MIN(name) from users GROUP BY id HAVING id = " + id;
-        
+
+        String sql = "SELECT name, surname, TO_CHAR(dob) FROM users WHERE id = " + id + " UNION SELECT address_1, address_2, address_3 FROM address WHERE id = " + id;
+
         Boolean showErrors = true;
         Boolean allResults = true;
         Boolean showOutput = true;
-        
+
         SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
+
 }

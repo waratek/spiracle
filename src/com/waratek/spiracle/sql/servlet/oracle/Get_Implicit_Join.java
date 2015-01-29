@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.oracle.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_int_no_quote
+ * Servlet implementation class Get_Inner_Join
  */
-@WebServlet("/Get_int_no_quote")
-public class Get_int_no_quote extends HttpServlet {
+@WebServlet("/Get_Implicit_Join")
+public class Get_Implicit_Join extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_int_no_quote() {
+    public Get_Implicit_Join() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -65,10 +65,10 @@ public class Get_int_no_quote extends HttpServlet {
         queryStringList.add("id");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-
-        String id = nullSanitizedMap.get("id");
         
-        String sql = "SELECT * FROM users WHERE id = " + id;
+        String id = nullSanitizedMap.get("id");
+
+        String sql = "SELECT * FROM users, address WHERE users.id = " + id + " AND users.id = address.id";
 
         Boolean showErrors = true;
         Boolean allResults = true;

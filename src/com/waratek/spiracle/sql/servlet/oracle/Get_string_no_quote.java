@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.oracle.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_int
+ * Servlet implementation class Get_string_no_quote
  */
-@WebServlet("/Get_int")
-public class Get_int extends HttpServlet {
+@WebServlet("/Get_string_no_quote")
+public class Get_string_no_quote extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_int() {
+    public Get_string_no_quote() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -62,13 +62,13 @@ public class Get_int extends HttpServlet {
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-        queryStringList.add("id");
+        queryStringList.add("name");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String id = nullSanitizedMap.get("id");
+        String name = nullSanitizedMap.get("name");
         
-        String sql = "SELECT * FROM users WHERE id = '" + id + "'";
+        String sql = "SELECT * FROM users WHERE name = "  + name;
 
         Boolean showErrors = true;
         Boolean allResults = true;
@@ -76,4 +76,5 @@ public class Get_int extends HttpServlet {
 
         SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
+
 }

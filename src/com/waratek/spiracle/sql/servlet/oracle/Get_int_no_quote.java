@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.oracle.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,19 +28,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
-import com.waratek.spiracle.sql.util.UpdateUtil;
+import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Create_User
+ * Servlet implementation class Get_int_no_quote
  */
-@WebServlet("/Insert_User")
-public class Insert_User extends HttpServlet {
+@WebServlet("/Get_int_no_quote")
+public class Get_int_no_quote extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Insert_User() {
+    public Get_int_no_quote() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -62,26 +62,19 @@ public class Insert_User extends HttpServlet {
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-        
         queryStringList.add("id");
-        queryStringList.add("name");
-        queryStringList.add("surname");
-        queryStringList.add("dob");
-        queryStringList.add("credit_card");
-        queryStringList.add("cvv");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-        
+
         String id = nullSanitizedMap.get("id");
-        String name = nullSanitizedMap.get("name");
-        String surname = nullSanitizedMap.get("surname");
-        String dob = nullSanitizedMap.get("dob");
-        String credit_card = nullSanitizedMap.get("credit_card");
-        String cvv = nullSanitizedMap.get("cvv");
+        
+        String sql = "SELECT * FROM users WHERE id = " + id;
 
-        String sql = "INSERT INTO users VALUES (" + id + ", '" + name + "', '" + surname + "', '" + dob + "', '" + credit_card + "', '" + cvv + "')";
+        Boolean showErrors = true;
+        Boolean allResults = true;
+        Boolean showOutput = true;
 
-        UpdateUtil.executeUpdate(sql, application, request, response);
+        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
 
 }

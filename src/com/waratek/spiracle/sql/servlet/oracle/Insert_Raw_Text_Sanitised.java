@@ -1,4 +1,4 @@
-package com.waratek.spiracle.sql.oracle.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,16 +16,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.UpdateUtil;
 
 /**
- * Servlet implementation class Insert_Raw_Text
+ * Servlet implementation class Insert_Raw_Text_Sanitised
  */
-@WebServlet("/Insert_Raw_Text")
-public class Insert_Raw_Text extends HttpServlet {
+@WebServlet("/Insert_Raw_Text_Sanitised")
+public class Insert_Raw_Text_Sanitised extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Insert_Raw_Text() {
+    public Insert_Raw_Text_Sanitised() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,7 @@ public class Insert_Raw_Text extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
+        executeRequest(request, response);        
 	}
 
 	/**
@@ -55,8 +55,9 @@ public class Insert_Raw_Text extends HttpServlet {
 
         String id = nullSanitizedMap.get("id");
         String text = nullSanitizedMap.get("text");
+        text = text.replace("'", "''");
 
-        String sql = "INSERT INTO TEXT_STORE VALUES (" + id + ", '" + text + "')";
+        String sql = "INSERT INTO TEXT_STORE VALUES (" + id + ", '" + text + "')";        
 
         UpdateUtil.executeUpdate(sql, application, request, response);
     }
