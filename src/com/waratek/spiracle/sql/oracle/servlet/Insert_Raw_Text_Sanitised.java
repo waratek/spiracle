@@ -1,4 +1,4 @@
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.oracle.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;

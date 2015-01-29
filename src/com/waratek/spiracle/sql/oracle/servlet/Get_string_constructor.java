@@ -1,4 +1,4 @@
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.oracle.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,34 +16,34 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_string_no_quote
+ * Servlet implementation class Get_string_constructor
  */
-@WebServlet("/Get_string_no_quote_sanitised")
-public class Get_string_no_quote_sanitised extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+@WebServlet("/Get_string_constructor")
+public class Get_string_constructor extends HttpServlet {
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_string_no_quote_sanitised() {
+    public Get_string_constructor() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
-    }
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
-    }
-
+	}
+	
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
@@ -53,10 +53,10 @@ public class Get_string_no_quote_sanitised extends HttpServlet {
 
         String name = nullSanitizedMap.get("name");
         
-        String newName = name.replace( "'", "''" );
+        String new_name = new String(name);
         
-        String sql = "SELECT * FROM users WHERE name = "  + newName;
-        
+        String sql = "SELECT * FROM users WHERE name = '" + new_name + "'";
+
         Boolean showErrors = true;
         Boolean allResults = true;
         Boolean showOutput = true;

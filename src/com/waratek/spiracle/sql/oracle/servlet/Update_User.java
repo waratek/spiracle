@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.oracle.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,19 +28,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
-import com.waratek.spiracle.sql.util.SelectUtil;
+import com.waratek.spiracle.sql.util.UpdateUtil;
 
 /**
- * Servlet implementation class Get_int
+ * Servlet implementation class Update_User
  */
-@WebServlet("/Get_int")
-public class Get_int extends HttpServlet {
+@WebServlet("/Update_User")
+public class Update_User extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_int() {
+    public Update_User() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,22 +58,25 @@ public class Get_int extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
-
+    
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
+        
         queryStringList.add("id");
+        queryStringList.add("name");
+        queryStringList.add("surname");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-
-        String id = nullSanitizedMap.get("id");
         
-        String sql = "SELECT * FROM users WHERE id = '" + id + "'";
+        
+        String id = nullSanitizedMap.get("id");
+        String name = nullSanitizedMap.get("name");
+        String surname = nullSanitizedMap.get("surname");
 
-        Boolean showErrors = true;
-        Boolean allResults = true;
-        Boolean showOutput = true;
+        String sql = "UPDATE users SET name = '" + name + "', surname = '" + surname + "' WHERE id = " + id;
 
-        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
+        UpdateUtil.executeUpdate(sql, application, request, response);
     }
+
 }

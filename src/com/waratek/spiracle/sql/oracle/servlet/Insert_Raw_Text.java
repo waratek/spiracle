@@ -1,4 +1,4 @@
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.oracle.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,22 +13,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
-import com.waratek.spiracle.sql.util.SelectUtil;
+import com.waratek.spiracle.sql.util.UpdateUtil;
 
 /**
- * Servlet implementation class Implicit_Join_Namespace
+ * Servlet implementation class Insert_Raw_Text
  */
-@WebServlet("/Implicit_Join_Namespace")
-public class Implicit_Join_Namespace extends HttpServlet {
+@WebServlet("/Insert_Raw_Text")
+public class Insert_Raw_Text extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Implicit_Join_Namespace() {
+    public Insert_Raw_Text() {
         super();
         // TODO Auto-generated constructor stub
-        //select users.id from users, address where
     }
 
 	/**
@@ -48,18 +47,18 @@ public class Implicit_Join_Namespace extends HttpServlet {
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
+
         queryStringList.add("id");
-        
+        queryStringList.add("text");
+
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-        
+
         String id = nullSanitizedMap.get("id");
-        
-        String sql = "SELECT users.id FROM users, address WHERE users.id = address.id AND users.id = " + id; 
+        String text = nullSanitizedMap.get("text");
 
-        Boolean showErrors = true;
-        Boolean allResults = true;
-        Boolean showOutput = true;
+        String sql = "INSERT INTO TEXT_STORE VALUES (" + id + ", '" + text + "')";
 
-        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
+        UpdateUtil.executeUpdate(sql, application, request, response);
     }
+
 }

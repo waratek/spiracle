@@ -1,19 +1,4 @@
-/*
- *  Copyright 2014 Waratek Ltd.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.oracle.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +16,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_string_no_quote
+ * Servlet implementation class Get_string
  */
-@WebServlet("/Get_string_no_quote")
-public class Get_string_no_quote extends HttpServlet {
+@WebServlet("/Get_string_sanitised")
+public class Get_string_sanitised extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_string_no_quote() {
+    public Get_string_sanitised() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -67,8 +52,9 @@ public class Get_string_no_quote extends HttpServlet {
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
         String name = nullSanitizedMap.get("name");
+        String newName = name.replace( "'", "''" );
         
-        String sql = "SELECT * FROM users WHERE name = "  + name;
+        String sql = "SELECT * FROM users WHERE name = '" + newName + "'";
 
         Boolean showErrors = true;
         Boolean allResults = true;
