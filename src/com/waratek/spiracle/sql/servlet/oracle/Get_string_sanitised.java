@@ -1,19 +1,4 @@
-/*
- *  Copyright 2014 Waratek Ltd.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,19 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
-import com.waratek.spiracle.sql.util.UpdateUtil;
+import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Update_User
+ * Servlet implementation class Get_string
  */
-@WebServlet("/Update_User")
-public class Update_User extends HttpServlet {
+@WebServlet("/Get_string_sanitised")
+public class Get_string_sanitised extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Update_User() {
+    public Get_string_sanitised() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,25 +43,24 @@ public class Update_User extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
-    
+
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-        
-        queryStringList.add("id");
         queryStringList.add("name");
-        queryStringList.add("surname");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-        
-        
-        String id = nullSanitizedMap.get("id");
+
         String name = nullSanitizedMap.get("name");
-        String surname = nullSanitizedMap.get("surname");
+        String newName = name.replace( "'", "''" );
+        
+        String sql = "SELECT * FROM users WHERE name = '" + newName + "'";
 
-        String sql = "UPDATE users SET name = '" + name + "', surname = '" + surname + "' WHERE id = " + id;
+        Boolean showErrors = true;
+        Boolean allResults = true;
+        Boolean showOutput = true;
 
-        UpdateUtil.executeUpdate(sql, application, request, response);
+        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
 
 }

@@ -36,60 +36,58 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 @WebServlet("/CreateSpringContext")
 public class CreateSpringContext extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String springContextPath;
+	private String springContextPath;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateSpringContext() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CreateSpringContext() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public void init() {
-        ServletContext application = this.getServletConfig().getServletContext();
-        InputStream propStream = application.getResourceAsStream("conf/Spiracle.properties");
-        Properties prop = new Properties();
-        try {
-            prop.load(propStream);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        springContextPath = prop.getProperty("spring.path");
-    }
+	public void init() {
+		ServletContext application = this.getServletConfig().getServletContext();
+		InputStream propStream = application.getResourceAsStream("conf/Spiracle.properties");
+		Properties prop = new Properties();
+		try {
+			prop.load(propStream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		springContextPath = prop.getProperty("spring.path");
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        createSpringContext(request, response);
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		createSpringContext(request, response);
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        createSpringContext(request, response);
-    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		createSpringContext(request, response);
+	}
 
-    private void createSpringContext(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        if(request.getParameter("filePath") == null) {
-            
-        } else {
-            springContextPath = request.getParameter("filePath").toString();
-        }
-        ServletContext application = this.getServletConfig().getServletContext();       
-        ApplicationContext context = new FileSystemXmlApplicationContext("file:" + springContextPath);
+	private void createSpringContext(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		if(request.getParameter("filePath") == null) {
 
-        application.setAttribute("springContext", context);
-        session.setAttribute("springContextData", context.toString());
-        response.sendRedirect("sql.jsp");
-    }
+		} else {
+			springContextPath = request.getParameter("filePath").toString();
+		}
+		ServletContext application = this.getServletConfig().getServletContext();
+		ApplicationContext context = new FileSystemXmlApplicationContext("file:" + springContextPath);
+
+		application.setAttribute("springContext", context);
+		session.setAttribute("springContextData", context.toString());
+		response.sendRedirect("sql.jsp");
+	}
 }

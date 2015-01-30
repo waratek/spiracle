@@ -26,6 +26,11 @@ CREATE TABLE address (
     address_3 varchar(500)
 );
 
+CREATE TABLE TEXT_STORE
+(
+   ID    NUMBER,
+   DATA  LONG
+);
 
 INSERT INTO users (id, name, surname) VALUES (1, 'luther', 'blisset');
 INSERT INTO users (id, name, surname) VALUES (2, 'fluffy', 'bunny');

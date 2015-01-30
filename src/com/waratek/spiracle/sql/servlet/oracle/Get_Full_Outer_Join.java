@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_string_no_quote
+ * Servlet implementation class Get_Ful_Outer_Join
  */
-@WebServlet("/Get_string_no_quote")
-public class Get_string_no_quote extends HttpServlet {
+@WebServlet("/Get_Full_Outer_Join")
+public class Get_Full_Outer_Join extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_string_no_quote() {
+    public Get_Full_Outer_Join() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,17 +58,17 @@ public class Get_string_no_quote extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
-
+    
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-        queryStringList.add("name");
+        queryStringList.add("id");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-
-        String name = nullSanitizedMap.get("name");
         
-        String sql = "SELECT * FROM users WHERE name = "  + name;
+        String id = nullSanitizedMap.get("id");
+
+        String sql = "SELECT * FROM users FULL OUTER JOIN address ON users.id = address.id AND users.id = " + id;
 
         Boolean showErrors = true;
         Boolean allResults = true;

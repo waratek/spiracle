@@ -28,83 +28,98 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet implementation class FileServlet
  */
 @WebServlet("/FileServlet")
 public class FileServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(FileServlet.class);
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FileServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public FileServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		executeRequest(request, response);
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
-    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		executeRequest(request, response);
+	}
 
-    private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
 
-        String method = request.getParameter("fileArg");
-        String path = request.getParameter("filePath");
-        String textData = request.getParameter("fileText");
+		String method = request.getParameter("fileArg");
+		String path = request.getParameter("filePath");
+		String textData = request.getParameter("fileText");
 
-        System.out.println(method + " " + path + " " + textData);
+		if(method.equals("read")) {
+			read(session, path);
+		} else if(method.equals("write")) {
+			write(session, path, textData);
+		} else if(method.equals("delete")) {
+			delete(session, path);
+		}
 
-        if(method.equals("read")) {
-            session.setAttribute("fileContents", readFile(path));
+		logger.info(method + " " + path + " " + textData);
 
-        } else if(method.equals("write")) {
-            File f = new File(path);
-            FileWriter fw = new FileWriter(f);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(textData);         
-            bw.close();
-            fw.close();
+		response.sendRedirect("file.jsp");
+	}
 
-            session.setAttribute("fileContents", readFile(path));
+	private void delete(HttpSession session, String path) {
+		File f = new File(path);
+		f.delete();
+		session.setAttribute("fileContents", "");
+	}
 
-        } else if(method.equals("delete")) {
-            File f = new File(path);
-            f.delete();
-            session.setAttribute("fileContents", "");
-        }
-        response.sendRedirect("file.jsp");
-    }
+	private void read(HttpSession session, String path) {
+		session.setAttribute("fileContents", readFile(path));
+	}
 
-    private String readFile(String pathname) {
-        try {
-            File file = new File(pathname);
-            StringBuilder fileContents = new StringBuilder((int)file.length());
-            Scanner scanner = new Scanner(file);
-            String lineSeparator = System.getProperty("line.separator");
+	private void write(HttpSession session, String path, String textData)
+			throws IOException {
+		File f = new File(path);
+		FileWriter fw = new FileWriter(f);
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write(textData);
+		bw.close();
+		fw.close();
 
-            try {
-                while(scanner.hasNextLine()) {        
-                    fileContents.append(scanner.nextLine() + lineSeparator);
-                }
-                return fileContents.toString();
-            } finally {
-                scanner.close();
-            }
-        } catch (IOException e) {           
-            e.printStackTrace();
-            return e.getMessage();
-        }
-    }
+		read(session, path);
+	}
+
+	private String readFile(String pathname) {
+		try {
+			File file = new File(pathname);
+			StringBuilder fileContents = new StringBuilder((int)file.length());
+			Scanner scanner = new Scanner(file);
+			String lineSeparator = System.getProperty("line.separator");
+
+			try {
+				while(scanner.hasNextLine()) {
+					fileContents.append(scanner.nextLine() + lineSeparator);
+				}
+				return fileContents.toString();
+			} finally {
+				scanner.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
 }
