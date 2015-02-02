@@ -29,11 +29,11 @@ CREATE TABLE TEXT_STORE
    DATA  MEDIUMTEXT
 );
 
-INSERT INTO users (id, name, surname) VALUES (1, 'luther', 'blisset');
-INSERT INTO users (id, name, surname) VALUES (2, 'fluffy', 'bunny');
-INSERT INTO users (id, name, surname) VALUES (3, 'wu', 'ming');
-INSERT INTO users (id, name, surname) VALUES (4, 'sqlmap/1.0-dev (http://sqlmap.org)', 'user agent header');
-INSERT INTO users (id, name, surname) VALUES (5, NULL, 'nameisnull');
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (1, 'Patrick', 'Moss', '1955-08-29', '5566 0717 3093 3773', 341);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (2, 'Margaret', 'Thomas', '1959-01-15', '3461 7946 3370 838', 475);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (3, 'wu', 'ming', '1961-05-21', '3430 0267 4913 647', 486);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (4, 'Lindsay', 'Rowe', '1953-10-12', '5170 8914 2648 3769', 103);
+INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (5, 'Luz', 'Day', '1977-09-12', '4716 7062 2383 5371', 444);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (6, 'Cristina', 'Jensen', '1947-07-31', '3740 8803 2906 433', 368);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (7, 'Brandi', 'Richardson', '1972-08-06', '5388 8850 8269 0335', 509);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (8, 'Jan', 'Patton', '1963-11-13', '4539 9992 8367 4419', 934);

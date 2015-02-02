@@ -4,7 +4,113 @@ Spiracle is an insecure web application used to test system security controls.
 
 It can be used to read/write arbitrary files and open network connections. The application is also vulnerable to SQL Injection.
 
-Due to its insecure design, this application should NOT be deployed on an unsecured network.
+CAUTION: Due to its insecure design, this application should NOT be deployed on an unsecured network.
+
+This application has been tested on the following application servers:
+
+* Apache Tomcat 7.x
+* IBM WebSphere Liberty Core 8.5.5.3
+
+Your mileage may vary with other application servers.
+
+== Installation
+
+* Download pre-built `spiracle.war` file from the releases page: https://github.com/waratek/spiracle/releases
+
+=== Tomcat
+
+* Copy the war file to the `$CATALINA_HOME/webapps/` directory
+
+=== Liberty Core
+
+* Ensure that the application war file is extracted to your server's apps directory:
++
+----
+$ mkdir ./wlp/usr/servers/defaultServer/apps/spiracle
+$ cd ./wlp/usr/servers/defaultServer/apps/spiracle
+$ jar xvf /path/to/downloaded/spiracle.war
+----
+
+* Modify `server.xml` as follows:
++
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+  <!-- Enable features -->
+  <featureManager>
+    <feature>jsp-2.2</feature>
+    <feature>Servlet-3.0</feature> <!--1-->
+  </featureManager>
+
+  <webApplication contextRoot="spiracle" location="spiracle"/> <!--2-->
+  <httpSession idLength="28" /> <!--3-->
+
+  <httpEndpoint id="defaultHttpEndpoint" 
+                host="*" <!--4-->
+                httpPort="9080" 
+                httpsPort="9443"/>
+</server>
+----
++
+<1> Enable `Servlet-3.0` as a feature
+<2> Add a `webApplication` tag referencing Spiracle
+<3> Change `httpSession` parameter length 
+<4> Add a `host` attribute
+
+=== Database setup
+
+If you would like to run the SQL injection tests, the database should be populated as follows. Data files are available in the web applications `spiracle/conf/` directory after the `spiracle.war` file has been deployed and exploded.
+
+==== Oracle
+
+. Ensure that the link:http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html[Oracle Database JDBC Driver] (ojdbc6.jar) is installed in the applications `WEB-INF/lib/` directory after the `spiracle.war` file is exploded on first run.
+. Import the data:
++
+----
+$ sqlplus SYS/password@//127.0.0.1:1521/XE AS SYSDBA < setupdb_oracle.sql
+----
++
+NOTE: This will create a user `test` with password `test`. You should adjust usernames and/or connection URLs dependent on your environment
++
+. Configuration parameters for the Oracle JDBC connection are defined in `conf/Spiracle.properties`:
++
+----
+c3p0.classname=oracle.jdbc.driver.OracleDriver
+c3p0.url=jdbc:oracle:thin:@localhost:1521:XE
+c3p0.username=test
+c3p0.password=test
+----
+
+NOTE: It may be necessary to restart your application server after deploying the `ojdbc6.jar` or updating database configuration.
+
+==== MySQL
+. Import the data:
++
+----
+$ mysql -u root -p test < setupdb_mysql.sql
+----
++
+NOTE: This will create a user `test` with password `test`. You should adjust usernames and/or connection URLs dependent on your environment
++
+. Configuration parameters for the MySQL JDBC connection are defined in `conf/Spiracle.properties`:
++
+----
+c3p0.classname=com.mysql.jdbc.Driver
+c3p0.url=jdbc:jdbc:mysql://localhost:3306/test
+c3p0.username=test
+c3p0.password=test
+----
+
+NOTE: Spiracle is bundled with MySQL Connector 5.1.35. If this version is not compatible with your MySQL installation replace `mysql-connector-java-5.1.34-bin.jar` under `WEB-INF/lib/` with a compatible version.
+
+== Running
+
+After deployment, the Spiracle application will be available at:
+
+----
+http://ip:port/spiracle/
+----
 
 == Building
 
@@ -18,17 +124,34 @@ If you wish to use the database features, ensure that the Oracle database JDBC d
 
 To build the Spiracle Test Application WAR file, run:
 
- ant
+ $ ant
 
 or
 
- ant build
+ $ ant build
 
 To clean the build infrastructure, run:
 
- ant clean
+ $ ant clean
 
 The WAR file will be output to:
 
  ./build/spiracle.war
 
+== License
+
+----
+Copyright 2014 Waratek Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+----
