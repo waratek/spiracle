@@ -40,6 +40,9 @@ public class SelectUtil {
 		Connection con = null;
 		int fetchSize = (Integer) application.getAttribute("fetchSize");
 
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
 		TagUtil.printContentDiv(out);
@@ -60,15 +63,13 @@ public class SelectUtil {
 
 			logger.info(sql);
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
+			logger.info("Created PreparedStatement: " + sql);
 			stmt.setFetchSize(fetchSize);
-			ResultSet rs = stmt.executeQuery();
+			rs = stmt.executeQuery();
+			logger.info("Executed: " + sql);
 
 			writeToResponse(allResults, showOutput, out, rs);
-			out.close();
-			rs.close();
-			stmt.close();
-			con.close();
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
 				response.setStatus(550);
@@ -85,20 +86,49 @@ public class SelectUtil {
 			while((e = e.getNextException()) != null) {
 				out.println(e.getMessage() + "<BR>");
 			}
+		} finally {
 			try {
-				con.rollback();
-				con.close();
-			} catch (SQLException e1) {
+				if(rs != null) {
+					logger.info("Closing ResultSet " + rs);
+					rs.close();
+					logger.info("Closed ResultSet " + rs);
+				}
+			} catch (SQLException rsCloseException) {
 				if(logger.isDebugEnabled()) {
-					logger.debug(e1.getMessage(), e1);
+					logger.debug(rsCloseException.getMessage(), rsCloseException);
 				} else {
-					logger.error(e1);
+					logger.error(rsCloseException);
 				}
 			}
-
+			try {
+				if(stmt != null) {
+					logger.info("Closing PreparedStatement " + stmt);
+					stmt.close();
+					logger.info("Closed PreparedStatement " + stmt);
+				}
+			} catch (SQLException stmtCloseException) {
+				if(logger.isDebugEnabled()) {
+					logger.debug(stmtCloseException.getMessage(), stmtCloseException);
+				} else {
+					logger.error(stmtCloseException);
+				}
+			}
+			try {
+				if(con != null) {
+					logger.info("Closing Connection " + con);
+					con.close();
+					logger.info("Closed Connection " + con);
+				}
+			} catch (SQLException conCloseException) {
+				if(logger.isDebugEnabled()) {
+					logger.debug(conCloseException.getMessage(), conCloseException);
+				} else {
+					logger.error(conCloseException);
+				}
+			}
 			TagUtil.printPageFooter(out);
+			out.close();
 		}
-
 	}
 
 	private static void writeToResponse(Boolean allResults, Boolean showOutput, ServletOutputStream out, ResultSet rs) throws SQLException, IOException {

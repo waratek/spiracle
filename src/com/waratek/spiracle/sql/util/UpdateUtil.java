@@ -35,6 +35,8 @@ public class UpdateUtil {
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
+		
+		PreparedStatement stmt = null;
 
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
@@ -56,15 +58,14 @@ public class UpdateUtil {
 
 			logger.info(sql);
 
-			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
+			logger.info("Created PreparedStatement: " + sql);
 			int result = stmt.executeUpdate();
+			logger.info("Executed: " + sql);
+			
 			out.println("<h1>Altered Rows:</h1>");
 			out.print("<pre>" + result + "</pre>");
 			TagUtil.printPageFooter(out);
-			out.close();
-			stmt.close();
-			con.close();
-
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
 				response.setStatus(550);
@@ -81,18 +82,37 @@ public class UpdateUtil {
 			while((e = e.getNextException()) != null) {
 				out.println(e.getMessage() + "<BR>");
 			}
+		} finally {
 			try {
-				con.rollback();
-				con.close();
-			} catch (SQLException e1) {
+				if(stmt != null) {
+					logger.info("Closing PreparedStatement " + stmt);
+					stmt.close();
+					logger.info("Closed PreparedStatement " + stmt);
+				}
+			} catch (SQLException stmtCloseException) {
 				if(logger.isDebugEnabled()) {
-					logger.debug(e1.getMessage(), e);
+					logger.debug(stmtCloseException.getMessage(), stmtCloseException);
 				} else {
-					logger.error(e1);
+					logger.error(stmtCloseException);
 				}
 			}
-			out.println("</div>");
+			try {
+				if(con != null) {
+					logger.info("Closing Connection " + con);
+					con.close();
+					logger.info("Closed Connection " + con);
+				}
+			} catch (SQLException conCloseException) {
+				if(logger.isDebugEnabled()) {
+					logger.debug(conCloseException.getMessage(), conCloseException);
+				} else {
+					logger.error(conCloseException);
+				}
+			}
+
+			out.println("</DIV>");
 			TagUtil.printPageFooter(out);
+			out.close();
 		}
 	}
 }
