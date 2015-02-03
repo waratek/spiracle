@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,19 +28,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
-import com.waratek.spiracle.sql.util.UpdateUtil;
+import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Update_User
+ * Servlet implementation class Get_int_no_quote
  */
-@WebServlet("/Update_User")
-public class Update_User extends HttpServlet {
+@WebServlet("/Get_int_no_quote")
+public class Get_int_no_quote extends HttpServlet {
     private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Update_User() {
+    public Get_int_no_quote() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,25 +58,23 @@ public class Update_User extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
-    
+
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-        
         queryStringList.add("id");
-        queryStringList.add("name");
-        queryStringList.add("surname");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-        
-        
+
         String id = nullSanitizedMap.get("id");
-        String name = nullSanitizedMap.get("name");
-        String surname = nullSanitizedMap.get("surname");
+        
+        String sql = "SELECT * FROM users WHERE id = " + id;
 
-        String sql = "UPDATE users SET name = '" + name + "', surname = '" + surname + "' WHERE id = " + id;
+        Boolean showErrors = true;
+        Boolean allResults = true;
+        Boolean showOutput = true;
 
-        UpdateUtil.executeUpdate(sql, application, request, response);
+        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
 
 }

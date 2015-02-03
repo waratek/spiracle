@@ -32,62 +32,62 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/ServerSocketServlet")
 public class ServerSocketServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private static ServerSocket ss;
-    private static Socket s;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServerSocketServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static final long serialVersionUID = 1L;
+	private static ServerSocket ss;
+	private static Socket s;
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ServerSocketServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		executeRequest(request, response);
+	}
 
-    private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(ss != null && s != null) {
-            ss.close();
-            s.close();
-        }
-        
-        HttpSession session = request.getSession();
-        try {
-            String addr = request.getParameter("hostname");
-            int port = Integer.parseInt(request.getParameter("port"));
-            if(addr == null) {
-                ss = new ServerSocket(port);
-            } else {
-                ss = new ServerSocket();
-                ss.bind(new InetSocketAddress(addr, port));
-            }       
-            ss.setSoTimeout(20000);
-            s = ss.accept();
-            session.setAttribute("serverSocketInfo", ss.toString());
-            response.sendRedirect("network.jsp");
-            
-        } catch (Throwable e) {
-            if(ss != null) {
-                ss.close();
-                s.close();
-            }           
-            e.printStackTrace();
-            session.setAttribute("serverSocketInfo", e.getMessage());
-            response.sendRedirect("network.jsp");
-        }
-    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		executeRequest(request, response);
+	}
+
+	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if(ss != null && s != null) {
+			ss.close();
+			s.close();
+		}
+
+		HttpSession session = request.getSession();
+		try {
+			String addr = request.getParameter("hostname");
+			int port = Integer.parseInt(request.getParameter("port"));
+			if(addr == null) {
+				ss = new ServerSocket(port);
+			} else {
+				ss = new ServerSocket();
+				ss.bind(new InetSocketAddress(addr, port));
+			}
+			ss.setSoTimeout(20000);
+			s = ss.accept();
+			session.setAttribute("serverSocketInfo", ss.toString());
+			response.sendRedirect("network.jsp");
+
+		} catch (Throwable e) {
+			if(ss != null) {
+				ss.close();
+				s.close();
+			}
+			e.printStackTrace();
+			session.setAttribute("serverSocketInfo", e.getMessage());
+			response.sendRedirect("network.jsp");
+		}
+	}
 
 }

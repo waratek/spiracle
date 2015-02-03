@@ -38,6 +38,10 @@ public class SelectUtil {
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
+		int fetchSize = (Integer) application.getAttribute("fetchSize");
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
@@ -50,7 +54,7 @@ public class SelectUtil {
 			} else {
 				connectionType = request.getParameter("connectionType");
 			}
-			con = ConnectionUtil.getConnection(application, connectionType);            
+			con = ConnectionUtil.getConnection(application, connectionType);
 			out.println("<div class=\"panel-body\">");
 			out.println("<h1>SQL Query:</h1>");
 			out.println("<pre>");
@@ -59,14 +63,13 @@ public class SelectUtil {
 
 			logger.info(sql);
 
-			PreparedStatement stmt = con.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
+			stmt = con.prepareStatement(sql);
+			logger.info("Created PreparedStatement: " + sql);
+			stmt.setFetchSize(fetchSize);
+			rs = stmt.executeQuery();
+			logger.info("Executed: " + sql);
 
 			writeToResponse(allResults, showOutput, out, rs);
-			out.close();
-			rs.close();
-			stmt.close();
-			con.close();
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
 				response.setStatus(550);
@@ -83,20 +86,49 @@ public class SelectUtil {
 			while((e = e.getNextException()) != null) {
 				out.println(e.getMessage() + "<BR>");
 			}
+		} finally {
 			try {
-				con.rollback();
-				con.close();
-			} catch (SQLException e1) {
+				if(rs != null) {
+					logger.info("Closing ResultSet " + rs);
+					rs.close();
+					logger.info("Closed ResultSet " + rs);
+				}
+			} catch (SQLException rsCloseException) {
 				if(logger.isDebugEnabled()) {
-					logger.debug(e.getMessage(), e);
+					logger.debug(rsCloseException.getMessage(), rsCloseException);
 				} else {
-					logger.error(e);
+					logger.error(rsCloseException);
 				}
 			}
-
+			try {
+				if(stmt != null) {
+					logger.info("Closing PreparedStatement " + stmt);
+					stmt.close();
+					logger.info("Closed PreparedStatement " + stmt);
+				}
+			} catch (SQLException stmtCloseException) {
+				if(logger.isDebugEnabled()) {
+					logger.debug(stmtCloseException.getMessage(), stmtCloseException);
+				} else {
+					logger.error(stmtCloseException);
+				}
+			}
+			try {
+				if(con != null) {
+					logger.info("Closing Connection " + con);
+					con.close();
+					logger.info("Closed Connection " + con);
+				}
+			} catch (SQLException conCloseException) {
+				if(logger.isDebugEnabled()) {
+					logger.debug(conCloseException.getMessage(), conCloseException);
+				} else {
+					logger.error(conCloseException);
+				}
+			}
 			TagUtil.printPageFooter(out);
+			out.close();
 		}
-
 	}
 
 	private static void writeToResponse(Boolean allResults, Boolean showOutput, ServletOutputStream out, ResultSet rs) throws SQLException, IOException {
@@ -130,7 +162,7 @@ public class SelectUtil {
 
 	private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
 		out.println("<TR>");
-		for(int i = 1; i <= metaData.getColumnCount(); i++) {           
+		for(int i = 1; i <= metaData.getColumnCount(); i++) {
 			Object content = rs.getObject(i);
 			if(content != null) {
 				out.println("<TD>" + content.toString() + "</TD>");

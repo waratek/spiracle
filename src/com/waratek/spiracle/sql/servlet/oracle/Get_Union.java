@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_Ful_Outer_Join
+ * Servlet implementation class Get_Union
  */
-@WebServlet("/Get_Full_Outer_Join")
-public class Get_Full_Outer_Join extends HttpServlet {
+@WebServlet("/Get_Union")
+public class Get_Union extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_Full_Outer_Join() {
+    public Get_Union() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -65,10 +65,10 @@ public class Get_Full_Outer_Join extends HttpServlet {
         queryStringList.add("id");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-        
+
         String id = nullSanitizedMap.get("id");
 
-        String sql = "SELECT * FROM users FULL OUTER JOIN address ON users.id = address.id AND users.id = " + id;
+        String sql = "SELECT name, surname, TO_CHAR(dob) FROM users WHERE id = " + id + " UNION SELECT address_1, address_2, address_3 FROM address WHERE id = " + id;
 
         Boolean showErrors = true;
         Boolean allResults = true;

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_int_inline
+ * Servlet implementation class Get_int
  */
-@WebServlet("/Get_int_inline")
-public class Get_int_inline extends HttpServlet {
+@WebServlet("/Get_int")
+public class Get_int extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_int_inline() {
+    public Get_int() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -68,7 +68,7 @@ public class Get_int_inline extends HttpServlet {
 
         String id = nullSanitizedMap.get("id");
         
-        String sql = id;
+        String sql = "SELECT * FROM users WHERE id = '" + id + "'";
 
         Boolean showErrors = true;
         Boolean allResults = true;

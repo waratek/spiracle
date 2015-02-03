@@ -1,4 +1,4 @@
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,28 +13,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
-import com.waratek.spiracle.sql.util.UpdateUtil;
+import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Insert_Raw_Text_Sanitised
+ * Servlet implementation class Implicit_Join_Namespace
  */
-@WebServlet("/Insert_Raw_Text_Sanitised")
-public class Insert_Raw_Text_Sanitised extends HttpServlet {
+@WebServlet("/Implicit_Join_Namespace")
+public class Implicit_Join_Namespace extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Insert_Raw_Text_Sanitised() {
+    public Implicit_Join_Namespace() {
         super();
         // TODO Auto-generated constructor stub
+        //select users.id from users, address where
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);        
+        executeRequest(request, response);
 	}
 
 	/**
@@ -47,19 +48,18 @@ public class Insert_Raw_Text_Sanitised extends HttpServlet {
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
         List<String> queryStringList = new ArrayList<String>();     
-
         queryStringList.add("id");
-        queryStringList.add("text");
-
+        
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-
+        
         String id = nullSanitizedMap.get("id");
-        String text = nullSanitizedMap.get("text");
-        text = text.replace("'", "''");
+        
+        String sql = "SELECT users.id FROM users, address WHERE users.id = address.id AND users.id = " + id; 
 
-        String sql = "INSERT INTO TEXT_STORE VALUES (" + id + ", '" + text + "')";        
+        Boolean showErrors = true;
+        Boolean allResults = true;
+        Boolean showOutput = true;
 
-        UpdateUtil.executeUpdate(sql, application, request, response);
+        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
-
 }

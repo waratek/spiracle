@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -48,8 +47,10 @@ public class SpiracleInit implements ServletContextListener {
 		ServletContext application = arg0.getServletContext();
 		Properties props = loadProperties(application);
 		loadLog4jConfig(props);
+		logServerInfo(application);
 		ComboPooledDataSource ds = getConnectionPool(props);
 		setConnectionPool(application, ds);
+		setFetchSize(application, props);
 	}
 
 	private Properties loadProperties(ServletContext application) {
@@ -112,5 +113,21 @@ public class SpiracleInit implements ServletContextListener {
 		ds.setAcquireIncrement(5);
 		ds.setMaxPoolSize(maxPoolSize);
 		return ds;
+	}
+
+	private void setFetchSize(ServletContext application, Properties props) {
+		int fetchSize = 0;
+		try {
+			fetchSize = Integer.parseInt(props.getProperty("jdbc.fetchsize"));
+			application.setAttribute("fetchSize", fetchSize);
+			logger.info("Set jdbc.fetchsize to (" + fetchSize + ")");
+		} catch (NumberFormatException e) {
+			logger.error("jdbc.fetchsize not specified, default value set(10).");
+		}
+	}
+
+	void logServerInfo(ServletContext application) {
+		logger.info("Application Server Name: " + application.getServerInfo());
+		logger.info("Application Context Path:" + application.getRealPath(""));
 	}
 }
