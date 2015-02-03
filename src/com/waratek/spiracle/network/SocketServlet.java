@@ -31,78 +31,78 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/SocketServlet")
 public class SocketServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private static Socket s;
+	private static final long serialVersionUID = 1L;
+	private static Socket s;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SocketServlet() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SocketServlet() {
+		super();
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		executeRequest(request, response);
+	}
 
-    /**
-     * @throws IOException 
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        executeRequest(request, response);
-    }
+	/**
+	 * @throws IOException 
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		executeRequest(request, response);
+	}
 
-    private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(s != null) {
-            s.close();
-        }
-        
-        HttpSession session = request.getSession();
-        try {
-            String bindHost = request.getParameter("bindHost");
-            String remoteHost = request.getParameter("remoteHost");
-            
-            Integer bindPort = 0;
-            Integer remotePort = 0;
-            
-            String bindPortRaw = request.getParameter("bindPort");
-            String remotePortRaw = request.getParameter("remotePort");
+	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if(s != null) {
+			s.close();
+		}
 
-            if(bindPortRaw.length() > 0) {
-                bindPort = Integer.parseInt((String)bindPortRaw);
-            } else {
-                bindPort = null;
-            }
-            if(remotePortRaw.length() > 0) {
-                remotePort = Integer.parseInt((String)remotePortRaw);
-            } else {
-                remotePort = null;
-            }
-            
-            s = new Socket();
-            if(bindHost.length() == 0 || bindHost.length() == 0) {
-                s.bind(null);
-            } else {
-                s.bind(new InetSocketAddress(bindHost, bindPort.intValue()));
-            }
-            
-            s.connect(new InetSocketAddress(remoteHost, remotePort.intValue()));
-            session.setAttribute("socketInfo", s.toString());
+		HttpSession session = request.getSession();
+		try {
+			String bindHost = request.getParameter("bindHost");
+			String remoteHost = request.getParameter("remoteHost");
 
-            response.sendRedirect("network.jsp");
-        } catch (Throwable e) {
-            if(s !=  null) {
-                s.close();
-            }
-            e.printStackTrace();
-            session.setAttribute("socketInfo", e.getMessage());
-            response.sendRedirect("network.jsp");
+			Integer bindPort = 0;
+			Integer remotePort = 0;
 
-        }
-    }
+			String bindPortRaw = request.getParameter("bindPort");
+			String remotePortRaw = request.getParameter("remotePort");
+
+			if(bindPortRaw.length() > 0) {
+				bindPort = Integer.parseInt((String)bindPortRaw);
+			} else {
+				bindPort = null;
+			}
+			if(remotePortRaw.length() > 0) {
+				remotePort = Integer.parseInt((String)remotePortRaw);
+			} else {
+				remotePort = null;
+			}
+
+			s = new Socket();
+			if(bindHost.length() == 0 || bindHost.length() == 0) {
+				s.bind(null);
+			} else {
+				s.bind(new InetSocketAddress(bindHost, bindPort.intValue()));
+			}
+
+			s.connect(new InetSocketAddress(remoteHost, remotePort.intValue()));
+			session.setAttribute("socketInfo", s.toString());
+
+			response.sendRedirect("network.jsp");
+		} catch (Throwable e) {
+			if(s !=  null) {
+				s.close();
+			}
+			e.printStackTrace();
+			session.setAttribute("socketInfo", e.getMessage());
+			response.sendRedirect("network.jsp");
+
+		}
+	}
 
 }

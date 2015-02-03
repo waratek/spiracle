@@ -21,19 +21,19 @@ import javax.servlet.ServletOutputStream;
 
 public class TagUtil {
 	static void printPageHead(ServletOutputStream out) throws IOException {
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap-theme.min.css\">");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">");
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
+		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap-theme.min.css\">");
+		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">");
 
-        out.println("<title>Spiracle - SQL</title>");
-        out.println("</head>");
-        out.println("<body>");
+		out.println("<title>Spiracle - SQL</title>");
+		out.println("</head>");
+		out.println("<body>");
 	}
-	
+
 	static void printPageNavbar(ServletOutputStream out) throws IOException {
 		out.println("<div class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">");
 		out.println("<div class=\"container\">");
@@ -57,16 +57,16 @@ public class TagUtil {
 		out.println("</div>");
 		out.println("</div>");
 	}
-	
+
 	static void printContentDiv(ServletOutputStream out) throws IOException {
 		out.println("<div class=\"container\">");
 	}
-	
+
 	static void printPageFooter(ServletOutputStream out) throws IOException {
 		out.println("</div>");
 		out.println("</div>");
-	    out.println("<script src=\"js/jquery.min.js\"></script>");
-	    out.println("<script src=\"js/bootstrap.min.js\"></script>");
-        out.println("</body></html>");
+		out.println("<script src=\"js/jquery.min.js\"></script>");
+		out.println("<script src=\"js/bootstrap.min.js\"></script>");
+		out.println("</body></html>");
 	}
 }

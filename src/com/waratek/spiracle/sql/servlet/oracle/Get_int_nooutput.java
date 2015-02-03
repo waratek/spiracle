@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet;
+package com.waratek.spiracle.sql.servlet.oracle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,16 +31,16 @@ import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
 
 /**
- * Servlet implementation class Get_Inner_Join
+ * Servlet implementation class Get_int_nooutput
  */
-@WebServlet("/Get_Implicit_Join")
-public class Get_Implicit_Join extends HttpServlet {
+@WebServlet("/Get_int_nooutput")
+public class Get_int_nooutput extends HttpServlet {
     private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Get_Implicit_Join() {
+    public Get_int_nooutput() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -65,16 +65,16 @@ public class Get_Implicit_Join extends HttpServlet {
         queryStringList.add("id");
         
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
-        
+
         String id = nullSanitizedMap.get("id");
-
-        String sql = "SELECT * FROM users, address WHERE users.id = " + id + " AND users.id = address.id";
-
-        Boolean showErrors = true;
+        
+        String sql = "SELECT * FROM users WHERE id = '" + id + "'";
+        
+        Boolean showErrors = false;
         Boolean allResults = true;
-        Boolean showOutput = true;
-
+        Boolean showOutput = false;
+        
         SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }
-
 }
+
