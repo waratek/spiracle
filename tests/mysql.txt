@@ -1,0 +1,139 @@
+/spiracle/MySql_Get_int<split>?id=2' OR name LIKE '%25'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' || name like '%25'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' or users.name LIKE '%25'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' or id like '%25<split>550
+/spiracle/MySql_Get_int<split>?id=1' OR 100=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/MySql_Get_int<split>?id=1' OR users.cvv IS NULL --<split>550
+/spiracle/MySql_Get_int<split>?id=1' AND DOB IS NULL --<split>550
+/spiracle/MySql_Get_int<split>?id=1' OR cvv IS NULL --<split>550
+/spiracle/MySql_Get_int<split>?id=1' OR 'x'='x'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' or 1=1 or 'x'='y'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' UNION ALL SELECT * from users where id=1 or 1=1 --<split>550
+/spiracle/MySql_Get_int<split>?id=1' or 1=1 or ''=''--<split>550
+/spiracle/MySql_Get_int<split>?id=' or 1=1 or ''=''--<split>550
+/spiracle/MySql_Get_int<split>?id=("hi")' or ('a'='a')--<split>550
+/spiracle/MySql_Get_int<split>?id=a' or 'a' = 'a'--<split>550
+/spiracle/MySql_Get_int<split>?id=joe' or '1'='1'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' UNION SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/MySql_Get_int<split>?id=hi' or 1=1--<split>550
+/spiracle/MySql_Get_int<split>?id=hi' or 'a'='a'--<split>550
+/spiracle/MySql_Get_int<split>?id=a' or 1=1--<split>550
+/spiracle/MySql_Get_int<split>?id=%27%20or%20'x'='x'--<split>550
+/spiracle/MySql_Get_int<split>?id=' or 0=0 --<split>550
+/spiracle/MySql_Get_int<split>?id=a' or 3=3--<split>550
+/spiracle/MySql_Get_int<split>?id=Joe' or 0=0 --<split>550
+/spiracle/MySql_Get_int<split>?id=Joe' or 'a'='a'--<split>550
+/spiracle/MySql_Get_int<split>?id=1' or ''=''--<split>550
+/spiracle/MySql_Get_int<split>?id=' or 1=1--<split>550
+/spiracle/MySql_Get_int<split>?id='%20or%201=1--<split>550
+/spiracle/MySql_Get_int<split>?id=%27%20or%201=1--<split>550
+/spiracle/MySql_Get_int<split>?id=' or 3=3--<split>550
+/spiracle/MySql_Get_string<split>?name=x' or name like '%25'--<split>550
+/spiracle/MySql_Get_string<split>?name=%3C%3E%22%2527%25%3B)(%26%2B<split>200
+/spiracle/MySql_Get_string<split>?name=x' AND 100=(SELECT COUNT(*) FROM address) --<split>550
+/spiracle/MySql_Get_string<split>?name=x' OR cvv IS NULL--<split>550
+/spiracle/MySql_Get_string<split>?name=anything' OR 'x'='x<split>550
+/spiracle/MySql_Get_string<split>?name=x' or 1=1 or 'x'='y<split>550
+/spiracle/MySql_Get_string<split>?name=' UNION ALL SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/MySql_Get_string<split>?name='or 1=1 or ''='<split>550
+/spiracle/MySql_Get_string<split>?name=a' or 'a' = 'a<split>550
+/spiracle/MySql_Get_string<split>?name=' or '1'='1'--<split>550
+/spiracle/MySql_Get_string<split>?name=' UNION SELECT * from users--<split>550
+/spiracle/MySql_Get_string<split>?name=a' or 1=1--<split>550
+/spiracle/MySql_Get_string<split>?name=%27%20or%20%27x%27=%27x<split>550
+/spiracle/MySql_Get_string<split>?name='or 0=0 --<split>550
+/spiracle/MySql_Get_string<split>?name=a' or 3=3--<split>550
+/spiracle/MySql_Get_string<split>?name=' or 1=1--<split>550
+/spiracle/MySql_Get_string<split>?name=' or 1 --'<split>550
+/spiracle/MySql_Get_string<split>?name=' or 'a'='a'--<split>550
+/spiracle/MySql_Get_string<split>?name=%27%20or%201=1--<split>550
+/spiracle/MySql_Get_string<split>?name=x' or 3=3--<split>550
+/spiracle/Get_Union<split>?id='2' OR 'name' LIKE 'Joe'<split>550
+/spiracle/Get_Union<split>?id='1' or 'name' like 'Joe'<split>550
+/spiracle/Get_Union<split>?id='1' or id like 1<split>550
+/spiracle/Get_Union<split>?id='1' or 'name' like'Joe'<split>550
+/spiracle/Get_Union<split>?id='1' OR 120=(SELECT COUNT(*) FROM users)<split>550
+/spiracle/Get_Union<split>?id='1' AND 'users.cvv' IS NULL<split>550
+/spiracle/Get_Union<split>?id='1' AND 'DOB' IS NULL<split>550
+/spiracle/Get_Union<split>?id='1' AND 'cvv' IS NULL<split>550
+/spiracle/Get_Union<split>?id='1' OR 'x'='x'<split>550
+/spiracle/Get_Union<split>?id='1' or 1=1 or 'x'='y'<split>550
+/spiracle/Get_Union<split>?id='1' or 1=1 or ''=''--<split>550
+/spiracle/Get_Union<split>?id=' or 1=1 or ''=''--<split>550
+/spiracle/Get_Union<split>?id='("hi")' or ('a'='a')--<split>550
+/spiracle/Get_Union<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/Get_Union<split>?id='joe' or '1'='1'<split>550
+/spiracle/Get_Union<split>?id='hi' or 1=1--<split>550
+/spiracle/Get_Union<split>?id='hi' or 'a'='a'--<split>550
+/spiracle/Get_Union<split>?id='a' or 1=1--<split>550
+/spiracle/Get_Union<split>?id=''%20or%20'x'='x'--<split>550
+/spiracle/Get_Union<split>?id='' or 0=0 --<split>550
+/spiracle/Get_Union<split>?id='a' or 3=3--<split>550
+/spiracle/Get_Union<split>?id='Joe' or 0=0 --<split>550
+/spiracle/Get_Union<split>?id='Joe' or 'a'='a'--<split>550
+/spiracle/Get_Union<split>?id=1 or 'a'='a'<split>550
+/spiracle/Get_Union<split>?id=1 or '1'='1'<split>550
+/spiracle/Get_Union<split>?id=' or 1=1--<split>550
+/spiracle/Get_Union<split>?id=%27%20or%201=1--<split>550
+/spiracle/Get_Union<split>?id=' %20or%201=1--<split>550
+/spiracle/Get_Union<split>?id=' or 3=3--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='2' OR 'name' LIKE 'Joe'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' or 'name' like 'Joe'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' or users.id like 1<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' or 'users.name' like'Joe'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' OR 120=(SELECT COUNT(*) FROM users)<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' AND 'users.cvv' IS NULL<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' AND 'DOB' IS NULL<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' AND 'cvv' IS NULL<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' OR 'x'='x'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' or 1=1 or 'x'='y'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='1' or 1=1 or ''=''--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='' or 1=1 or ''=''--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id=('hi') or ('a'='a')<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='joe' or '1'='1'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='hi' or 1=1--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='hi' or 'a'='a'--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='a' or 1=1--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id=''%20or%20'x'='x'--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='' or 0=0 --<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='a' or 3=3--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='Joe' or 0=0 --<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='Joe' or 'a'='a'--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id=1 or 'a'='a'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id=1 or '1'='1'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id=1 or '1'='1'<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='' or 1=1--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='' %20or%201=1--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id='' or 3=3--<split>550
+/spiracle/MySql_Get_Implicit_Join<split>?id=%27%27%20or%201=1--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='2' OR 'name' LIKE 'Joe'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' or 'name' like 'Joe'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' or users.id like 1<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' or 'users.name' like'Joe'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' OR 120=(SELECT COUNT(*) FROM users)<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' AND 'users.cvv' IS NULL<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' AND 'DOB' IS NULL<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' AND 'cvv' IS NULL<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' OR 'x'='x'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' or 1=1 or 'x'='y'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='1' or 1=1 or ''=''--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='' or 1=1 or ''=''--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id=('hi') or ('a'='a')<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='joe' or '1'='1'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='hi' or 1=1--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='hi' or 'a'='a'--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='a' or 1=1--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id=''%20or%20'x'='x'--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='' or 0=0 --<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='a' or 3=3--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='Joe' or 0=0 --<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='Joe' or 'a'='a'--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id=1 or 'a'='a'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id=1 or '1'='1'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id=1 or '1'='1'<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='' or 1=1--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='' %20or%201=1--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id='' or 3=3--<split>550
+/spiracle/MySql_Implicit_Join_Namespace<split>?id=%27%27%20or%201=1--<split>550
