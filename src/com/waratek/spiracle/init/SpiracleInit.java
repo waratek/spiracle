@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -38,8 +39,9 @@ public class SpiracleInit implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
-
+		ServletContext application = arg0.getServletContext();
+		ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute("connectionPool");
+		ds.close();
 	}
 
 	@Override
