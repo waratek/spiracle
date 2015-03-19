@@ -52,6 +52,7 @@ public class SpiracleInit implements ServletContextListener {
 		logServerInfo(application);
 		ComboPooledDataSource ds = getConnectionPool(props);
 		setConnectionPool(application, ds);
+		setDefaultConnection(application, props);
 		setFetchSize(application, props);
 	}
 
@@ -126,6 +127,11 @@ public class SpiracleInit implements ServletContextListener {
 		} catch (NumberFormatException e) {
 			logger.error("jdbc.fetchsize not specified, default value set(10).");
 		}
+	}
+
+	private void setDefaultConnection(ServletContext application, Properties props) {
+		String defaultConnection = (String) props.get("default.connection");
+		application.setAttribute("defaultConnection", defaultConnection);
 	}
 
 	void logServerInfo(ServletContext application) {
