@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -42,6 +43,9 @@ public class ConnectionUtil {
 			FileSystemXmlApplicationContext context = (FileSystemXmlApplicationContext)application.getAttribute("springContext");
 			DriverManagerDataSource dmds = (DriverManagerDataSource)context.getBean("dataSource");
 			con = dmds.getConnection();
+		} else if(connectionType.equals("jndi")) {
+			DataSource ds = (DataSource) application.getAttribute("jndiConnectionPool");
+			con = ds.getConnection();
 		}
 
 		logger.info("Returning connection: " + con.toString());

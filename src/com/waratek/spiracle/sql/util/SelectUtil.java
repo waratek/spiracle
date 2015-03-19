@@ -39,6 +39,7 @@ public class SelectUtil {
 		String connectionType = null;
 		Connection con = null;
 		int fetchSize = (Integer) application.getAttribute("fetchSize");
+		String defaultConnection = (String) application.getAttribute("defaultConnection");
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -50,7 +51,7 @@ public class SelectUtil {
 		try {
 			//Checking if connectionType is set, defaulting it to c3p0 if not set.
 			if(request.getParameter("connectionType") == null) {
-				connectionType = "c3p0";
+				connectionType = defaultConnection;
 			} else {
 				connectionType = request.getParameter("connectionType");
 			}
