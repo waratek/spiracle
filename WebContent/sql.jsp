@@ -219,6 +219,45 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="panel-body">
+				<h3>MsSQL</h3>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Request</th>
+							<th>SQL Statement</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="MsSql_Get_int?id=1">MsSql_Get_int?id=1</a></td>
+							<td><code>"SELECT * FROM users WHERE id = '" + id +
+									"'";</code></td>
+						</tr>
+						<tr>
+							<td><a href="MsSql_Get_string?name=wu">MsSql_Get_string?name=wu</a></td>
+							<td><code>"SELECT * FROM users WHERE name = '" + name
+									+ "'";</code></td>
+						</tr>
+						<tr>
+							<td><a href="MsSql_Get_Union?id=1">MsSql_Get_Union?id=1</a></td>
+							<td><code>"SELECT name, surname, CONECRT(varchar(500), dod, 3)dob FROM users WHERE
+									id = " + id + " UNION SELECT address_1, address_2, address_3
+									FROM address WHERE id = " + id;</code></td>
+						</tr>
+						<tr>
+							<td><a href="MsSql_Get_Implicit_Join?id=1">MsSql_Get_Implicit_Join?id=1</a></td>
+							<td><code>"SELECT * FROM users, address WHERE
+									users.id = " + id + " AND users.id = address.id";</code></td>
+						</tr>
+						<tr>
+							<td><a href="MsSql_Implicit_Join_Namespace?id=1">MsSql_Implicit_Join_Namespace?id=1</a></td>
+							<td><code>"SELECT * FROM dbo.users, dbo.address WHERE
+									dbo.users.id = " + id + " AND dbo.users.id = dbo.address.id";</code></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 
