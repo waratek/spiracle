@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -38,8 +39,9 @@ public class SpiracleInit implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
-
+		ServletContext application = arg0.getServletContext();
+		ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute("connectionPool");
+		ds.close();
 	}
 
 	@Override
@@ -50,6 +52,7 @@ public class SpiracleInit implements ServletContextListener {
 		logServerInfo(application);
 		ComboPooledDataSource ds = getConnectionPool(props);
 		setConnectionPool(application, ds);
+		setDefaultConnection(application, props);
 		setFetchSize(application, props);
 	}
 
@@ -124,6 +127,11 @@ public class SpiracleInit implements ServletContextListener {
 		} catch (NumberFormatException e) {
 			logger.error("jdbc.fetchsize not specified, default value set(10).");
 		}
+	}
+
+	private void setDefaultConnection(ServletContext application, Properties props) {
+		String defaultConnection = (String) props.get("default.connection");
+		application.setAttribute("defaultConnection", defaultConnection);
 	}
 
 	void logServerInfo(ServletContext application) {
