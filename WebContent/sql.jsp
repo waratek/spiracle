@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+String username = request.getRemoteUser();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +31,14 @@
 					<li><a href="file.jsp">File</a></li>
 					<li><a href="network.jsp">Network</a></li>
 					<li class="active"><a href="sql.jsp">SQL</a></li>
+					<li><a href="${pageContext.request.contextPath}/logout">Logout <%= username %></a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
-		<h1>SQL Injection</h1>
+		<h1>SQL Injection!</h1>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -63,7 +66,7 @@
 			</div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-heading">Injectable URLS</div>
+			<div class="panel-heading">Injectable URLs</div>
 			<div class="panel-body">
 				<h3>Oracle</h3>
 				<table class="table table-hover">

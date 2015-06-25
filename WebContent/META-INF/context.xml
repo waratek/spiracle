@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="" reloadable="true">
+  <Realm className="org.apache.catalina.realm.JAASRealm" 
+    appName="SpiracleLogin"
+    userClassNames="com.waratek.spiracle.jaas.UserPrincipal,com.waratek.spiracle.jaas.PasswordPrincipal"
+    roleClassNames="com.waratek.spiracle.jaas.RolePrincipal" />
+</Context>

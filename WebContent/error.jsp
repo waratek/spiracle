@@ -1,3 +1,10 @@
+<%
+if ( request.getRemoteUser() != null )
+{
+            response.sendRedirect(request.getContextPath() 
+                    + "/index.jsp");
+}
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String username = request.getRemoteUser();
@@ -9,7 +16,7 @@ String username = request.getRemoteUser();
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Spiracle</title>
+    <title>Spiracle Login Page</title>
   </head>
 
   <body>
@@ -27,23 +34,21 @@ String username = request.getRemoteUser();
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-          <li class="active"><a href="index.jsp">Overview</a></li>
-          <li><a href="file.jsp">File</a></li>
-          <li><a href="network.jsp">Network</a></li>
-          <li><a href="sql.jsp">SQL</a></li>
-          <li><a href="${pageContext.request.contextPath}/logout">Logout <%= username %></a></li>
+          <li class="active"><a href="#">Login</a></li>
           </ul>
         </div>
       </div>
     </div>
    
     <div class="container">
-      <h1>Overview</h1>
-        <p class="lead">Spiracle is an insecure web application used to test system security controls.</p>
-        <p>It can be used to read/write arbitrary files and open network connections. The application is also vulnerable to SQL Injection.</p>
-        <p>Due to its insecure design, this application should NOT be deployed on an unsecured network.</p>
-                
-                    </div>
+      <h1>Error logging in</h1>
+      
+      <font size='4'>
+      <p>The username and/or the password you supplied are not valid.</p>
+      <p>Click <a href='<%= response.encodeURL("login.jsp") %>'>here</a> to retry login</p>
+      </font>
+
+    </div>
                     
     <footer class="footer">
       <div class="container">
