@@ -6,6 +6,7 @@ String username = request.getRemoteUser();
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -58,8 +59,13 @@ String username = request.getRemoteUser();
               <i>Remote Address</i>
             </p>
             Hostname <input type="text" name="remoteHost"> Port <input
-              type="text" name="remotePort"> <input type="submit"
+              type="text" name="remotePort">
+             <p>
+              <i>Text to send</i>
+            </p>
+            Text <input type="text" name="textToSend" width="50"> <input type="submit"
               value=Submit>
+              
           </form>
         </div>
         <div class="panel-footer">
