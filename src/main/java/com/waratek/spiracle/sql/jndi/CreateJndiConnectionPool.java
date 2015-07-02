@@ -1,6 +1,8 @@
 package com.waratek.spiracle.sql.jndi;
 
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,9 +15,6 @@ import org.apache.log4j.Logger;
 public class CreateJndiConnectionPool implements ServletContextListener {
 	private static final Logger logger = Logger.getLogger(CreateJndiConnectionPool.class);
 
-	@Resource(name = "jdbc/oracle")
-	DataSource ds;
-
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 
@@ -23,8 +22,15 @@ public class CreateJndiConnectionPool implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		ServletContext application = arg0.getServletContext();
-		application.setAttribute("jndiConnectionPool", ds);
+		try {
+			Context ctx = new InitialContext();
+			DataSource ds = (DataSource) ctx.lookup("jdbc/oracle");
+			ServletContext application = arg0.getServletContext();
+			application.setAttribute("jndiConnectionPool", ds);
 			logger.info("Added jndi connection pool " + ds + " to application context.");
+		} catch (NamingException e) {
+			logger.error("JNDI reference not found.");
+			e.printStackTrace();
+		}
 	}
 }
