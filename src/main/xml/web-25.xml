@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+    <display-name>Spiracle</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
+    <listener>
+        <listener-class>com.waratek.spiracle.init.SpiracleInit</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.waratek.spiracle.sql.jndi.CreateJndiConnectionPool</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.file.FileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet</servlet-name>
+        <url-pattern>/FileServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileUrlServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.file.FileUrlServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileUrlServlet</servlet-name>
+        <url-pattern>/FileUrlServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileResourceStreamServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.file.FileResourceStreamServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileResourceStreamServlet</servlet-name>
+        <url-pattern>/FileResourceStreamServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServerSocketServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.network.ServerSocketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServerSocketServlet</servlet-name>
+        <url-pattern>/ServerSocketServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SocketServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.network.SocketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SocketServlet</servlet-name>
+        <url-pattern>/SocketServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UrlServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.network.UrlServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UrlServlet</servlet-name>
+        <url-pattern>/UrlServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MsSql_Get_Implicit_Join</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_Implicit_Join</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MsSql_Get_Implicit_Join</servlet-name>
+        <url-pattern>/MsSql_Get_Implicit_Join</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MsSql_Get_int</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_int</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MsSql_Get_int</servlet-name>
+        <url-pattern>/MsSql_Get_int</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MsSql_Get_string</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_string</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MsSql_Get_string</servlet-name>
+        <url-pattern>/MsSql_Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MsSql_Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MsSql_Get_Union</servlet-name>
+        <url-pattern>/MsSql_Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MsSql_Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MsSql_Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/MsSql_Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MySql_Get_Implicit_Join</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mysql.MySql_Get_Implicit_Join</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySql_Get_Implicit_Join</servlet-name>
+        <url-pattern>/MySql_Get_Implicit_Join</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MySql_Get_int</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mysql.MySql_Get_int</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySql_Get_int</servlet-name>
+        <url-pattern>/MySql_Get_int</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MySql_Get_string</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mysql.MySql_Get_string</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySql_Get_string</servlet-name>
+        <url-pattern>/MySql_Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MySql_Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mysql.MySql_Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySql_Get_Union</servlet-name>
+        <url-pattern>/MySql_Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MySql_Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mysql.MySql_Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySql_Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/MySql_Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Delete_User</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Delete_User</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Delete_User</servlet-name>
+        <url-pattern>/Delete_User</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_Full_Outer_Join</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_Full_Outer_Join</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_Full_Outer_Join</servlet-name>
+        <url-pattern>/Get_Full_Outer_Join</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_Implicit_Join</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_Implicit_Join</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_Implicit_Join</servlet-name>
+        <url-pattern>/Get_Implicit_Join</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_groupby</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_groupby</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_groupby</servlet-name>
+        <url-pattern>/Get_int_groupby</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_having</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_having</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_having</servlet-name>
+        <url-pattern>/Get_int_having</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_inline</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_inline</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_inline</servlet-name>
+        <url-pattern>/Get_int_inline</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_no_quote</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_no_quote</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_no_quote</servlet-name>
+        <url-pattern>/Get_int_no_quote</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_nooutput</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_nooutput</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_nooutput</servlet-name>
+        <url-pattern>/Get_int_nooutput</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_orderby</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_orderby</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_orderby</servlet-name>
+        <url-pattern>/Get_int_orderby</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int_partialunion</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int_partialunion</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int_partialunion</servlet-name>
+        <url-pattern>/Get_int_partialunion</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_int</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_int</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_int</servlet-name>
+        <url-pattern>/Get_int</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_string_constructor</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string_constructor</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_string_constructor</servlet-name>
+        <url-pattern>/Get_string_constructor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_string_no_quote_sanitised</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string_no_quote_sanitised</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_string_no_quote_sanitised</servlet-name>
+        <url-pattern>/Get_string_no_quote_sanitised</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_string_no_quote</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string_no_quote</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_string_no_quote</servlet-name>
+        <url-pattern>/Get_string_no_quote</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_string_sanitised</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string_sanitised</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_string_sanitised</servlet-name>
+        <url-pattern>/Get_string_sanitised</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_string</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_string</servlet-name>
+        <url-pattern>/Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_Union</servlet-name>
+        <url-pattern>/Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Insert_Raw_Text_Sanitised</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Insert_Raw_Text_Sanitised</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Insert_Raw_Text_Sanitised</servlet-name>
+        <url-pattern>/Insert_Raw_Text_Sanitised</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Insert_Raw_Text</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Insert_Raw_Text</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Insert_Raw_Text</servlet-name>
+        <url-pattern>/Insert_Raw_Text</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Insert_User</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Insert_User</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Insert_User</servlet-name>
+        <url-pattern>/Insert_User</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Update_User</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Update_User</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Update_User</servlet-name>
+        <url-pattern>/Update_User</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateC3p0Connection</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.c3p0.CreateC3p0Connection</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateC3p0Connection</servlet-name>
+        <url-pattern>/CreateC3p0Connection</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateJavaConnection</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.java.CreateJavaConnection</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateJavaConnection</servlet-name>
+        <url-pattern>/CreateJavaConnection</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateSpringContext</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.spring.CreateSpringContext</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateSpringContext</servlet-name>
+        <url-pattern>/CreateSpringContext</url-pattern>
+    </servlet-mapping>
+</web-app>
