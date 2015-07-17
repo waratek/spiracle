@@ -32,6 +32,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.waratek.spiracle.sql.util.Constants;
+import java.text.MessageFormat;
 
 @WebListener
 public class SpiracleInit implements ServletContextListener {
@@ -41,8 +43,9 @@ public class SpiracleInit implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         ServletContext application = arg0.getServletContext();
-        ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute("connectionPool");
-        ds.close();
+        ((ComboPooledDataSource) application.getAttribute(Constants.ORACLE_CONNECTION_POOL)).close();
+        ((ComboPooledDataSource) application.getAttribute(Constants.MYSQL_CONNECTION_POOL)).close();
+        ((ComboPooledDataSource) application.getAttribute(Constants.MSSQL_CONNECTION_POOL)).close();
     }
 
     @Override
@@ -51,40 +54,49 @@ public class SpiracleInit implements ServletContextListener {
         Properties props = loadProperties(application);
         loadLog4jConfig(props);
         logServerInfo(application);
-        ComboPooledDataSource ds = getConnectionPool(props);
-        setConnectionPool(application, ds);
+
+        ComboPooledDataSource oracleDs = getConnectionPool(props, Constants.ORACLE);
+        setNamedConnectionPool(application, oracleDs, Constants.ORACLE_CONNECTION_POOL, Constants.ORACLE_CONNECTION_DATA);
+
+        ComboPooledDataSource mySqlDs = getConnectionPool(props, Constants.MYSQL);
+        setNamedConnectionPool(application, mySqlDs, Constants.MYSQL_CONNECTION_POOL, Constants.MYSQL_CONNECTION_DATA);
+
+        ComboPooledDataSource msSqlDs = getConnectionPool(props, Constants.MSSQL);
+        setNamedConnectionPool(application, msSqlDs, Constants.MSSQL_CONNECTION_POOL, Constants.MSSQL_CONNECTION_DATA);
+
         setDefaultConnection(application, props);
         setFetchSize(application, props);
         try {
-            Class.forName(props.getProperty("c3p0.classname"));
-            Class.forName(props.getProperty("java.classname"));
+            Class.forName(props.getProperty(Constants.C3P0_ORACLE_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_MYSQL_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
         } catch (ClassNotFoundException e) {
             logger.error("Unable to load JDBC connector classes from config.");
             e.printStackTrace();
         }
     }
 
-	private Properties loadProperties(ServletContext application) {
-		Properties props = new Properties();
-		try {
-			String filePath = application.getRealPath("conf/Spiracle.properties");
-			File propsFile;
-			InputStream propStream;
-			if(filePath !=  null) {
-				propsFile = new File(application.getRealPath("conf/Spiracle.properties"));
-				propStream = new FileInputStream(propsFile);
-			} else {
-				propStream = application.getResourceAsStream("conf/Spiracle.properties");
-			}
-			props.load(propStream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return props;
-	}
+    private Properties loadProperties(ServletContext application) {
+        Properties props = new Properties();
+        try {
+            String filePath = application.getRealPath("conf/Spiracle.properties");
+            File propsFile;
+            InputStream propStream;
+            if (filePath != null) {
+                propsFile = new File(application.getRealPath("conf/Spiracle.properties"));
+                propStream = new FileInputStream(propsFile);
+            } else {
+                propStream = application.getResourceAsStream("conf/Spiracle.properties");
+            }
+            props.load(propStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return props;
+    }
 
     private void loadLog4jConfig(Properties props) {
         Boolean loggingEnabled = Boolean.parseBoolean(((String) props.get("application.loggingEnabled")));
@@ -94,21 +106,21 @@ public class SpiracleInit implements ServletContextListener {
         }
     }
 
-    private void setConnectionPool(ServletContext application, ComboPooledDataSource ds) {
-        application.setAttribute("connectionPool", ds);
-        application.setAttribute("connectionData", ds.toString());
+    private void setNamedConnectionPool(ServletContext application, ComboPooledDataSource ds, String connectionName, String connectionData) {
+        application.setAttribute(connectionName, ds);
+        application.setAttribute(connectionData, ds.toString());
         logger.info("Added connection pool " + ds.getDataSourceName() + "to application context");
     }
 
-    private ComboPooledDataSource getConnectionPool(Properties props) {
+    private ComboPooledDataSource getConnectionPool(Properties props, String dbmsName) {
         ComboPooledDataSource ds = new ComboPooledDataSource();
-        String jdbcDriver = props.getProperty("c3p0.classname");
-        String url = props.getProperty("c3p0.url");
-        String username = props.getProperty("c3p0.username");
-        String password = props.getProperty("c3p0.password");
+        String jdbcDriver = props.getProperty(MessageFormat.format("c3p0.{0}.classname", dbmsName));
+        String url = props.getProperty(MessageFormat.format("c3p0.{0}.url", dbmsName));
+        String username = props.getProperty(MessageFormat.format("c3p0.{0}.username", dbmsName));
+        String password = props.getProperty(MessageFormat.format("c3p0.{0}.password", dbmsName));
         int maxPoolSize = 0;
         try {
-            maxPoolSize = Integer.parseInt(props.getProperty("c3p0.maxPoolSize"));
+            maxPoolSize = Integer.parseInt(props.getProperty(Constants.C3P0_POOL_SIZE));
         } catch (NumberFormatException e) {
             logger.error("c3p0.maxPoolSize not specified, default value set(25).");
             maxPoolSize = 25;
@@ -135,7 +147,7 @@ public class SpiracleInit implements ServletContextListener {
     private void setFetchSize(ServletContext application, Properties props) {
         int fetchSize = 0;
         try {
-            fetchSize = Integer.parseInt(props.getProperty("jdbc.fetchsize"));
+            fetchSize = Integer.parseInt(props.getProperty(Constants.JDBC_FETCH_SIZE));
             application.setAttribute("fetchSize", fetchSize);
             logger.info("Set jdbc.fetchsize to (" + fetchSize + ")");
         } catch (NumberFormatException e) {
@@ -144,8 +156,8 @@ public class SpiracleInit implements ServletContextListener {
     }
 
     private void setDefaultConnection(ServletContext application, Properties props) {
-        String defaultConnection = (String) props.get("default.connection");
-        application.setAttribute("defaultConnection", defaultConnection);
+        String defaultConnection = (String) props.get(Constants.DEFAULT_CONNECTION);
+        application.setAttribute(Constants.DEFAULT_CONNECTION, defaultConnection);
     }
 
     void logServerInfo(ServletContext application) {
