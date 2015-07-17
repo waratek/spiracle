@@ -29,26 +29,31 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 
 public class ConnectionUtil {
-	private static final Logger logger = Logger.getLogger(ParameterNullFix.class);
 
-	public static Connection getConnection(ServletContext application, String connectionType) throws SQLException {
-		Connection con = null;
-		logger.info("Connection Type: " + connectionType);
-		if(connectionType.equals("c3p0")) {
-			ComboPooledDataSource ds = (ComboPooledDataSource)application.getAttribute("connectionPool");
-			con = ds.getConnection();
-		} else if(connectionType.equals("java")) {
-			con = (Connection)application.getAttribute("connection");
-		} else if(connectionType.equals("spring")) {
-			FileSystemXmlApplicationContext context = (FileSystemXmlApplicationContext)application.getAttribute("springContext");
-			DriverManagerDataSource dmds = (DriverManagerDataSource)context.getBean("dataSource");
-			con = dmds.getConnection();
-		} else if(connectionType.equals("jndi")) {
-			DataSource ds = (DataSource) application.getAttribute("jndiConnectionPool");
-			con = ds.getConnection();
-		}
+    private static final Logger logger = Logger.getLogger(ParameterNullFix.class);
 
-		logger.info("Returning connection: " + con.toString());
-		return con;
-	}
+    public static Connection getConnection(ServletContext application, String connectionType) throws SQLException {
+        Connection con = null;
+        logger.info("Connection Type: " + connectionType);
+        if (connectionType.equals(Constants.C3P0_ORACLE)) {
+            ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute(Constants.ORACLE_CONNECTION_POOL);
+            con = ds.getConnection();
+        } else if (connectionType.equals(Constants.C3P0_MYSQL)) {
+            ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute(Constants.MYSQL_CONNECTION_POOL);
+            con = ds.getConnection();
+        } else if (connectionType.equals(Constants.C3P0_MSSQL)) {
+            ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute(Constants.MSSQL_CONNECTION_POOL);
+            con = ds.getConnection();
+        } else if (connectionType.equals("spring")) {
+            FileSystemXmlApplicationContext context = (FileSystemXmlApplicationContext) application.getAttribute("springContext");
+            DriverManagerDataSource dmds = (DriverManagerDataSource) context.getBean("dataSource");
+            con = dmds.getConnection();
+        } else if (connectionType.equals("jndi")) {
+            DataSource ds = (DataSource) application.getAttribute("jndiConnectionPool");
+            con = ds.getConnection();
+        }
+
+        logger.info("Returning connection: " + con.toString());
+        return con;
+    }
 }
