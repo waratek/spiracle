@@ -38,8 +38,8 @@ public class SelectUtil {
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
-		int fetchSize = (Integer) application.getAttribute("fetchSize");
-		String defaultConnection = (String) application.getAttribute("defaultConnection");
+		int fetchSize = (Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE);
+		String defaultConnection = (String) application.getAttribute(Constants.DEFAULT_CONNECTION);
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
