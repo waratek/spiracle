@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.waratek.spiracle.sql.util.Constants" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,30 +37,52 @@
 
 	<div class="container">
 		<h1>SQL Injection</h1>
-
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<a class="btn btn-primary" role="button" href="CreateC3p0Connection">Initalize
-					C3P0 Connection Pool</a>
+                <h5>Oracle C3P0 Connection Pool</h54>
 			</div>
 			<%
-				String connectionData = (String) application
-						.getAttribute("connectionData");
-				String errorMessage = (String) session.getAttribute("error");
-				if (connectionData == null) {
-					connectionData = "";
-				}
-				if (errorMessage == null) {
-					errorMessage = "";
+				String oracleConnectionData = (String) application
+						.getAttribute(Constants.ORACLE_CONNECTION_DATA);				
+				if (oracleConnectionData == null) {
+					oracleConnectionData = "";
 				}
 			%>
 			<div class="panel-footer">
 				Connection Information
-				<pre><%=connectionData%></pre>
+				<pre><%=oracleConnectionData%></pre>
 			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+                <h5>MySQL C3P0 Connection Pool</h5>
+			</div>
+			<%
+				String mySqlConnectionData = (String) application
+						.getAttribute(Constants.MYSQL_CONNECTION_DATA);				
+				if (mySqlConnectionData == null) {
+					mySqlConnectionData = "";
+				}
+			%>
 			<div class="panel-footer">
-				Error
-				<pre><%=errorMessage%></pre>
+				Connection Information
+				<pre><%=mySqlConnectionData%></pre>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+                <h5>MsSQL C3P0 Connection Pool</h5>
+			</div>
+			<%
+				String msSqlConnectionData = (String) application
+						.getAttribute(Constants.MSSQL_CONNECTION_DATA);				
+				if (msSqlConnectionData == null) {
+					msSqlConnectionData = "";
+				}
+			%>
+			<div class="panel-footer">
+				Connection Information
+				<pre><%=msSqlConnectionData%></pre>
 			</div>
 		</div>
 		<div class="panel panel-default">
