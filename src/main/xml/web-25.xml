@@ -372,15 +372,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CreateJavaConnection</servlet-name>
-        <servlet-class>com.waratek.spiracle.sql.java.CreateJavaConnection</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateJavaConnection</servlet-name>
-        <url-pattern>/CreateJavaConnection</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>CreateSpringContext</servlet-name>
         <servlet-class>com.waratek.spiracle.sql.spring.CreateSpringContext</servlet-class>
     </servlet>
