@@ -27,6 +27,7 @@
           <li><a href="file.jsp">File</a></li>
           <li class="active"><a href="network.jsp">Network</a></li>
           <li><a href="sql.jsp">SQL</a></li>
+          <li><a href="misc.jsp">Misc</a></li>
           </ul>
         </div>
       </div>

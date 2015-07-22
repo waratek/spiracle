@@ -75,6 +75,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>HttpRequestMethod</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.misc.HttpRequestMethodt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HttpRequestMethod</servlet-name>
+        <url-pattern>/HttpRequestMethod</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>MsSql_Get_Implicit_Join</servlet-name>
         <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_Implicit_Join</servlet-class>
     </servlet>
