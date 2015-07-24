@@ -148,7 +148,7 @@ public class SpiracleInit implements ServletContextListener {
         int fetchSize = 0;
         try {
             fetchSize = Integer.parseInt(props.getProperty(Constants.JDBC_FETCH_SIZE));
-            application.setAttribute("fetchSize", fetchSize);
+            application.setAttribute(Constants.JDBC_FETCH_SIZE, fetchSize);
             logger.info("Set jdbc.fetchsize to (" + fetchSize + ")");
         } catch (NumberFormatException e) {
             logger.error("jdbc.fetchsize not specified, default value set(10).");
