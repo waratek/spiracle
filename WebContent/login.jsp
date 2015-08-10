@@ -1,6 +1,13 @@
+<%
+if ( request.getRemoteUser() != null )
+{
+            response.sendRedirect(request.getContextPath() 
+                    + "/index.jsp");
+}
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
- String username = request.getRemoteUser();
+String username = request.getRemoteUser();
 %>
 <!DOCTYPE html>
 <html>
@@ -9,10 +16,11 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Spiracle</title>
+    <title>Spiracle Login Page</title>
   </head>
 
   <body>
+        
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -26,23 +34,30 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-          <li class="active"><a href="index.jsp">Overview</a></li>
-          <li><a href="file.jsp">File</a></li>
-          <li><a href="network.jsp">Network</a></li>
-          <li><a href="sql.jsp">SQL</a></li>
-	  <li><a href="${pageContext.request.contextPath}/logout">Logout <%= username %></a></li>
+          <li class="active"><a href="#">Login</a></li>
           </ul>
         </div>
       </div>
     </div>
-
+   
     <div class="container">
-      <h1>Overview</h1>
-        <p class="lead">Spiracle is an insecure web application used to test system security controls.</p>
-        <p>It can be used to read/write arbitrary files and open network connections. The application is also vulnerable to SQL Injection.</p>
-        <p>Due to its insecure design, this application should NOT be deployed on an unsecured network.</p>
+      <h1>Login</h1>
+            <form action='j_security_check' method='post'>
+            <table>
+             <tr>
+               <td>Name:</td>
+               <td><input type='text' name='j_username' size='15'></td>
+             </tr>
+             <tr>
+               <td>Password:</td> 
+               <td><input type='password' name='j_password' size='15'></td>
+             </tr>
+            </table>
+            <br>
+              <input type='submit' value='Login'> 
+            </form>
     </div>
-
+                    
     <footer class="footer">
       <div class="container">
         <ul class="list-inline">
@@ -54,7 +69,7 @@
         </ul>
       </div>
     </footer>
-
+    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

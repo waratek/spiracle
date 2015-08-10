@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+ String username = request.getRemoteUser();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +32,7 @@
 					<li><a href="file.jsp">File</a></li>
 					<li><a href="network.jsp">Network</a></li>
 					<li class="active"><a href="sql.jsp">SQL</a></li>
+					<li><a href="${pageContext.request.contextPath}/logout">Logout <%= username %></a></li>
 				</ul>
 			</div>
 		</div>

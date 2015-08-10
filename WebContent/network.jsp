@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+String username = request.getRemoteUser();
+%>
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -27,6 +31,7 @@
           <li><a href="file.jsp">File</a></li>
           <li class="active"><a href="network.jsp">Network</a></li>
           <li><a href="sql.jsp">SQL</a></li>
+          <li><a href="${pageContext.request.contextPath}/logout">Logout <%= username %></a></li>
           </ul>
         </div>
       </div>
@@ -54,8 +59,13 @@
               <i>Remote Address</i>
             </p>
             Hostname <input type="text" name="remoteHost"> Port <input
-              type="text" name="remotePort"> <input type="submit"
+              type="text" name="remotePort">
+             <p>
+              <i>Text to send</i>
+            </p>
+            Text <input type="text" name="textToSend" width="50"> <input type="submit"
               value=Submit>
+              
           </form>
         </div>
         <div class="panel-footer">
