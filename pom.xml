@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.waratek</groupId>
-    <artifactId>Spiracle</artifactId>
+    <artifactId>spiracle</artifactId>
     <packaging>war</packaging>
     <version>1.4.0</version>
-    <name>Spiracle</name>
+    <name>spiracle</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -15,7 +15,7 @@
     </properties>
 
     <build>
-        <finalName>Spiracle</finalName>
+        <finalName>spiracle</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
