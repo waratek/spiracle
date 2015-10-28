@@ -1,0 +1,67 @@
+= Spiracle XSS Demonstration
+
+Spiracle has support for reflected XSS through two vectors. The first is a simple mirroring of all input parameters onto the main XSS page.
+The second is a more complex demonstration with the ability to inject html into any position within a template page.
+
+== Reflected Parameters
+
+This section is will take every input parameter of a HTTP get request to the spiracle XSS page and present them back to the user in a list format.
+
+Internally the page will create a simple HTML table and the input will be added completely un sanitised. The rendered HTML is as follows:
+
+----
+<body>
+    <tr>
+        <td> payload </td>
+    </tr>
+</tbody>
+----
+
+The user has full control of the content of the td tag. This is suitable for running automated tests and simple test cases. Care needs to be taken to ensure that the injection attempt also maintains a valid html structure. This can limit the possibilities of injection, making the attack more complicated and specifically crafted.
+
+*Example Attack Payloads:*
+----
+http://localhost:8080/spiracle/xss.jsp?id=<script>alert("Hello World")</script>
+
+http://localhost:8080/spiracle/xss.jsp?id=<img onload="alert("Hello World")" src="http://path.to/image.png">
+----
+
+== Trapped Methods
+
+Reflected Parameters will only allow for injections in a specific section of a page similar to how a real XSS attack would function. The Trapped Methods section allows for a much more freeform approach to injections by working with a template file that has a substitution value in it. This can be moved to any point within the HTML and coupled with an input payload from any of the text input fields we can craft far more dangerous and focused payloads.
+The template file xss.html is contained in the root of the spiracle directory and can safely be edited while the application is running. To start an injection edit the template file to contain the string "XSS". This can be at any point but for maximum effectiveness and to mimic a real world behaviour it should be placed in either a tag content block.
+
+----
+<h2>XSS</h2>
+----
+
+Or as a attribute value i.e.
+
+----
+<a href="XSS">Click Me</a>
+----
+
+Once the substitution string is in place return to the XSS page in Spiracle and input the value you wish to inject in any of the provided text fields. Note that some of them include a 10 second wait before the action takes place. Each field corresponds to a different  output stream available as part of the Servlet API that can be used to write HTML data to the response object. The behaviour of the XSS detection does not change between each option.
+
+Once the payload is inputted and the submit button is selected Spiracle will load the template html file. The entire content is treated as a trusted source. The "XSS" character sequence is then replaced with the input payload. The resulting HTML is the written to the response object via the method specified in the chosen option.
+
+*Example Attack Payloads:*
+
+Substitution:
+----
+<h1 class="mega-ns">XSS</h1>
+----
+Input Value:
+----
+<img src="http://path.to/image.png"/>
+----
+Substitution:
+----
+<li> <a href="XSS" title="Home">Home</a> </li>
+----
+
+Input Values:
+----
+http://path.to/danger" title="Home">Home</a></li><li><a  href="#
+http://path.to/danger" title="Home" onclick="alert(document.cookie)">HELLO</a></li><li><a  href="#
+----
