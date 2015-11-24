@@ -391,7 +391,7 @@
 
     <servlet>
         <servlet-name>XSSWebAppHSRPW</servlet-name>
-        <servlet-class>XSSWebAppHSRPW</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppHSRPW</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppHSRPW</servlet-name>
@@ -399,7 +399,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>XSSWebAppHSRPWDelay</servlet-name>
-        <servlet-class>XSSWebAppHSRPWDelay</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppHSRPWDelay</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppHSRPWDelay</servlet-name>
@@ -408,7 +408,7 @@
 
     <servlet>
         <servlet-name>XSSWebAppHSRSOS</servlet-name>
-        <servlet-class>XSSWebAppHSRSOS</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppHSRSOS</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppHSRSOS</servlet-name>
@@ -416,7 +416,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>XSSWebAppHSRSOSDelay</servlet-name>
-        <servlet-class>XSSWebAppHSRSOSDelay</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppHSRSOSDelay</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppHSRSOSDelay</servlet-name>
@@ -425,7 +425,7 @@
 
     <servlet>
         <servlet-name>XSSWebAppSRPW</servlet-name>
-        <servlet-class>XSSWebAppSRPW</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppSRPW</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppSRPW</servlet-name>
@@ -433,7 +433,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>XSSWebAppSRPWDelay</servlet-name>
-        <servlet-class>XSSWebAppSRPWDelay</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppSRPWDelay</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppSRPWDelay</servlet-name>
@@ -442,7 +442,7 @@
 
     <servlet>
         <servlet-name>XSSWebAppSRSOS</servlet-name>
-        <servlet-class>XSSWebAppSRSOS</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppSRSOS</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppSRSOS</servlet-name>
@@ -450,7 +450,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>XSSWebAppSRSOSDelay</servlet-name>
-        <servlet-class>XSSWebAppSRSOSDelay</servlet-class>
+        <servlet-class>com.waratek.spiracle.xss.XSSWebAppSRSOSDelay</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>XSSWebAppSRSOSDelay</servlet-name>
