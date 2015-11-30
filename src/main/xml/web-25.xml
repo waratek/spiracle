@@ -76,7 +76,7 @@
 
     <servlet>
         <servlet-name>HttpRequestMethod</servlet-name>
-        <servlet-class>com.waratek.spiracle.sql.servlet.misc.HttpRequestMethodt</servlet-class>
+        <servlet-class>com.waratek.spiracle.sql.servlet.misc.HttpRequestMethod</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HttpRequestMethod</servlet-name>
