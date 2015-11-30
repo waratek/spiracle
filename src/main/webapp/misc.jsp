@@ -72,6 +72,15 @@
 				Return Value: <%=methodReturn%>
 			</div>
 		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Crash JVM</div>            
+			<div class="panel-body">                
+				<form action="CrashJvm" method="post">
+					<input type="submit" class="btn btn-danger btn-lg active" title="This will crash your JVM" value="Danger!">
+				</form>
+			</div>
+            <div class="panel-footer">Use sun.misc.Unsafe to directly address internal JVM address space and hard crash the JVM.</div>
+		</div>
 	</div>
 
 	<footer class="footer">
