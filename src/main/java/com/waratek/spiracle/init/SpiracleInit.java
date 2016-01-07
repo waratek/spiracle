@@ -54,6 +54,7 @@ public class SpiracleInit implements ServletContextListener {
         Properties props = loadProperties(application);
         loadLog4jConfig(props);
         logServerInfo(application);
+        setDefaultErrorCode(application, props);
 
         ComboPooledDataSource oracleDs = getConnectionPool(props, Constants.ORACLE);
         setNamedConnectionPool(application, oracleDs, Constants.ORACLE_CONNECTION_POOL, Constants.ORACLE_CONNECTION_DATA);
@@ -163,5 +164,9 @@ public class SpiracleInit implements ServletContextListener {
     void logServerInfo(ServletContext application) {
         logger.info("Application Server Name: " + application.getServerInfo());
         logger.info("Application Context Path:" + application.getRealPath(""));
+    }
+    
+    void setDefaultErrorCode(ServletContext application, Properties props) {
+        application.setAttribute("defaultError", props.getProperty("waratek.error"));
     }
 }
