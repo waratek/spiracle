@@ -30,6 +30,7 @@
 					<li><a href="network.jsp">Network</a></li>
 					<li><a href="sql.jsp">SQL</a></li>
                     <li><a href="xss.jsp">XSS</a></li>
+                    <li><a href="csrf.jsp">CSRF</a></li>
 					<li class="active"><a href="misc.jsp">Misc</a></li>
 				</ul>
 			</div>

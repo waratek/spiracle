@@ -30,8 +30,9 @@
 					<li><a href="file.jsp">File</a></li>
 					<li><a href="network.jsp">Network</a></li>
 					<li class="active"><a href="sql.jsp">SQL</a></li>
-                    <li><a href="xss.jsp">XSS</a></li>
-                    <li><a href="misc.jsp">Misc</a></li>
+					<li><a href="xss.jsp">XSS</a></li>
+					<li><a href="csrf.jsp">CSRF</a></li>
+					<li><a href="misc.jsp">Misc</a></li>
 				</ul>
 			</div>
 		</div>
@@ -41,7 +42,7 @@
 		<h1>SQL Injection</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-                <h5>Oracle C3P0 Connection Pool</h54>
+                <h5>Oracle C3P0 Connection Pool</h5>
 			</div>
 			<%
 				String oracleConnectionData = (String) application
