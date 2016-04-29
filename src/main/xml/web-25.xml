@@ -39,6 +39,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>FileExecServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.file.FileExecServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileExecServlet</servlet-name>
+        <url-pattern>/FileExecServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>FileResourceStreamServlet</servlet-name>
         <servlet-class>com.waratek.spiracle.file.FileResourceStreamServlet</servlet-class>
     </servlet>
