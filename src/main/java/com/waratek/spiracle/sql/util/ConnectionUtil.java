@@ -44,6 +44,9 @@ public class ConnectionUtil {
         } else if (connectionType.equals(Constants.C3P0_MSSQL)) {
             ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute(Constants.MSSQL_CONNECTION_POOL);
             con = ds.getConnection();
+        } else if (connectionType.equals(Constants.C3P0_DB2)) {
+            ComboPooledDataSource ds = (ComboPooledDataSource) application.getAttribute(Constants.DB2_CONNECTION_POOL);
+            con = ds.getConnection();
         } else if (connectionType.equals("spring")) {
             FileSystemXmlApplicationContext context = (FileSystemXmlApplicationContext) application.getAttribute("springContext");
             DriverManagerDataSource dmds = (DriverManagerDataSource) context.getBean("dataSource");

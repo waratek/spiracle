@@ -64,12 +64,16 @@ public class SpiracleInit implements ServletContextListener {
 
         ComboPooledDataSource msSqlDs = getConnectionPool(props, Constants.MSSQL);
         setNamedConnectionPool(application, msSqlDs, Constants.MSSQL_CONNECTION_POOL, Constants.MSSQL_CONNECTION_DATA);
+        
+        ComboPooledDataSource db2SqlDs = getConnectionPool(props, Constants.DB2);
+        setNamedConnectionPool(application, db2SqlDs, Constants.DB2_CONNECTION_POOL, Constants.DB2_CONNECTION_DATA);
 
         setDefaultConnection(application, props);
         setFetchSize(application, props);
         try {
             Class.forName(props.getProperty(Constants.C3P0_ORACLE_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MYSQL_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
         } catch (ClassNotFoundException e) {
             logger.error("Unable to load JDBC connector classes from config.");
