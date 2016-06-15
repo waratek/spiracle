@@ -23,7 +23,7 @@ public class Constants {
     public static final String C3P0_ORACLE_CLASSNAME = "c3p0.oracle.classname";
     public static final String C3P0_MYSQL_CLASSNAME = "c3p0.mysql.classname";
     public static final String C3P0_MSSQL_CLASSNAME = "c3p0.mssql.classname";
-    public static final String C3P0_DB2L_CLASSNAME = "c3p0.db2.classname";
+    public static final String C3P0_DB2_CLASSNAME = "c3p0.db2.classname";
 
     public static final String ORACLE = "oracle";
     public static final String MYSQL = "mysql";

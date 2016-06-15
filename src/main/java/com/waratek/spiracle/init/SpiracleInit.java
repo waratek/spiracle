@@ -74,7 +74,7 @@ public class SpiracleInit implements ServletContextListener {
             Class.forName(props.getProperty(Constants.C3P0_ORACLE_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MYSQL_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
-            Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_DB2_CLASSNAME));
         } catch (ClassNotFoundException e) {
             logger.error("Unable to load JDBC connector classes from config.");
             e.printStackTrace();
