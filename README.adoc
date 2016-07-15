@@ -117,26 +117,26 @@ http://ip:port/spiracle/
 Prerequisites:
 
 * Java >= 1.6
-* Apache Ant
+* Apache Maven
 * link:http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html[Oracle Database JDBC Driver] (ojdbc6.jar)
 
-If you wish to use the database features, ensure that the Oracle database JDBC driver file `ojdbc6.jar` is available under `./WebContent/WEB-INF/lib`
+If you wish to use the database features, ensure that the Oracle database JDBC driver file `ojdbc6.jar` is available under `./src/main/webapp/WEB-INF/lib`
 
 To build the Spiracle Test Application WAR file, run:
 
- $ ant
+ $ mvn install -Dversion.webxml=30
 
 or
 
- $ ant build
+ $ mvn install -Dversion.webxml=25
 
 To clean the build infrastructure, run:
 
- $ ant clean
+ $ mvn clean
 
 The WAR file will be output to:
 
- ./build/spiracle.war
+ ./target/Spiracle.war
 
 == License
 
@@ -155,3 +155,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ----
+

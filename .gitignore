@@ -1,2 +1,2 @@
-/build/
-WebContent/WEB-INF/lib/ojdbc6.jar
+/target/
+/src/main/webapp/WEB-INF/lib/ojdbc6.jar
