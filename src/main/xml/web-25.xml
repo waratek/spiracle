@@ -39,6 +39,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>FileExecServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.file.FileExecServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileExecServlet</servlet-name>
+        <url-pattern>/FileExecServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>FileResourceStreamServlet</servlet-name>
         <servlet-class>com.waratek.spiracle.file.FileResourceStreamServlet</servlet-class>
     </servlet>
@@ -171,6 +180,78 @@
     <servlet-mapping>
         <servlet-name>MySql_Implicit_Join_Namespace</servlet-name>
         <url-pattern>/MySql_Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_Union</servlet-name>
+        <url-pattern>/Db2_Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_Union_quote_id</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_Union_quote_id</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_Union_quote_id</servlet-name>
+        <url-pattern>/Db2_Get_Union_quote_id</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_int</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_int</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_int</servlet-name>
+        <url-pattern>/Db2_Get_int</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_int_quote_id</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_int_quote_id</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_int_quote_id</servlet-name>
+        <url-pattern>/Db2_Get_int_quote_id</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_string</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_istring</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_string</servlet-name>
+        <url-pattern>/Db2_Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_string_quote_id</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_istring_quote_id</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_string_quote_id</servlet-name>
+        <url-pattern>/Db2_Get_string_quote_id</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/Db2_Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Implicit_Join_Namespace_quote_id</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Implicit_Join_Namespace_quote_id</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Implicit_Join_Namespace_quote_id</servlet-name>
+        <url-pattern>/Db2_Implicit_Join_Namespace_quote_id</url-pattern>
     </servlet-mapping>
 
     <servlet>

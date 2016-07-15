@@ -54,6 +54,7 @@ public class SpiracleInit implements ServletContextListener {
         Properties props = loadProperties(application);
         loadLog4jConfig(props);
         logServerInfo(application);
+        setDefaultErrorCode(application, props);
 
         ComboPooledDataSource oracleDs = getConnectionPool(props, Constants.ORACLE);
         setNamedConnectionPool(application, oracleDs, Constants.ORACLE_CONNECTION_POOL, Constants.ORACLE_CONNECTION_DATA);
@@ -63,6 +64,9 @@ public class SpiracleInit implements ServletContextListener {
 
         ComboPooledDataSource msSqlDs = getConnectionPool(props, Constants.MSSQL);
         setNamedConnectionPool(application, msSqlDs, Constants.MSSQL_CONNECTION_POOL, Constants.MSSQL_CONNECTION_DATA);
+        
+        ComboPooledDataSource db2SqlDs = getConnectionPool(props, Constants.DB2);
+        setNamedConnectionPool(application, db2SqlDs, Constants.DB2_CONNECTION_POOL, Constants.DB2_CONNECTION_DATA);
 
         setDefaultConnection(application, props);
         setFetchSize(application, props);
@@ -70,6 +74,7 @@ public class SpiracleInit implements ServletContextListener {
             Class.forName(props.getProperty(Constants.C3P0_ORACLE_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MYSQL_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_DB2_CLASSNAME));
         } catch (ClassNotFoundException e) {
             logger.error("Unable to load JDBC connector classes from config.");
             e.printStackTrace();
@@ -163,5 +168,9 @@ public class SpiracleInit implements ServletContextListener {
     void logServerInfo(ServletContext application) {
         logger.info("Application Server Name: " + application.getServerInfo());
         logger.info("Application Context Path:" + application.getRealPath(""));
+    }
+    
+    void setDefaultErrorCode(ServletContext application, Properties props) {
+        application.setAttribute("defaultError", props.getProperty("waratek.error"));
     }
 }

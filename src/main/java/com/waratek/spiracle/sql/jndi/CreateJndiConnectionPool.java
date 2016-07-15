@@ -24,7 +24,7 @@ public class CreateJndiConnectionPool implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		try {
 			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("jdbc/oracle");
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
 			ServletContext application = arg0.getServletContext();
 			application.setAttribute("jndiConnectionPool", ds);
 			logger.info("Added jndi connection pool " + ds + " to application context.");

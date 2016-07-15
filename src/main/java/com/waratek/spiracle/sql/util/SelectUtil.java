@@ -73,7 +73,8 @@ public class SelectUtil {
 			writeToResponse(allResults, showOutput, out, rs);
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
-				response.setStatus(550);
+                int error = Integer.parseInt((String) application.getAttribute("defaultError"));
+				response.setStatus(error);
 			} else {
 				response.setStatus(500);
 			}

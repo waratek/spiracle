@@ -72,6 +72,16 @@
 						type="submit" value=Submit>
 				</form>
 			</div>
+                        
+                        <div class="panel-heading"> File Exec</div>
+			<div class="panel-body">
+				<form id="fileExec" action="FileExecServlet"
+					method="post">
+					Path: <input type="text" name="cmd"> <input
+						type="submit" value=Submit>
+				</form>
+			</div>
+                        
 			<div class="panel-footer">Text Data</div>
 			<div class="panel-body">
 				<pre>
