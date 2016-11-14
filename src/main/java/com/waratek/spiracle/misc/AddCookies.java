@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 
@@ -36,6 +37,10 @@ public class AddCookies extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        ServletConfig config = getServletConfig();
+        int servletMajorVersion = config.getServletContext().getMajorVersion();
+        int httpOnlyMinServletVersion = 3;
+
         String secureString = "Secure";
         String httpOnlyString = "HttpOnly";
         String cookiePath = "/";
@@ -53,7 +58,9 @@ public class AddCookies extends HttpServlet {
         Cookie testCookieSecureHttpOnly1 = new Cookie("TestCookieNameSecureHttpOnly1", "TestCookieValueSecureHttpOnly1");
         Cookie testCookieSecureHttpOnly2 = new Cookie("TestCookieNameSecureHttpOnly2", "TestCookieValueSecureHttpOnly2");
 
-        Cookie[] cookies = {testCookieDefault1, testCookieDefault2, testCookieSecure1, testCookieSecure2};
+        Cookie[] cookies = {testCookieDefault1, testCookieDefault2, testCookieSecure1, testCookieSecure2,
+                            testCookieHttpOnly1, testCookieHttpOnly2, testCookieSecureHttpOnly1,
+                            testCookieSecureHttpOnly2};
 
         for (int i = 0; i < cookies.length; i++) {
             Cookie newCookie = cookies[i];
@@ -65,9 +72,13 @@ public class AddCookies extends HttpServlet {
                 newCookie.setSecure(true);
             }
 
-//            if(newCookie.getName().contains(httpOnlyString)){
-//                newCookie.setHttpOnly(true);
-//            }
+            if(newCookie.getName().contains(httpOnlyString)){
+
+                if(servletMajorVersion >= httpOnlyMinServletVersion){
+                    newCookie.setHttpOnly(true);
+                }
+
+            }
 
             response.addCookie(newCookie);
         }
