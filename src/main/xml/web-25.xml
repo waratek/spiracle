@@ -537,4 +537,22 @@
         <servlet-name>XSSWebAppSRSOSDelay</servlet-name>
         <url-pattern>/XSSWebAppSRSOSDelay</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendRedirect</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.SendRedirect</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendRedirect</servlet-name>
+        <url-pattern>/SendRedirect</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddCookies</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.AddCookies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddCookies</servlet-name>
+        <url-pattern>/AddCookies</url-pattern>
+    </servlet-mapping>
 </web-app>
