@@ -15,31 +15,7 @@
     </head>
 
     <body>
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.jsp">Spiracle</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="index.jsp">Overview</a></li>
-                        <li><a href="file.jsp">File</a></li>
-                        <li><a href="network.jsp">Network</a></li>
-                        <li><a href="sql.jsp">SQL</a></li>
-                        <li class="active"><a href="xss.jsp">XSS</a></li>
-                        <li><a href="csrf.jsp">CSRF</a></li>
-                        <li><a href="pathTraversal.jsp">Path Traversal</a></li>
-                        <li><a href="misc.jsp">Misc</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <%@ include file="header.jsp" %>
 
         <div class="container">
             <%
@@ -152,17 +128,7 @@
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="container">
-                <ul class="list-inline">
-                    <li><a href="./LICENSE.html">License</a></li>
-                    <li>&middot;</li>
-                    <li><a href="https://github.com/waratek/spiracle">GitHub</a></li>
-                    <li>&middot;</li>
-                    <li><a href="https://github.com/waratek/spiracle/releases">Releases</a></li>
-                </ul>
-            </div>
-        </footer>
+        <%@ include file="footer.jsp" %>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
