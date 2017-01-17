@@ -249,7 +249,20 @@
 				<a HREF="index.jsp">A HREF="index.jsp"</a><br/>
 				<a href="http://www.google.com">a href="http://www.google.com"</a><br/>
 				<a href="google.com">a href="google.com"</a><br/>
+			</div>
+
+            <div class="panel-heading">a href tags with anchors</div>
+            <div class="panel-body">
 				<a href="#">a href="#"</a><br/>
+				<a href="#foo">a href="#foo"</a><br/>
+				<a href="index.jsp#foo">a href="index.jsp#foo"</a><br/>
+				<a href="file.jsp#foo">a href="file.jsp#foo"</a><br/>
+				<a href="network.jsp#foo">a href="network.jsp#foo"</a><br/>
+				<a href="sql.jsp#foo">a href="sql.jsp#foo"</a><br/>
+				<a href="xss.jsp#foo">a href="xss.jsp#foo"</a><br/>
+				<a href="csrf.jsp#foo">a href="csrf.jsp#foo"</a><br/>
+				<a href="pathTraversal.jsp#foo">a href="pathTraversal.jsp#foo"</a><br/>
+				<a href="misc.jsp#foo">a href="misc.jsp#foo"</a><br/>
 			</div>
 		</div>
 
