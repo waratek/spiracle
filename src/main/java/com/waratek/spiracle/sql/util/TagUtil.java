@@ -15,6 +15,8 @@
  */
 package com.waratek.spiracle.sql.util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
@@ -35,29 +37,30 @@ public class TagUtil {
 	}
 
 	static void printPageNavbar(ServletOutputStream out) throws IOException {
-		out.println("<div class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">");
-		out.println("<div class=\"container\">");
-		out.println("<div class=\"navbar-header\">");
-		out.println("<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">");
-		out.println("<span class=\"sr-only\">Toggle navigation</span>");
-		out.println("<span class=\"icon-bar\"></span>");
-		out.println("<span class=\"icon-bar\"></span>");
-		out.println("<span class=\"icon-bar\"></span>");
-		out.println("</button>");
-		out.println("<a class=\"navbar-brand\" href=\"index.jsp\">Spiracle</a>");
-		out.println("</div>");
-		out.println("<div class=\"navbar-collapse collapse\">");
-		out.println("<ul class=\"nav navbar-nav\">");
-		out.println("<li><a href=\"index.jsp\">Overview</a></li>");
-		out.println("<li><a href=\"file.jsp\">File</a></li>");
-		out.println("<li><a href=\"network.jsp\">Network</a></li>");
-		out.println("<li class=\"active\"><a href=\"sql.jsp\">SQL</a></li>");
-        out.println("<li><a href=\"xss.jsp\">XSS</a></li>");
-        out.println("<li><a href=\"misc.jsp\">Misc</a></li>");
-		out.println("</ul>");
-		out.println("</div>");
-		out.println("</div>");
-		out.println("</div>");
+//		out.println("<div class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">");
+//		out.println("<div class=\"container\">");
+//		out.println("<div class=\"navbar-header\">");
+//		out.println("<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">");
+//		out.println("<span class=\"sr-only\">Toggle navigation</span>");
+//		out.println("<span class=\"icon-bar\"></span>");
+//		out.println("<span class=\"icon-bar\"></span>");
+//		out.println("<span class=\"icon-bar\"></span>");
+//		out.println("</button>");
+//		out.println("<a class=\"navbar-brand\" href=\"index.jsp\">Spiracle</a>");
+//		out.println("</div>");
+//		out.println("<div class=\"navbar-collapse collapse\">");
+//		out.println("<ul class=\"nav navbar-nav\">");
+//		out.println("<li><a href=\"index.jsp\">Overview</a></li>");
+//		out.println("<li><a href=\"file.jsp\">File</a></li>");
+//		out.println("<li><a href=\"network.jsp\">Network</a></li>");
+//		out.println("<li class=\"active\"><a href=\"sql.jsp\">SQL</a></li>");
+//        out.println("<li><a href=\"xss.jsp\">XSS</a></li>");
+//        out.println("<li><a href=\"misc.jsp\">Misc</a></li>");
+//		out.println("</ul>");
+//		out.println("</div>");
+//		out.println("</div>");
+//		out.println("</div>");
+		insertStyle("header");
 	}
 
 	static void printContentDiv(ServletOutputStream out) throws IOException {
@@ -71,4 +74,48 @@ public class TagUtil {
 		out.println("<script src=\"js/bootstrap.min.js\"></script>");
 		out.println("</body></html>");
 	}
+	
+	static void insertStyle(String style) {
+		String header = ("src/main/webapp/"+style+".jsp");
+		String footer = ("src/main/webapp/"+style+".jsp");
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			fr = new FileReader(footer);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(footer));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+
+	}
+	
 }
