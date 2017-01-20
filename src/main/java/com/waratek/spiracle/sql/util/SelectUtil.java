@@ -46,6 +46,7 @@ public class SelectUtil {
 
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
+		// TagUtil.printStyle(out , "header");
 		TagUtil.printContentDiv(out);
 
 		try {
@@ -162,7 +163,7 @@ public class SelectUtil {
 		TagUtil.printPageFooter(out);
 	}
 
-	private static void 	(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
+	private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
 		out.println("<TR>");
 		for(int i = 1; i <= metaData.getColumnCount(); i++) {
 			Object content = rs.getObject(i);

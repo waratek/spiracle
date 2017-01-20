@@ -23,12 +23,12 @@ public class HeaderFooterPrintTest {
 
 		try {
 
-			fr = new FileReader(footer);
+			fr = new FileReader(header);
 			br = new BufferedReader(fr);
 
 			String sCurrentLine;
 
-			br = new BufferedReader(new FileReader(footer));
+			br = new BufferedReader(new FileReader(header));
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				System.out.println(sCurrentLine);

@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-theme.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
 
-<title>Spiracle - Path Traversal</title>
-</head>
-
-<body>
 	  <%@ include file="header.jsp" %>
 
     <div class="container">
@@ -173,13 +161,4 @@
             </div>
         </div>
     </div>
-
     <%@ include file="footer.jsp" %>
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-</body>
-</html>

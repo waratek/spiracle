@@ -1,93 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Spiracle - Network</title>
-  </head>
 
-  <body>
-    <%@ include file="header.jsp" %>
+  <%@ include file="header.jsp" %>
+  <div class="container">
+    <h1>Network</h1>
 
-    <div class="container">
-      <h1>Network</h1>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">Socket</div>
-        <div class="panel-body">
-          <form action="SocketServlet" method="post">
-            <%
-              String socketInfo = (String) session.getAttribute("socketInfo");
-              if (socketInfo == null) {
-                socketInfo = "";
-              }
-            %>
-            <p>
-              <i>Local Binding Address</i>
-            </p>
-            Hostname <input type="text" name="bindHost"> Port <input
-              type="text" name="bindPort">
-            <p>
-              <i>Remote Address</i>
-            </p>
-            Hostname <input type="text" name="remoteHost"> Port <input
-              type="text" name="remotePort"> <input type="submit"
-              value=Submit>
-          </form>
-        </div>
-        <div class="panel-footer">
-          Connection Info:
-          <%=socketInfo%></div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">Server Socket</div>
-        <div class="panel-body">
+    <div class="panel panel-default">
+      <div class="panel-heading">Socket</div>
+      <div class="panel-body">
+        <form action="SocketServlet" method="post">
           <%
-            String serverSocketInfo = (String) session
-                .getAttribute("serverSocketInfo");
-            if (serverSocketInfo == null) {
-              serverSocketInfo = "";
+            String socketInfo = (String) session.getAttribute("socketInfo");
+            if (socketInfo == null) {
+              socketInfo = "";
             }
           %>
-          <h2>Server Socket</h2>
-          <form action="ServerSocketServlet" method="post">
-            Hostname <input type="text" name="hostname"> Port <input
-              type="text" name="port"> <input type="submit" value=Submit>
-          </form>
-        </div>
-        <div class="panel-footer">
-          Connection Info:
-          <%=serverSocketInfo%></div>
+          <p>
+            <i>Local Binding Address</i>
+          </p>
+          Hostname <input type="text" name="bindHost"> Port <input
+            type="text" name="bindPort">
+          <p>
+            <i>Remote Address</i>
+          </p>
+          Hostname <input type="text" name="remoteHost"> Port <input
+            type="text" name="remotePort"> <input type="submit"
+            value=Submit>
+        </form>
       </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">URL</div>
-        <div class="panel-body">
-          <%
-            String urlData = (String) session.getAttribute("urlContents");
-            if (urlData == null) {
-              urlData = "";
-            }
-          %>
-          <form action="UrlServlet" method="post">
-            Url: <input type="text" name="urlPath"> <input
-              type="submit" value=Submit>
-          </form>
-        </div>
-        <div class="panel-footer">
-          <pre><textarea readonly id="network_output"><%=urlData%></textarea></pre>
-        </div>
+      <div class="panel-footer">
+        Connection Info:
+        <%=socketInfo%></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Server Socket</div>
+      <div class="panel-body">
+        <%
+          String serverSocketInfo = (String) session
+              .getAttribute("serverSocketInfo");
+          if (serverSocketInfo == null) {
+            serverSocketInfo = "";
+          }
+        %>
+        <h2>Server Socket</h2>
+        <form action="ServerSocketServlet" method="post">
+          Hostname <input type="text" name="hostname"> Port <input
+            type="text" name="port"> <input type="submit" value=Submit>
+        </form>
+      </div>
+      <div class="panel-footer">
+        Connection Info:
+        <%=serverSocketInfo%></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">URL</div>
+      <div class="panel-body">
+        <%
+          String urlData = (String) session.getAttribute("urlContents");
+          if (urlData == null) {
+            urlData = "";
+          }
+        %>
+        <form action="UrlServlet" method="post">
+          Url: <input type="text" name="urlPath"> <input
+            type="submit" value=Submit>
+        </form>
+      </div>
+      <div class="panel-footer">
+        <pre><textarea readonly id="network_output"><%=urlData%></textarea></pre>
       </div>
     </div>
+  </div>
 
-    <%@ include file="footer.jsp" %>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </body>
-</html>
+  <%@ include file="footer.jsp" %>
