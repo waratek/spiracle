@@ -12,13 +12,6 @@
     <jsp:param name="fileName" value="misc" />
   </jsp:include>
 
-    <div class="container">
-      <h1>Overview</h1>
-        <p class="lead">Spiracle is an insecure web application used to test system security controls.</p>
-        <p>It can be used to read/write arbitrary files and open network connections. The application is also vulnerable to SQL Injection.</p>
-        <p>Due to its insecure design, this application should NOT be deployed on an unsecured network.</p>
-    </div>
-
         <div class="container">
             <%
                 String methodReturn = (String) session.getAttribute("methodReturn");
