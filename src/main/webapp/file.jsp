@@ -2,7 +2,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="File" />
-    <jsp:param name="fileName" value="file" />
   </jsp:include>
 
 	<div class="container">

@@ -6,7 +6,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="XSS" />
-    <jsp:param name="fileName" value="xss" />
   </jsp:include>
 
         <div class="container">

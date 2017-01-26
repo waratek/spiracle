@@ -2,7 +2,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="Overview" />
-    <jsp:param name="fileName" value="index" />
   </jsp:include>
 
     <div class="container">

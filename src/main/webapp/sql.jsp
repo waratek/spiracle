@@ -3,7 +3,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="SQL" />
-    <jsp:param name="fileName" value="sql" />
   </jsp:include>
 
         <div class="container">

@@ -9,7 +9,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="Misc" />
-    <jsp:param name="fileName" value="misc" />
   </jsp:include>
 
         <div class="container">

@@ -2,7 +2,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="CSRF" />
-    <jsp:param name="fileName" value="csrf" />
   </jsp:include>
 
     <div class="container">

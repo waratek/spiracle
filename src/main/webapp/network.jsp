@@ -2,7 +2,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="Network" />
-    <jsp:param name="fileName" value="network" />
   </jsp:include>
 
     <div class="container">

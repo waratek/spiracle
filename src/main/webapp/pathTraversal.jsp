@@ -2,7 +2,6 @@
 
   <jsp:include page="header.jsp" >
     <jsp:param name="pageName" value="Path Traversal" />
-    <jsp:param name="fileName" value="pathTraversal" />
   </jsp:include>
 
     <div class="container">
