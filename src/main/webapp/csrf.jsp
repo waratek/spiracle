@@ -228,6 +228,8 @@
 				<a href="csrf.jsp#foo">a href="csrf.jsp#foo"</a><br/>
 				<a href="pathTraversal.jsp#foo">a href="pathTraversal.jsp#foo"</a><br/>
 				<a href="misc.jsp#foo">a href="misc.jsp#foo"</a><br/>
+				<a href="http://www.google.com#foo">a href="http://www.google.com#foo"</a><br/>
+				<a href="google.com#foo">a href="google.com#foo"</a><br/>
 			</div>
 		</div>
 
