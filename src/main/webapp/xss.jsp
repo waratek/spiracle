@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.ArrayList"%>
