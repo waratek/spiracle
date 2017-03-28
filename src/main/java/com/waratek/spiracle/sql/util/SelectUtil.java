@@ -128,7 +128,6 @@ public class SelectUtil {
 					logger.error(conCloseException);
 				}
 			}
-			TagUtil.printPageFooter(out);
 			out.close();
 		}
 	}
