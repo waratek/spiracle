@@ -35,7 +35,7 @@ public class UpdateUtil {
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
-		
+
 		PreparedStatement stmt = null;
 
 		TagUtil.printPageHead(out);
@@ -62,13 +62,12 @@ public class UpdateUtil {
 			logger.info("Created PreparedStatement: " + sql);
 			int result = stmt.executeUpdate();
 			logger.info("Executed: " + sql);
-			
+
 			out.println("<h1>Altered Rows:</h1>");
 			out.print("<pre>" + result + "</pre>");
-			TagUtil.printPageFooter(out);
 		} catch(SQLException e) {
 			if(e.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
-                int error = Integer.parseInt((String) application.getAttribute("defaultError"));                
+                int error = Integer.parseInt((String) application.getAttribute("defaultError"));
 				response.setStatus(error);
 			} else {
 				response.setStatus(500);
