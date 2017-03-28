@@ -128,6 +128,7 @@ public class SelectUtil {
 					logger.error(conCloseException);
 				}
 			}
+			TagUtil.printPageFooter(out);
 			out.close();
 		}
 	}
@@ -158,7 +159,6 @@ public class SelectUtil {
 		}
 
 		out.println("</TABLE>");
-		TagUtil.printPageFooter(out);
 	}
 
 	private static void writeRow(ServletOutputStream out, ResultSet rs, ResultSetMetaData metaData) throws IOException, SQLException {
