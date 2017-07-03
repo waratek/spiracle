@@ -56,7 +56,9 @@ public class FileServlet03 extends HttpServlet {
         String newLine = System.getProperty("line.separator");
 
         String testFileName = request.getParameter("File03");
-        File fileTarget = new File(testFileName);
+        String absolutePathToTestFile = testFileName;
+
+        File fileTarget = new File(absolutePathToTestFile);
 
         String s = "Access to the following file created:" + newLine + "'" +  fileTarget.toString() + "'" + newLine;
 
