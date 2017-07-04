@@ -59,8 +59,9 @@ public class FileServlet02 extends HttpServlet {
         String relativePathToTestFilesChildDir = relativePathToTestFilesParentDir + File.separator  + "testFilesChild" + File.separator;
         String absolutePathToTestFilesChildDir = getServletContext().getRealPath(relativePathToTestFilesChildDir);
         String testFileName = request.getParameter("File02");
+        String absolutePathToTestFile = absolutePathToTestFilesChildDir + File.separator + "." + testFileName;
 
-        File fileTarget = new File(absolutePathToTestFilesChildDir + File.separator + "." + testFileName);
+        File fileTarget = new File(absolutePathToTestFile);
 
         String s = "Access to the following file created:" + newLine + "'" +  fileTarget.toString() + "'" + newLine;
 

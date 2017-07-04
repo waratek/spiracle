@@ -60,13 +60,13 @@ public class RandomAccessFileServlet02 extends HttpServlet {
         String relativePathToTestFilesChildDir = relativePathToTestFilesParentDir + File.separator  + "testFilesChild" + File.separator;
         String absolutePathToTestFilesChildDir = getServletContext().getRealPath(relativePathToTestFilesChildDir);
         String testFileName = request.getParameter("RandomAccessFile02");
-        String absolutePathToChildDirTestFile = absolutePathToTestFilesChildDir + File.separator + "." + testFileName;
+        String absolutePathToTestFile = absolutePathToTestFilesChildDir + File.separator + "." + testFileName;
         String s = "";
 
         try {
 
-            RandomAccessFile fileTarget = new RandomAccessFile(absolutePathToChildDirTestFile, "rw");
-            s = "Random access file stream opened for file:" + newLine + "'" + absolutePathToChildDirTestFile + "'";
+            RandomAccessFile fileTarget = new RandomAccessFile(absolutePathToTestFile, "rw");
+            s = "Random access file stream opened for file:" + newLine + "'" + absolutePathToTestFile + "'";
 
             if (fileTarget.length() > 0) {
                 s = s + newLine + "And file is not empty.";
@@ -77,7 +77,7 @@ public class RandomAccessFileServlet02 extends HttpServlet {
 
         } catch (Exception e) {
 
-            s = "Couldn't open random access file stream for file:" + newLine + "'" + absolutePathToChildDirTestFile + "'";
+            s = "Couldn't open random access file stream for file:" + newLine + "'" + absolutePathToTestFile + "'";
 
         } finally {
 

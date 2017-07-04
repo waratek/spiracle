@@ -214,6 +214,8 @@
 				<a HREF="index.jsp">A HREF="index.jsp"</a><br/>
 				<a href="http://www.google.com">a href="http://www.google.com"</a><br/>
 				<a href="google.com">a href="google.com"</a><br/>
+				<a href="">a href=""</a><br/>
+				<a href=" ">a href=" "</a><br/>
 			</div>
 
             <div class="panel-heading">a href tags with anchors</div>
@@ -260,7 +262,7 @@
 				<form id="csrfForm" action="CSRFServlet" method="post">
 					Name: <input type="text" name="name">
 					<input type="submit" value=Submit>
-					<input type="hidden" name="_WARATEK_CSRF_TOKEN" value="notACsrfToken_onlyUsedForParamPollutionTest=" />
+					<input type="hidden" name="_X-CSRF-TOKEN" value="notACsrfToken_onlyUsedForParamPollutionTest=" />
 				</form>
 		  	</div>
 		</div>
