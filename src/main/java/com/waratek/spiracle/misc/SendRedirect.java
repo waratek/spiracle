@@ -1,21 +1,12 @@
 package com.waratek.spiracle.misc;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
 
 @WebServlet("/SendRedirect")
 public class SendRedirect extends HttpServlet {
@@ -34,11 +25,14 @@ public class SendRedirect extends HttpServlet {
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        executeRequest(request, response, "");
+    }
+    protected void executeRequest(HttpServletRequest request, HttpServletResponse response, String baseUri) throws ServletException, IOException {
 
         String inputUriParam = "redirectMeTo";
 
         if(request.getParameter(inputUriParam) != null) {
-            String redirectURI = request.getParameter(inputUriParam);
+            String redirectURI =  baseUri + request.getParameter(inputUriParam);
             response.sendRedirect(redirectURI);
         }
         else {
