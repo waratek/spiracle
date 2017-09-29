@@ -19,24 +19,29 @@ public class Constants {
     public static final String C3P0_MYSQL = "c3p0.mysql";
     public static final String C3P0_MSSQL = "c3p0.mssql";
     public static final String C3P0_DB2 = "c3p0.db2";
+    public static final String C3P0_SYBASE = "c3p0.sybase";
 
     public static final String C3P0_ORACLE_CLASSNAME = "c3p0.oracle.classname";
     public static final String C3P0_MYSQL_CLASSNAME = "c3p0.mysql.classname";
     public static final String C3P0_MSSQL_CLASSNAME = "c3p0.mssql.classname";
     public static final String C3P0_DB2_CLASSNAME = "c3p0.db2.classname";
+    public static final String C3P0_SYBASE_CLASSNAME = "c3p0.sybase.classname";
 
     public static final String ORACLE = "oracle";
     public static final String MYSQL = "mysql";
     public static final String MSSQL = "mssql";
     public static final String DB2 = "db2";
+    public static final String SYBASE = "sybase";
 
     public static final String ORACLE_CONNECTION_POOL = "oracleConnectionPool";
     public static final String MYSQL_CONNECTION_POOL = "mysqlConnectionPool";
     public static final String MSSQL_CONNECTION_POOL = "mssqlConnectionPool";
     public static final String DB2_CONNECTION_POOL = "db2ConnectionPool";
+    public static final String SYBASE_CONNECTION_POOL = "sybaseConnectionPool";
 
     public final static String ORACLE_CONNECTION_DATA = "oracleConnectionData";
     public final static String MYSQL_CONNECTION_DATA = "mysqlConnectionData";
     public final static String MSSQL_CONNECTION_DATA = "mssqlConnectionData";
     public final static String DB2_CONNECTION_DATA = "db2ConnectionData";
+    public final static String SYBASE_CONNECTION_DATA = "sybaseConnectionData";
 }

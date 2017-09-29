@@ -46,6 +46,8 @@ public class SpiracleInit implements ServletContextListener {
         ((ComboPooledDataSource) application.getAttribute(Constants.ORACLE_CONNECTION_POOL)).close();
         ((ComboPooledDataSource) application.getAttribute(Constants.MYSQL_CONNECTION_POOL)).close();
         ((ComboPooledDataSource) application.getAttribute(Constants.MSSQL_CONNECTION_POOL)).close();
+        ((ComboPooledDataSource) application.getAttribute(Constants.DB2_CONNECTION_POOL)).close();
+        ((ComboPooledDataSource) application.getAttribute(Constants.SYBASE_CONNECTION_POOL)).close();
     }
 
     @Override
@@ -68,6 +70,9 @@ public class SpiracleInit implements ServletContextListener {
         ComboPooledDataSource db2SqlDs = getConnectionPool(props, Constants.DB2);
         setNamedConnectionPool(application, db2SqlDs, Constants.DB2_CONNECTION_POOL, Constants.DB2_CONNECTION_DATA);
 
+        ComboPooledDataSource sybaseSqlDs = getConnectionPool(props, Constants.SYBASE);
+        setNamedConnectionPool(application, sybaseSqlDs, Constants.SYBASE_CONNECTION_POOL, Constants.SYBASE_CONNECTION_DATA);
+
         setDefaultConnection(application, props);
         setFetchSize(application, props);
         try {
@@ -75,6 +80,7 @@ public class SpiracleInit implements ServletContextListener {
             Class.forName(props.getProperty(Constants.C3P0_MYSQL_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_DB2_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_SYBASE_CLASSNAME));
         } catch (ClassNotFoundException e) {
             logger.error("Unable to load JDBC connector classes from config.");
             e.printStackTrace();
