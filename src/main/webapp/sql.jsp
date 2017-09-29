@@ -72,6 +72,22 @@
                 </div>
             </div>
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Sybase C3P0 Connection Pool</h5>
+                </div>
+                <%
+                    String sybaseSqlConnectionData = (String) application
+                            .getAttribute(Constants.SYBASE_CONNECTION_DATA);
+                    if (sybaseSqlConnectionData == null) {
+                        sybaseSqlConnectionData = "";
+                    }
+                %>
+                <div class="panel-footer">
+                    Connection Information
+                    <pre><%=sybaseSqlConnectionData%></pre>
+                </div>
+            </div>
+            <div class="panel panel-default">
                 <div class="panel-heading">Injectable URLS</div>
                 <div class="panel-body">
                     <h3>Oracle</h3>
@@ -308,6 +324,48 @@
                             <tr>
                                 <td><a href="Db2_Get_Union_quote_id?id=1">Db2_Get_Union_quote_id?id=1</a></td>
                                 <td><code>"SELECT name, surname FROM \"SPIRACLE\".\"USERS\" WHERE id = " + id + " UNION SELECT address_1, address_2 FROM spiracle.address WHERE id = " + id;</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-body">
+                    <h3>Sybase</h3>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Request</th>
+                                <th>SQL Statement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="Sybase_Get_int_no_quote?id=1">Sybase_Get_int_no_quote?id=1</a></td>
+                                <td><code>"SELECT * FROM users WHERE id = " + id;</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Sybase_Get_string?name=wu">Sybase_Get_string?name=wu</a></td>
+                                <td><code>"SELECT * FROM users WHERE name = '" + name
+                                        + "'";</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Sybase_Get_string_no_quote?name=wu">Sybase_Get_string_no_quote?name=wu</a></td>
+                                <td><code>"SELECT * FROM users WHERE name = " + name;</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Sybase_Get_Union?id=1">Sybase_Get_Union?id=1</a></td>
+                                <td><code>"SELECT name, surname, CONECRT(varchar(500), dod, 3)dob FROM users WHERE
+                                        id = " + id + " UNION SELECT address_1, address_2, address_3
+                                        FROM address WHERE id = " + id;</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Sybase_Get_Implicit_Join?id=1">Sybase_Get_Implicit_Join?id=1</a></td>
+                                <td><code>"SELECT * FROM users, address WHERE
+                                        users.id = " + id + " AND users.id = address.id";</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Sybase_Implicit_Join_Namespace?id=1">Sybase_Implicit_Join_Namespace?id=1</a></td>
+                                <td><code>"SELECT * FROM dbo.users, dbo.address WHERE
+                                        dbo.users.id = " + id + " AND dbo.users.id = dbo.address.id";</code></td>
                             </tr>
                         </tbody>
                     </table>
