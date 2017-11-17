@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Waratek Ltd.
+ *  Copyright 2017 Waratek Ltd.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.waratek.spiracle.sql.servlet.mysql;
+package com.waratek.spiracle.sql.servlet.db2;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,14 +33,14 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_string
  */
-@WebServlet("/MySql_Get_string")
-public class MySql_Get_string extends HttpServlet {
+@WebServlet("/Db2_Get_string_param_question_mark")
+public class Db2_Get_string_param_question_mark extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MySql_Get_string() {
+    public Db2_Get_string_param_question_mark() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -67,14 +67,14 @@ public class MySql_Get_string extends HttpServlet {
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
         String name = nullSanitizedMap.get("name");
-        
-        String sql = "SELECT * FROM users WHERE name = '" + name + "'";
+
+        String sql = "SELECT * FROM spiracle.users where name <> ? and name = '" + name + "'";
 
         Boolean showErrors = true;
         Boolean allResults = true;
         Boolean showOutput = true;
 
-        SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
+        SelectUtil.executeQuerySetString(sql, application, request, response, showErrors, allResults, showOutput);
     }
 
 }
