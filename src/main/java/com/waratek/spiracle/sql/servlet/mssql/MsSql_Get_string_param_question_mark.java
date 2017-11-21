@@ -68,9 +68,9 @@ public class MsSql_Get_string_param_question_mark extends HttpServlet {
 
         Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String param = nullSanitizedMap.get("name");
+        String name = nullSanitizedMap.get("name");
 
-        String sql = "SELECT top 5 id, name, surname FROM users where name <> ? and name = '" + param + "'";
+        String sql = "SELECT top 5 id, name, surname FROM users where name <> ? and name = '" + name + "'";
 
         Boolean showErrors = true;
         Boolean allResults = true;
