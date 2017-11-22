@@ -157,6 +157,10 @@
                                 <td><code>"SELECT * FROM users WHERE name = " + name;</code></td>
                             </tr>
                             <tr>
+                                <td><a href="Get_string_param_question_mark?name=wu">Get_string_param_question_mark?name='wu'</a></td>
+                                <td><code>"SELECT * FROM users where name <> ? and name = '" + name + "'";</code></td>
+                            </tr>
+                            <tr>
                                 <td><a href="Update_User?id=1&amp;name=Joe&amp;surname=Soap">Update
                                         User</a></td>
                                 <td><code>"UPDATE users SET name = '" + name + "',
@@ -225,6 +229,10 @@
                                         + " '";</code></td>
                             </tr>
                             <tr>
+                                <td><a href="MySql_Get_string_param_question_mark?name=wu">MySql_Get_string_param_question_mark?name='wu'</a></td>
+                                <td><code>"SELECT top 5 id, name, surname FROM users where name <> ? and name = '" + name + "'";</code></td>
+                            </tr>
+                            <tr>
                                 <td><a href="MySql_Get_Union?id=1">MySql_Get_Union?id=1</a></td>
                                 <td><code>"SELECT name, surname, dob FROM users WHERE
                                         id = " + id + " UNION SELECT address_1, address_2, address_3
@@ -263,6 +271,10 @@
                                 <td><a href="MsSql_Get_string?name=wu">MsSql_Get_string?name=wu</a></td>
                                 <td><code>"SELECT * FROM users WHERE name = '" + name
                                         + "'";</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="MsSql_Get_string_param_question_mark?name=wu">MsSql_Get_string_param_question_mark?name='wu'</a></td>
+                                <td><code>"SELECT top 5 id, name, surname FROM users where name <> ? and name = '" + name + "'";</code></td>
                             </tr>
                             <tr>
                                 <td><a href="MsSql_Get_Union?id=1">MsSql_Get_Union?id=1</a></td>
@@ -310,6 +322,10 @@
                                 <td><code>"SELECT * FROM \"SPIRACLE\".\"USERS\" WHERE name = '" + name + "'";</code></td>
                             </tr>
                             <tr>
+                                <td><a href="Db2_Get_string_param_question_mark?name=wu">Db2_Get_string_param_question_mark?name='wu'</a></td>
+                                <td><code>"SELECT * FROM spiracle.users where name <> ? and name = '" + name + "'";</code></td>
+                            </tr>
+                            <tr>
                                 <td><a href="Db2_Implicit_Join_Namespace?id=1">Db2_Implicit_Join_Namespace?id=1</a></td>
                                 <td><code>"SELECT * FROM SPIRACLE.USERS, SPIRACLE.ADDRESS where SPIRACLE.USERS.ID = " + id + " AND SPIRACLE.ADDRESS.ID = SPIRACLE.USERS.ID";</code></td>
                             </tr>
@@ -350,6 +366,10 @@
                             <tr>
                                 <td><a href="Sybase_Get_string_no_quote?name=wu">Sybase_Get_string_no_quote?name=wu</a></td>
                                 <td><code>"SELECT * FROM users WHERE name = " + name;</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Sybase_Get_string_param_question_mark?name=wu">Sybase_Get_string_param_question_mark?name='wu'</a></td>
+                                <td><code>"SELECT top 5 id, name, surname FROM users where name <> ? and name = '" + name + "'";</code></td>
                             </tr>
                             <tr>
                                 <td><a href="Sybase_Get_Union?id=1">Sybase_Get_Union?id=1</a></td>
