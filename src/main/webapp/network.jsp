@@ -25,13 +25,9 @@
             <p>
               <i>Remote Address</i>
             </p>
-            Hostname <input type="text" name="remoteHost"> Port <input
-              type="text" name="remotePort">
-             <p>
-              <i>Text to send</i>
-            </p>
-            Text <input type="text" name="textToSend" width="50"> <input type="submit"
-              value=Submit>
+            Hostname <input type="text" name="remoteHost"> Port
+            <input type="text" name="remotePort">
+            <input type="submit" value=Submit>
               
           </form>
         </div>

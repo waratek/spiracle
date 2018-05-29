@@ -16,8 +16,6 @@
 package com.waratek.spiracle.network;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -73,7 +71,6 @@ public class SocketServlet extends HttpServlet {
 
 			String bindPortRaw = request.getParameter("bindPort");
 			String remotePortRaw = request.getParameter("remotePort");
-			String textToSend = request.getParameter("textToSend");
 
 			if(bindPortRaw.length() > 0) {
 				bindPort = Integer.parseInt((String)bindPortRaw);
@@ -94,13 +91,6 @@ public class SocketServlet extends HttpServlet {
 			}
 
 			s.connect(new InetSocketAddress(remoteHost, remotePort.intValue()));
-
-			if ( ( textToSend != null ) && ( textToSend.length() > 0 ) ) {
-			    PrintWriter pw = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-			    pw.println( textToSend );
-			    pw.flush();
-			    pw.close();
-			}
 			
 			session.setAttribute("socketInfo", s.toString());
 
