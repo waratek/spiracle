@@ -49,7 +49,7 @@ public class SocketServlet extends HttpServlet {
 	}
 
 	/**
-	 * @throws IOException 
+	 * @throws IOException
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,6 +91,7 @@ public class SocketServlet extends HttpServlet {
 			}
 
 			s.connect(new InetSocketAddress(remoteHost, remotePort.intValue()));
+			
 			session.setAttribute("socketInfo", s.toString());
 
 			response.sendRedirect("network.jsp");

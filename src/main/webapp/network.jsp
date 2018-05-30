@@ -25,9 +25,10 @@
             <p>
               <i>Remote Address</i>
             </p>
-            Hostname <input type="text" name="remoteHost"> Port <input
-              type="text" name="remotePort"> <input type="submit"
-              value=Submit>
+            Hostname <input type="text" name="remoteHost"> Port
+            <input type="text" name="remotePort">
+            <input type="submit" value=Submit>
+              
           </form>
         </div>
         <div class="panel-footer">
