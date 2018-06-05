@@ -10,6 +10,14 @@
   </jsp:include>
 
         <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Additional XSS cases</h4>
+                </div>
+                <div class="panel-body">
+                  <a href="xssViaException.jsp">XSS via Exception messages test cases</a><br/>
+                </div>
+            </div>
             <%
                 List<String> attrList = new ArrayList<String>();
                 Enumeration<String> attrs = request.getParameterNames();
