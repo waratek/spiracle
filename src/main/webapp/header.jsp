@@ -12,6 +12,7 @@
    namesMap.put("XSS", "xss");
    namesMap.put("CSRF", "csrf");
    namesMap.put("Path Traversal", "pathTraversal");
+   namesMap.put("Deserialization", "deserial");
    namesMap.put("Misc", "misc");
    request.setAttribute("pageNameMap", namesMap);
 %>
