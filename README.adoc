@@ -4,6 +4,7 @@ Spiracle is an insecure web application used to test system security controls.
 
 It can be used to read/write arbitrary files and open network connections.
 The application is also vulnerable to numerous other vulnerabilities such as:
+
 * SQL Injection (CWE-89)
 * XSS (CWE-79)
 * CSRF (CWE-352)
