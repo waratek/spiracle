@@ -2,9 +2,17 @@
 
 Spiracle is an insecure web application used to test system security controls. 
 
-It can be used to read/write arbitrary files and open network connections. The application is also vulnerable to SQL Injection.
+It can be used to read/write arbitrary files and open network connections.
+The application is also vulnerable to numerous other vulnerabilities such as:
 
-CAUTION: Due to its insecure design, this application should NOT be deployed on an unsecured network.
+* SQL Injection (CWE-89)
+* XSS (CWE-79)
+* CSRF (CWE-352)
+* Path Traversal (CWE-22)
+* Deserialization (CWE-502)
+* and many more...
+
+CAUTION: Due to its insecure design, this application should NOT be deployed on an unsecured network or system.
 
 This application has been tested on the following application servers:
 
@@ -19,7 +27,7 @@ Your mileage may vary with other application servers.
 
 === Tomcat
 
-* Copy the war file to the `$CATALINA_HOME/webapps/` directory
+* Copy the war file to the `$CATALINA_HOME/webapps/` directory.
 
 === Liberty Core
 
@@ -141,7 +149,7 @@ The WAR file will be output to:
 == License
 
 ----
-Copyright 2014 Waratek Ltd.
+Copyright 2018 Waratek Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
