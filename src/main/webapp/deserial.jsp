@@ -1,26 +1,38 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.io.*,java.util.*" %>
-<html>
-<body>
-<h2>Test Deserialization vulnerability</h2>
-<%
-        if ( request.getMethod().equals("POST") ) {
-                out.println("Performing the deserialization of the HTTP request input stream.<br/>");
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-                // get the request's input stream
-                ServletInputStream untrusted = request.getInputStream();
+<jsp:include page="header.jsp" >
+ <jsp:param name="pageName" value="Deserialization" />
+</jsp:include>
 
-                // pass it to a new ObjectInputStream instance
-                ObjectInputStream ois = new ObjectInputStream( untrusted );
+     <div class="container">
+         <div class="panel panel-default">
+             <div class="panel-heading">
+                 <h4>Test Java deserialization vulnerability</h4>
+             </div>
+             <div class="panel-body">
+               <%
+                    if (request.getMethod().equals("POST")) {
+                         out.println("Performing the deserialization of the HTTP request input stream.<br/>");
 
-                // deserialize it
-                Object deserialized = ois.readObject();
+                         // get the request's input stream
+                         ServletInputStream untrusted = request.getInputStream();
 
-                out.println("Completed the deserialization of the HTTP request input stream.<br/>");
-        }
-        else {
-                out.println("Please send a POST request with the serialized input.<br/>");
-        }
-%>
+                         // pass it to a new ObjectInputStream instance
+                         ObjectInputStream ois = new ObjectInputStream(untrusted);
 
-</body>
-</html>
+                         // deserialize it
+                         Object deserialized = ois.readObject();
+
+                         out.println("Completed the deserialization of the HTTP request input stream.<br/>");
+                    }
+                    else {
+                         out.println("Please send a POST request with the serialized input.<br/>");
+                    }
+               %>
+             </div>
+         </div>
+     </div>
+
+<%@ include file="footer.jsp" %>

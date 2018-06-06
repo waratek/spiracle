@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
   <jsp:include page="header.jsp" >
-    <jsp:param name="pageName" value="XSS Context Matrix" />
+    <jsp:param name="pageName" value="XSS" />
   </jsp:include>
   <style type="text/css">>
    table {
