@@ -16,6 +16,7 @@
                 </div>
                 <div class="panel-body">
                   <a href="xssViaException.jsp">XSS via Exception messages test cases</a><br/>
+                  <a href="xssContextMatrix.jsp">XSS Context Matrix test cases</a><br/>
                 </div>
             </div>
             <%
