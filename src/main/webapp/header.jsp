@@ -14,6 +14,7 @@
    namesMap.put("Path Traversal", "pathTraversal");
    namesMap.put("Deserialization", "deserial");
    namesMap.put("Misc", "misc");
+   namesMap.put("Cookie", "cookie");
    request.setAttribute("pageNameMap", namesMap);
 %>
 <!DOCTYPE html>
