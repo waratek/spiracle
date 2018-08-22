@@ -88,11 +88,11 @@ public class HttpRequestMethod extends HttpServlet {
 
 		String methodReturn = "";
 
-		if(method != null && !method.isEmpty()) {
+		if(method != null && method.length() != 0) {
 			int invokeVar = methodMap.get(method);
 			switch (invokeVar) {
 			case 0:
-				if(arg != null && !arg.isEmpty()) {
+				if(arg != null && arg.length() != 0) {
 					System.out.println(arg);
 					methodReturn = request.getHeader(arg);
 					session.setAttribute("methodReturn", methodReturn);
@@ -100,7 +100,7 @@ public class HttpRequestMethod extends HttpServlet {
 				}
 				break;
 			case 1:
-				if(arg != null && !arg.isEmpty()) {
+				if(arg != null && arg.length() != 0) {
 					methodReturn = request.getHeaders(arg).toString();
 					session.setAttribute("methodReturn", methodReturn);
 					logger.info(method + " - " + request.getHeaders(arg));

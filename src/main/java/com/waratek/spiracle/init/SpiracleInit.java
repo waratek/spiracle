@@ -40,7 +40,6 @@ public class SpiracleInit implements ServletContextListener {
 
     private static final Logger logger = Logger.getLogger(SpiracleInit.class);
 
-    @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         ServletContext application = arg0.getServletContext();
         ((ComboPooledDataSource) application.getAttribute(Constants.ORACLE_CONNECTION_POOL)).close();
@@ -50,7 +49,6 @@ public class SpiracleInit implements ServletContextListener {
         ((ComboPooledDataSource) application.getAttribute(Constants.SYBASE_CONNECTION_POOL)).close();
     }
 
-    @Override
     public void contextInitialized(ServletContextEvent arg0) {
         ServletContext application = arg0.getServletContext();
         Properties props = loadProperties(application);
@@ -66,7 +64,7 @@ public class SpiracleInit implements ServletContextListener {
 
         ComboPooledDataSource msSqlDs = getConnectionPool(props, Constants.MSSQL);
         setNamedConnectionPool(application, msSqlDs, Constants.MSSQL_CONNECTION_POOL, Constants.MSSQL_CONNECTION_DATA);
-        
+
         ComboPooledDataSource db2SqlDs = getConnectionPool(props, Constants.DB2);
         setNamedConnectionPool(application, db2SqlDs, Constants.DB2_CONNECTION_POOL, Constants.DB2_CONNECTION_DATA);
 
@@ -175,7 +173,7 @@ public class SpiracleInit implements ServletContextListener {
         logger.info("Application Server Name: " + application.getServerInfo());
         logger.info("Application Context Path:" + application.getRealPath(""));
     }
-    
+
     void setDefaultErrorCode(ServletContext application, Properties props) {
         application.setAttribute("defaultError", props.getProperty("waratek.error"));
     }
