@@ -15,12 +15,10 @@ import org.apache.log4j.Logger;
 public class CreateJndiConnectionPool implements ServletContextListener {
 	private static final Logger logger = Logger.getLogger(CreateJndiConnectionPool.class);
 
-	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 
 	}
 
-	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		try {
 			Context ctx = new InitialContext();
