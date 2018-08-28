@@ -120,6 +120,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>MsSql_Get_string_param_question_mark</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_string_param_question_mark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MsSql_Get_string_param_question_mark</servlet-name>
+        <url-pattern>/MsSql_Get_string_param_question_mark</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>MsSql_Get_Union</servlet-name>
         <servlet-class>com.waratek.spiracle.sql.servlet.mssql.MsSql_Get_Union</servlet-class>
     </servlet>
@@ -162,6 +171,15 @@
     <servlet-mapping>
         <servlet-name>MySql_Get_string</servlet-name>
         <url-pattern>/MySql_Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MySql_Get_string_param_question_mark</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.mysql.MySql_Get_string_param_question_mark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MySql_Get_string_param_question_mark</servlet-name>
+        <url-pattern>/MySql_Get_string_param_question_mark</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -225,6 +243,15 @@
     <servlet-mapping>
         <servlet-name>Db2_Get_string</servlet-name>
         <url-pattern>/Db2_Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Db2_Get_string_param_question_mark</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.db2.Db2_Get_string_param_question_mark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Db2_Get_string_param_question_mark</servlet-name>
+        <url-pattern>/Db2_Get_string_param_question_mark</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -381,6 +408,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Get_string_param_question_mark</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string_param_question_mark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get_string_param_question_mark</servlet-name>
+        <url-pattern>/Get_string_param_question_mark</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Get_string_sanitised</servlet-name>
         <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Get_string_sanitised</servlet-class>
     </servlet>
@@ -450,6 +486,69 @@
     <servlet-mapping>
         <servlet-name>Update_User</servlet-name>
         <url-pattern>/Update_User</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Get_Implicit_Join</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_Implicit_Join</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Get_Implicit_Join</servlet-name>
+        <url-pattern>/Sybase_Get_Implicit_Join</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Get_Union</servlet-name>
+        <url-pattern>/Sybase_Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Get_int_no_quote</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_int_no_quote</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Get_int_no_quote</servlet-name>
+        <url-pattern>/Sybase_Get_int_no_quote</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Get_string</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_string</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Get_string</servlet-name>
+        <url-pattern>/Sybase_Get_string</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Get_string_no_quote</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_string_no_quote</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Get_string_no_quote</servlet-name>
+        <url-pattern>/Sybase_Get_string_no_quote</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Get_string_param_question_mark</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_string_param_question_mark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Get_string_param_question_mark</servlet-name>
+        <url-pattern>/Sybase_Get_string_param_question_mark</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sybase_Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sybase_Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/Sybase_Implicit_Join_Namespace</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -539,6 +638,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddHeaders</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.AddHeaders</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddHeaders</servlet-name>
+        <url-pattern>/AddHeaders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CrashJvm</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.CrashJvm</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CrashJvm</servlet-name>
+        <url-pattern>/CrashJvm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetThreadStack</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.GetThreadStack</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetThreadStack</servlet-name>
+        <url-pattern>/GetThreadStack</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SendRedirect</servlet-name>
         <servlet-class>com.waratek.spiracle.misc.SendRedirect</servlet-class>
     </servlet>
@@ -548,11 +674,155 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SendRedirectHostnameHardcoded</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.SendRedirectHostnameHardcoded</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendRedirectHostnameHardcoded</servlet-name>
+        <url-pattern>/SendRedirectHostnameHardcoded</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ThreadKill</servlet-name>
+        <servlet-class>com.waratek.spiracle.misc.ThreadKill</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ThreadKill</servlet-name>
+        <url-pattern>/ThreadKill</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AddCookies</servlet-name>
         <servlet-class>com.waratek.spiracle.misc.AddCookies</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddCookies</servlet-name>
         <url-pattern>/AddCookies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CookieServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.cookie.CookieServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CookieServlet</servlet-name>
+        <url-pattern>/CookieServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CSRFServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.csrf.CSRFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CSRFServlet</servlet-name>
+        <url-pattern>/CSRFServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileServlet01</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileServlet01</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet01</servlet-name>
+        <url-pattern>/FileServlet01</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileServlet02</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileServlet02</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet02</servlet-name>
+        <url-pattern>/FileServlet02</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileServlet03</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileServlet03</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet03</servlet-name>
+        <url-pattern>/FileServlet03</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileInputStreamServlet01</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileInputStreamServlet01</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileInputStreamServlet01</servlet-name>
+        <url-pattern>/FileInputStreamServlet01</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileInputStreamServlet02</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileInputStreamServlet02</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileInputStreamServlet02</servlet-name>
+        <url-pattern>/FileInputStreamServlet02</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileInputStreamServlet03</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileInputStreamServlet03</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileInputStreamServlet03</servlet-name>
+        <url-pattern>/FileInputStreamServlet03</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileOutputStreamServlet01</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileOutputStreamServlet01</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileOutputStreamServlet01</servlet-name>
+        <url-pattern>/FileOutputStreamServlet01</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileOutputStreamServlet02</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileOutputStreamServlet02</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileOutputStreamServlet02</servlet-name>
+        <url-pattern>/FileOutputStreamServlet02</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileOutputStreamServlet03</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.FileOutputStreamServlet03</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileOutputStreamServlet03</servlet-name>
+        <url-pattern>/FileOutputStreamServlet03</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RandomAccessFileServlet01</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.RandomAccessFileServlet01</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RandomAccessFileServlet01</servlet-name>
+        <url-pattern>/RandomAccessFileServlet01</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RandomAccessFileServlet02</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.RandomAccessFileServlet02</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RandomAccessFileServlet02</servlet-name>
+        <url-pattern>/RandomAccessFileServlet02</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RandomAccessFileServlet03</servlet-name>
+        <servlet-class>com.waratek.spiracle.path_traversal.RandomAccessFileServlet03</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RandomAccessFileServlet03</servlet-name>
+        <url-pattern>/RandomAccessFileServlet03</url-pattern>
     </servlet-mapping>
 </web-app>
