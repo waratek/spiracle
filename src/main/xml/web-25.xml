@@ -638,6 +638,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>XSSBufferTest</servlet-name>
+        <servlet-class>com.waratek.spiracle.xss.XSSBufferTest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>XSSBufferTest</servlet-name>
+        <url-pattern>/XSSBufferTest</url-pattern>
+    </servlet-mapping>
+    <servlet>
+
         <servlet-name>AddHeaders</servlet-name>
         <servlet-class>com.waratek.spiracle.misc.AddHeaders</servlet-class>
     </servlet>
