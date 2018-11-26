@@ -101,7 +101,7 @@ The connection pooling dependencies for Java 4 are not in Maven, and need to be 
 
     $ mvn install:install-file -DgroupId=com.mchange -DartifactId=c3p0 -Dversion=0.9.2-j14 -Dpackaging=jar -Dfile=c3p0-0.9.2-jdk14.jar
 
-    $ mvn install:install-file -DgroupId=com.mchange -DartifactId=mchange-commons-java -Dversion=0.2.3.3-j14 -Dpackaging=jar -Dfile=cmchange-commons-java-0.2.3.3-jdk14.jar
+    $ mvn install:install-file -DgroupId=com.mchange -DartifactId=mchange-commons-java -Dversion=0.2.3.3-j14 -Dpackaging=jar -Dfile=mchange-commons-java-0.2.3.3-jdk14.jar
 
 If you wish to use the database features, ensure that the appropriate database JDBC driver file is available under `./src/main/webapp/WEB-INF/lib`
 
