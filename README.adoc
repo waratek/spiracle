@@ -96,7 +96,7 @@ The connection pooling dependencies for Java 4 are not in Maven, and need to be 
 Download link:https://master.dl.sourceforge.net/project/c3p0/c3p0-bin/c3p0-0.9.2/jdk14-versions/c3p0-0.9.2-jdk14.bin.zip
 Unzip the downloaded file.
 The 2 required jar files are in the lib directory.
-To install into a local Maven repository:  
+To install into a local Maven repository:
 
  $ mvn install:install-file -DgroupId=com.mchange -DartifactId=c3p0 -Dversion=0.9.2-j14 -Dpackaging=jar -Dfile=c3p0-0.9.2-jdk14.jar
 
