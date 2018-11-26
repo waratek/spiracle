@@ -38,7 +38,7 @@ public class SelectUtil {
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
-		int fetchSize = (Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE);
+		int fetchSize = ((Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE)).intValue();
 		String defaultConnection = (String) application.getAttribute(Constants.DEFAULT_CONNECTION);
 
 		PreparedStatement stmt = null;
@@ -76,12 +76,12 @@ public class SelectUtil {
 		}
 	}
 
-        	public static void executeQuerySetString(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
+	public static void executeQuerySetString(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
 		response.setHeader("Content-Type", "text/html;charset=UTF-8");
 		ServletOutputStream out = response.getOutputStream();
 		String connectionType = null;
 		Connection con = null;
-		int fetchSize = (Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE);
+		int fetchSize = ((Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE)).intValue();
 		String defaultConnection = (String) application.getAttribute(Constants.DEFAULT_CONNECTION);
 
 		PreparedStatement stmt = null;
@@ -142,9 +142,9 @@ public class SelectUtil {
 		out.println("</TR>");
 
 		//Matching sqlmap's testenv option to suppress output
-		if(showOutput) {
+		if(showOutput.booleanValue()) {
 			//Matching sqlmap's testenv partial output option.
-			if(allResults) {
+			if(allResults.booleanValue()) {
 				while(rs.next()) {
 					writeRow(out, rs, metaData);
 				}

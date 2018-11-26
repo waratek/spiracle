@@ -21,7 +21,7 @@ public class ReadHTML {
             if (line.indexOf(XSS) != -1) {
                 System.out.println("Transforming:");
                 System.out.println(line);
-                line = line.replace(XSS, taintedInput);
+                line = line.replaceAll(XSS, taintedInput);
                 System.out.println(line);
             }
 

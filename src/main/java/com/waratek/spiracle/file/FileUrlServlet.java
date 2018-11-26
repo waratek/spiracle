@@ -1,27 +1,24 @@
 package com.waratek.spiracle.file;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Servlet implementation class FileUrlServlet
  */
-@WebServlet("/FileUrlServlet")
+
 public class FileUrlServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(FileUrlServlet.class);
 	private static final long serialVersionUID = 1L;
@@ -37,7 +34,7 @@ public class FileUrlServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		executeRequest(request, response);
 	}
@@ -45,7 +42,7 @@ public class FileUrlServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		executeRequest(request, response);
 	}
@@ -69,24 +66,34 @@ public class FileUrlServlet extends HttpServlet {
 		}
 	}
 
-	private InputStream getUrlInputStream(String path) throws MalformedURLException, IOException {
+	private InputStream getUrlInputStream(String path) throws IOException {
 		URL url = new URL(path);
 		URLConnection con = url.openConnection();
 		return con.getInputStream();
 	}
 
-	private String read(InputStream inStream) throws IOException, UnsupportedEncodingException {
-		List<Byte> byteList = new ArrayList<Byte>();
-		int streamBuf = inStream.read();
-		while(streamBuf != -1) {
-			byteList.add(new Byte((byte) streamBuf));
-			streamBuf = inStream.read();
-		}
-		byte [] byteArr = new byte[byteList.size()];
-		for(int i = 0; i < byteList.size(); i++) {
-			byteArr[i] = byteList.get(i).byteValue();
+	private String read(InputStream inStream) throws IOException {
+		BufferedReader br = null;
+		String out = "";
+
+		String line;
+		try {
+
+			br = new BufferedReader(new InputStreamReader(inStream));
+			while ((line = br.readLine()) != null) {
+				out += line;
+			}
+
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
-		return new String(byteArr, "UTF-8");
+		return out;
 	}
 }

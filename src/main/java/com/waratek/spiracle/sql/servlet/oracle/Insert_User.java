@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.UpdateUtil;
 /**
  * Servlet implementation class Create_User
  */
-@WebServlet("/Insert_User")
+
 public class Insert_User extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -61,7 +61,7 @@ public class Insert_User extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<String>();     
+        List queryStringList = new ArrayList();
         
         queryStringList.add("id");
         queryStringList.add("name");
@@ -70,14 +70,14 @@ public class Insert_User extends HttpServlet {
         queryStringList.add("credit_card");
         queryStringList.add("cvv");
         
-        Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
+        Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
         
-        String id = nullSanitizedMap.get("id");
-        String name = nullSanitizedMap.get("name");
-        String surname = nullSanitizedMap.get("surname");
-        String dob = nullSanitizedMap.get("dob");
-        String credit_card = nullSanitizedMap.get("credit_card");
-        String cvv = nullSanitizedMap.get("cvv");
+        String id = (String)nullSanitizedMap.get("id");
+        String name = (String)nullSanitizedMap.get("name");
+        String surname = (String)nullSanitizedMap.get("surname");
+        String dob = (String)nullSanitizedMap.get("dob");
+        String credit_card = (String)nullSanitizedMap.get("credit_card");
+        String cvv = (String)nullSanitizedMap.get("cvv");
 
         String sql = "INSERT INTO users VALUES (" + id + ", '" + name + "', '" + surname + "', '" + dob + "', '" + credit_card + "', '" + cvv + "')";
 

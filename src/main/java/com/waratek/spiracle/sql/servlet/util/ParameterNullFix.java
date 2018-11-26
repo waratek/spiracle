@@ -26,9 +26,10 @@ import org.apache.log4j.Logger;
 public class ParameterNullFix {
 	private static final Logger logger = Logger.getLogger(ParameterNullFix.class);
 
-	public static Map<String, String> sanitizeNull(List<String> inputList, HttpServletRequest request) {
-		Map<String, String> outputMap= new HashMap<String, String>();
-		for(String item : inputList) {
+	public static Map sanitizeNull(List inputList, HttpServletRequest request) {
+		Map outputMap = new HashMap();
+		for(int i = 0 ; i < inputList.size() ; i++) {
+			String item = (String)inputList.get(i);
 			String val = request.getParameter(item);
 			if(val == null) {
 				logger.info("Expected parameter {" + item + "} is null");

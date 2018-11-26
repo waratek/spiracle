@@ -20,9 +20,11 @@
                 </div>
             </div>
             <%
-                List<String> attrList = new ArrayList<String>();
-                Enumeration<String> attrs = request.getParameterNames();
-                for (String str : Collections.list(attrs)) {
+                List attrList = new ArrayList();
+                Enumeration attrs = request.getParameterNames();
+                List attrsList = Collections.list(attrs);
+				for(int i =0; i < attrsList.size(); i++){
+					String str = (String) attrsList.get(i);
                     String buf = (String) request.getParameter(str);
                     if (buf != null) {
                         attrList.add(buf);

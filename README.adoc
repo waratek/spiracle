@@ -16,8 +16,7 @@ CAUTION: Due to its insecure design, this application should NOT be deployed on 
 
 This application has been tested on the following application servers:
 
-* Apache Tomcat 7.x
-* IBM WebSphere Liberty Core 8.5.5.3
+* Apache Tomcat 5.0.x
 
 Your mileage may vary with other application servers.
 
@@ -28,43 +27,6 @@ Your mileage may vary with other application servers.
 === Tomcat
 
 * Copy the war file to the `$CATALINA_HOME/webapps/` directory.
-
-=== Liberty Core
-
-* Ensure that the application war file is extracted to your server's apps directory:
-+
-----
-$ mkdir ./wlp/usr/servers/defaultServer/apps/spiracle
-$ cd ./wlp/usr/servers/defaultServer/apps/spiracle
-$ jar xvf /path/to/downloaded/spiracle.war
-----
-
-* Modify `server.xml` as follows:
-+
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<server description="new server">
-  <!-- Enable features -->
-  <featureManager>
-    <feature>jsp-2.2</feature>
-    <feature>Servlet-3.0</feature> <!--1-->
-  </featureManager>
-
-  <webApplication contextRoot="spiracle" location="spiracle"/> <!--2-->
-  <httpSession idLength="28" /> <!--3-->
-
-  <httpEndpoint id="defaultHttpEndpoint" 
-                host="*" <!--4-->
-                httpPort="9080" 
-                httpsPort="9443"/>
-</server>
-----
-+
-<1> Enable `Servlet-3.0` as a feature
-<2> Add a `webApplication` tag referencing Spiracle
-<3> Change `httpSession` parameter length 
-<4> Add a `host` attribute
 
 === Database setup
 
@@ -110,7 +72,7 @@ c3p0.username=test
 c3p0.password=test
 ----
 
-NOTE: Spiracle is bundled with MySQL Connector 5.1.34. If this version is not compatible with your MySQL installation replace `mysql-connector-java-5.1.34.jar` under `WEB-INF/lib/` with a compatible version.
+NOTE: Spiracle is bundled with MySQL Connector 3.1.14. If this version is not compatible with your MySQL installation replace `mysql-connector-java-5.1.34.jar` under `WEB-INF/lib/` with a compatible version.
 
 == Running
 
@@ -124,19 +86,18 @@ http://ip:port/spiracle/
 
 Prerequisites:
 
-* Java >= 1.6
+* Java >= 1.4
 * Apache Maven
 * link:http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html[Oracle Database JDBC Driver] (ojdbc6.jar)
+* link:https://www.oracle.com/technetwork/apps-tech/jdbc-10201-088211.html[Java 4 Oracle Database JDBC Driver] (ojdbc14.jar)
+* link:http://www-01.ibm.com/support/docview.wss?uid=swg21363866[Java 4 DB2 JDBC Driver] (db2jcc.jar v3.69.66 is good)
 
-If you wish to use the database features, ensure that the Oracle database JDBC driver file `ojdbc6.jar` is available under `./src/main/webapp/WEB-INF/lib`
+If you wish to use the database features, ensure that the appropriate database JDBC driver file is available under `./src/main/webapp/WEB-INF/lib`
 
 To build the Spiracle Test Application WAR file, run:
 
- $ mvn install -Dversion.webxml=30
+ $ mvn package -Dversion.webxml=24 -Dversion.jdk=1.4
 
-or
-
- $ mvn install -Dversion.webxml=25
 
 To clean the build infrastructure, run:
 
@@ -144,7 +105,7 @@ To clean the build infrastructure, run:
 
 The WAR file will be output to:
 
- ./target/Spiracle.war
+ ./target/spiracle.war
 
 == License
 
