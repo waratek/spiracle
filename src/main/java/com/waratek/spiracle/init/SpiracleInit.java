@@ -26,7 +26,6 @@ import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -35,7 +34,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.waratek.spiracle.sql.util.Constants;
 import java.text.MessageFormat;
 
-@WebListener
+
 public class SpiracleInit implements ServletContextListener {
 
     private static final Logger logger = Logger.getLogger(SpiracleInit.class);
@@ -108,7 +107,7 @@ public class SpiracleInit implements ServletContextListener {
     }
 
     private void loadLog4jConfig(Properties props) {
-        Boolean loggingEnabled = Boolean.parseBoolean(((String) props.get("application.loggingEnabled")));
+        boolean loggingEnabled = new Boolean(((String) props.get("application.loggingEnabled"))).booleanValue();
         if (loggingEnabled) {
             PropertyConfigurator.configure(props);
             logger.info("Sucessfully loaded Spiracle log4j configuration.");
@@ -123,10 +122,10 @@ public class SpiracleInit implements ServletContextListener {
 
     private ComboPooledDataSource getConnectionPool(Properties props, String dbmsName) {
         ComboPooledDataSource ds = new ComboPooledDataSource();
-        String jdbcDriver = props.getProperty(MessageFormat.format("c3p0.{0}.classname", dbmsName));
-        String url = props.getProperty(MessageFormat.format("c3p0.{0}.url", dbmsName));
-        String username = props.getProperty(MessageFormat.format("c3p0.{0}.username", dbmsName));
-        String password = props.getProperty(MessageFormat.format("c3p0.{0}.password", dbmsName));
+        String jdbcDriver = props.getProperty(MessageFormat.format("c3p0.{0}.classname", new Object[]{dbmsName}));
+        String url = props.getProperty(MessageFormat.format("c3p0.{0}.url", new Object[]{dbmsName}));
+        String username = props.getProperty(MessageFormat.format("c3p0.{0}.username", new Object[]{dbmsName}));
+        String password = props.getProperty(MessageFormat.format("c3p0.{0}.password", new Object[]{dbmsName}));
         int maxPoolSize = 0;
         try {
             maxPoolSize = Integer.parseInt(props.getProperty(Constants.C3P0_POOL_SIZE));
@@ -157,7 +156,7 @@ public class SpiracleInit implements ServletContextListener {
         int fetchSize = 0;
         try {
             fetchSize = Integer.parseInt(props.getProperty(Constants.JDBC_FETCH_SIZE));
-            application.setAttribute(Constants.JDBC_FETCH_SIZE, fetchSize);
+            application.setAttribute(Constants.JDBC_FETCH_SIZE, new Integer(fetchSize));
             logger.info("Set jdbc.fetchsize to (" + fetchSize + ")");
         } catch (NumberFormatException e) {
             logger.error("jdbc.fetchsize not specified, default value set(10).");

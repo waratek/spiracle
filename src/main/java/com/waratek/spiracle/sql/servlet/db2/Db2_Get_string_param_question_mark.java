@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_string
  */
-@WebServlet("/Db2_Get_string_param_question_mark")
+
 public class Db2_Get_string_param_question_mark extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
@@ -61,18 +61,18 @@ public class Db2_Get_string_param_question_mark extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<String>();     
+        List queryStringList = new ArrayList();
         queryStringList.add("name");
         
-        Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
+        Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String name = nullSanitizedMap.get("name");
+        String name = (String)nullSanitizedMap.get("name");
 
         String sql = "SELECT * FROM spiracle.users where name <> ? and name = '" + name + "'";
 
-        Boolean showErrors = true;
-        Boolean allResults = true;
-        Boolean showOutput = true;
+        Boolean showErrors = Boolean.TRUE;
+        Boolean allResults = Boolean.TRUE;
+        Boolean showOutput = Boolean.TRUE;
 
         SelectUtil.executeQuerySetString(sql, application, request, response, showErrors, allResults, showOutput);
     }

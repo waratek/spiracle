@@ -15,25 +15,19 @@
  */
 package com.waratek.spiracle.file;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
+import java.io.*;
 
 /**
  * Servlet implementation class FileServlet
  */
-@WebServlet("/FileServlet")
+
 public class FileServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(FileServlet.class);
 	private static final long serialVersionUID = 1L;
@@ -105,21 +99,26 @@ public class FileServlet extends HttpServlet {
 	private String readFile(String pathname) {
 		try {
 			File file = new File(pathname);
-			StringBuilder fileContents = new StringBuilder((int)file.length());
-			Scanner scanner = new Scanner(file);
+			String fileContents = "";
 			String lineSeparator = System.getProperty("line.separator");
 
+			BufferedReader br = new BufferedReader(new FileReader(file));
 			try {
-				while(scanner.hasNextLine()) {
-					fileContents.append(scanner.nextLine() + lineSeparator);
+				String line;
+				while ((line = br.readLine()) != null) {
+					fileContents += line + lineSeparator;
 				}
-				return fileContents.toString();
-			} finally {
-				scanner.close();
 			}
+			finally {
+				br.close();
+			}
+
+			return fileContents;
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return e.getMessage();
 		}
+
 	}
 }

@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_int
  */
-@WebServlet("/MySql_Get_int")
+
 public class MySql_Get_int extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -61,18 +61,18 @@ public class MySql_Get_int extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<String>();     
+        List queryStringList = new ArrayList();
         queryStringList.add("id");
         
-        Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
+        Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String id = nullSanitizedMap.get("id");
+        String id = (String) nullSanitizedMap.get("id");
         
         String sql = "SELECT * FROM users WHERE id = '" + id + " '";
 
-        Boolean showErrors = true;
-        Boolean allResults = true;
-        Boolean showOutput = true;
+        Boolean showErrors = Boolean.TRUE;
+        Boolean allResults = Boolean.TRUE;
+        Boolean showOutput = Boolean.TRUE;
 
         SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }

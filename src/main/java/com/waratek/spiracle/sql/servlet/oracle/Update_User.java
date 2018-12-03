@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.UpdateUtil;
 /**
  * Servlet implementation class Update_User
  */
-@WebServlet("/Update_User")
+
 public class Update_User extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
@@ -61,18 +61,18 @@ public class Update_User extends HttpServlet {
     
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<String>();     
+        List queryStringList = new ArrayList();
         
         queryStringList.add("id");
         queryStringList.add("name");
         queryStringList.add("surname");
         
-        Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
+        Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
         
         
-        String id = nullSanitizedMap.get("id");
-        String name = nullSanitizedMap.get("name");
-        String surname = nullSanitizedMap.get("surname");
+        String id = (String)nullSanitizedMap.get("id");
+        String name = (String)nullSanitizedMap.get("name");
+        String surname = (String)nullSanitizedMap.get("surname");
 
         String sql = "UPDATE users SET name = '" + name + "', surname = '" + surname + "' WHERE id = " + id;
 

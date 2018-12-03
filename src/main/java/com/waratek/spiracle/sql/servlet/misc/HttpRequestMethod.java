@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 /**
  * Servlet implementation class HttpRequestMethod
  */
-@WebServlet("/HttpRequestMethod")
+
 public class HttpRequestMethod extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(HttpRequestMethod.class);
 	private static final long serialVersionUID = 1L;
@@ -38,36 +38,36 @@ public class HttpRequestMethod extends HttpServlet {
 	private final String GET_PATH = "getPath";
 	private final String GET_VALUE = "getValue";
 
-	private Map<String, Integer> methodMap;
+	private Map methodMap;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public HttpRequestMethod() {
 		super();
-		methodMap = new HashMap<String, Integer>();
+		methodMap = new HashMap();
 
-		methodMap.put(GET_HEADER, 0);
-		methodMap.put(GET_HEADERS, 1);
-		methodMap.put(GET_METHOD, 2);
-		methodMap.put(GET_PATH_INFO, 3);
-		methodMap.put(GET_PATH_TRANSLATED, 4);
-		methodMap.put(GET_QUERY_STRING, 5);
-		methodMap.put(GET_REQUEST_URI, 6);
-		methodMap.put(GET_REQUEST_URL, 7);
-		methodMap.put(GET_SERVLET_PATH, 8);
+		methodMap.put(GET_HEADER, new Integer(0));
+		methodMap.put(GET_HEADERS, new Integer(1));
+		methodMap.put(GET_METHOD, new Integer(2));
+		methodMap.put(GET_PATH_INFO, new Integer(3));
+		methodMap.put(GET_PATH_TRANSLATED, new Integer(4));
+		methodMap.put(GET_QUERY_STRING, new Integer(5));
+		methodMap.put(GET_REQUEST_URI, new Integer(6));
+		methodMap.put(GET_REQUEST_URL, new Integer(7));
+		methodMap.put(GET_SERVLET_PATH, new Integer(8));
 
-		methodMap.put(GET_COMMENT, 9);
-		methodMap.put(GET_NAME, 10);
-		methodMap.put(GET_DOMAIN, 11);
-		methodMap.put(GET_PATH, 12);
-		methodMap.put(GET_VALUE, 13);
+		methodMap.put(GET_COMMENT, new Integer(9));
+		methodMap.put(GET_NAME, new Integer(10));
+		methodMap.put(GET_DOMAIN, new Integer(11));
+		methodMap.put(GET_PATH, new Integer(12));
+		methodMap.put(GET_VALUE, new Integer(13));
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		invoke(request, response);
 	}
@@ -75,7 +75,7 @@ public class HttpRequestMethod extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		invoke(request, response);
 	}
@@ -89,7 +89,7 @@ public class HttpRequestMethod extends HttpServlet {
 		String methodReturn = "";
 
 		if(method != null && method.length() != 0) {
-			int invokeVar = methodMap.get(method);
+			int invokeVar = ((Integer)methodMap.get(method)).intValue();
 			switch (invokeVar) {
 			case 0:
 				if(arg != null && arg.length() != 0) {

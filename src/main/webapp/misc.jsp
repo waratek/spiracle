@@ -61,9 +61,19 @@
                 <div class="panel-heading">Thread Terminate</div>
                 <div class="panel-body">
                     <%
-                        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-                        Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
-                        List<Thread> threadList = new ArrayList<Thread>(Arrays.asList(threadArray));
+                        //Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+                        //Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
+                        //List<Thread> threadList = new ArrayList<Thread>(Arrays.asList(threadArray));
+                        ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+                        ThreadGroup parentGroup;
+                        while ((parentGroup = rootGroup.getParent()) != null) {
+                            rootGroup = parentGroup;
+                        }
+                        Thread[] threadArray = new Thread[rootGroup.activeCount()];
+                        while (rootGroup.enumerate(threadArray, true ) == threadArray.length) {
+                            threadArray = new Thread[threadArray.length * 2];
+                        }
+                        List threadList = new ArrayList(Arrays.asList(threadArray));
                         pageContext.setAttribute("threadList", threadList);
                     %>
                     <form action="ThreadKill" method="post">
@@ -78,7 +88,7 @@
                 </div>
                 <div class="panel-footer">Warning, may cause application server to become unresponsive or crash JVM.</div>
             </div>
-            <div class="panel panel-default">
+            <!--div class="panel panel-default">
                 <div class="panel-heading">Thread Stack Inspector</div>
                 <div class="panel-body">
                     <form action="GetThreadStack" method="post">
@@ -105,7 +115,7 @@
                     </c:if>
                 </div>
                 <div class="panel-footer">Inspect thread call stack.</div>
-            </div>
+            </div-->
         </div>
 
     <%@ include file="footer.jsp" %>

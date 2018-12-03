@@ -3,11 +3,11 @@ package com.waratek.spiracle.misc;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/SendRedirectHostnameHardcoded")
+
 public class SendRedirectHostnameHardcoded extends SendRedirect {
 
     private static final String HOSTNAME = "https://www.google.com/#q=";

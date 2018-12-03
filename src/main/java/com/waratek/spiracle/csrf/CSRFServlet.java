@@ -15,30 +15,19 @@
  */
 package com.waratek.spiracle.csrf;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
+import java.io.IOException;
 
 /**
  * Servlet implementation class CSRFServlet
  */
-@WebServlet("/CSRFServlet")
+
 public class CSRFServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(CSRFServlet.class);
 	private static final long serialVersionUID = 1L;

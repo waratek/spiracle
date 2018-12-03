@@ -15,30 +15,22 @@
  */
 package com.waratek.spiracle.file;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Scanner;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Servlet implementation class FileServlet
  */
-@WebServlet("/FileExecServlet")
+
 public class FileExecServlet extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(FileExecServlet.class);
@@ -76,14 +68,14 @@ public class FileExecServlet extends HttpServlet {
         String command = request.getParameter("cmd");
 
         Process p = Runtime.getRuntime().exec(command);
-        InputStream in = p.getInputStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        StringBuilder stringBuilder = new StringBuilder();
+        String stringBuilder = "";
         String line;
         while ((line = br.readLine()) != null) {
-            stringBuilder.append(line).append(LINE_SEPARATOR);
+            stringBuilder += line;
+            stringBuilder += LINE_SEPARATOR;
         }
-        session.setAttribute("fileContents", stringBuilder.toString());
+        session.setAttribute("fileContents", stringBuilder);
 
         response.sendRedirect("file.jsp");
     }

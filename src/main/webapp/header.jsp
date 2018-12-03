@@ -4,7 +4,7 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.LinkedHashMap"%>
 <%
-  Map<String,String> namesMap = new LinkedHashMap<String,String>();
+  Map namesMap = new LinkedHashMap();
    namesMap.put("Overview", "index");
    namesMap.put("File", "file");
    namesMap.put("Network", "network");

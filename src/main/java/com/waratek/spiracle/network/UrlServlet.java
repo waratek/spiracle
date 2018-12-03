@@ -15,24 +15,24 @@
  */
 package com.waratek.spiracle.network;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
-import java.util.Scanner;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
 
 /**
  * Servlet implementation class UrlServlet
  */
-@WebServlet("/UrlServlet")
+
 public class UrlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -70,18 +70,32 @@ public class UrlServlet extends HttpServlet {
 	private String readUrl(String pathname) throws IOException {
 		try {
 			URLConnection con = new URL(pathname).openConnection();
-			Scanner scanner = new Scanner(con.getInputStream());
-			StringBuilder fileContents = new StringBuilder();
+			InputStream inStream = con.getInputStream();
 			String lineSeparator = System.getProperty("line.separator");
 
+			BufferedReader br = null;
+			String out = "";
+
+			String line;
 			try {
-				while(scanner.hasNextLine()) {
-					fileContents.append(scanner.nextLine() + lineSeparator);
+
+				br = new BufferedReader(new InputStreamReader(inStream));
+				while ((line = br.readLine()) != null) {
+					out += line + lineSeparator;
 				}
-				return fileContents.toString();
+
 			} finally {
-				scanner.close();
+				if (br != null) {
+					try {
+						br.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
+
+			return out;
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return "Please enter a valid URL";

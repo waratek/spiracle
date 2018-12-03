@@ -20,7 +20,7 @@ import java.io.RandomAccessFile;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class RandomAccessFileServlet02
  */
-@WebServlet("/RandomAccessFileServlet02")
 public class RandomAccessFileServlet02 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -81,7 +80,7 @@ public class RandomAccessFileServlet02 extends HttpServlet {
 
         } finally {
 
-            System.out.println(newLine + getClass().getSimpleName() + newLine + s);
+            System.out.println(newLine + getClass().getName() + newLine + s);
             session.setAttribute("outputRandomAccessFile", s.toString());
             response.sendRedirect("pathTraversal.jsp");
         }

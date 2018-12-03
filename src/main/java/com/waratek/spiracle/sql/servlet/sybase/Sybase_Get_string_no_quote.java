@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_string
  */
-@WebServlet("/Sybase_Get_string_no_quote")
+
 public class Sybase_Get_string_no_quote extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class Sybase_Get_string_no_quote extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    @Override
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
@@ -56,25 +56,25 @@ public class Sybase_Get_string_no_quote extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    @Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<String>();
+        List queryStringList = new ArrayList();
         queryStringList.add("name");
 
-        Map<String, String> nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
+        Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String name = nullSanitizedMap.get("name");
+        String name = (String)nullSanitizedMap.get("name");
 
         String sql = "SELECT * FROM users WHERE name = " + name;
 
-        Boolean showErrors = true;
-        Boolean allResults = true;
-        Boolean showOutput = true;
+        Boolean showErrors = Boolean.TRUE;
+        Boolean allResults = Boolean.TRUE;
+        Boolean showOutput = Boolean.TRUE;
 
         SelectUtil.executeQuery(sql, application, request, response, showErrors, allResults, showOutput);
     }

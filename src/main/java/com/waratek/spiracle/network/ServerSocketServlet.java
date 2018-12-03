@@ -21,7 +21,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class ServerSocketServlet
  */
-@WebServlet("/ServerSocketServlet")
+
 public class ServerSocketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ServerSocket ss;

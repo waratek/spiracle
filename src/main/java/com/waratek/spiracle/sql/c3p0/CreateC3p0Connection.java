@@ -23,7 +23,7 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 /**
  * Servlet implementation class CreateConnection
  */
-@WebServlet("/CreateC3p0Connection")
+
 public class CreateC3p0Connection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
