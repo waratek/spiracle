@@ -17,7 +17,6 @@ package com.waratek.spiracle.xss;
 
 import java.io.*;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,6 @@ import org.apache.log4j.Logger;
 /**
  * Servlet implementation class XSSBufferTest
  */
-@WebServlet("/XSSBufferTest")
 public class XSSBufferTest extends HttpServlet {
     private static final Logger logger = Logger.getLogger(XSSBufferTest.class);
     private static final long serialVersionUID = 1L;
