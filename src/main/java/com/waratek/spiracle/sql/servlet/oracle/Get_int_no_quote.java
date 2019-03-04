@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_int_no_quote
  */
-@WebServlet("/Get_int_no_quote")
+@WebServlet({"/Get_int_no_quote", "/MsSql_Get_int_no_quote", "/MySql_Get_int_no_quote"})
 public class Get_int_no_quote extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
