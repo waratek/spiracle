@@ -334,6 +334,14 @@
         <servlet-name>Get_int_inline</servlet-name>
         <url-pattern>/Get_int_inline</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_inline</servlet-name>
+        <url-pattern>/MsSql_Get_int_inline</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_inline</servlet-name>
+        <url-pattern>/MySql_Get_int_inline</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>Get_int_no_quote</servlet-name>
@@ -342,6 +350,14 @@
     <servlet-mapping>
         <servlet-name>Get_int_no_quote</servlet-name>
         <url-pattern>/Get_int_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_no_quote</servlet-name>
+        <url-pattern>/MsSql_Get_int_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_no_quote</servlet-name>
+        <url-pattern>/MySql_Get_int_no_quote</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -405,6 +421,14 @@
     <servlet-mapping>
         <servlet-name>Get_string_no_quote</servlet-name>
         <url-pattern>/Get_string_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_string_no_quote</servlet-name>
+        <url-pattern>/MsSql_Get_string_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_string_no_quote</servlet-name>
+        <url-pattern>/MySql_Get_string_no_quote</url-pattern>
     </servlet-mapping>
 
     <servlet>

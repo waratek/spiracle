@@ -33,7 +33,7 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_int_inline
  */
-@WebServlet("/Get_int_inline")
+@WebServlet({"/Get_int_inline", "/MsSql_Get_int_inline", "/MySql_Get_int_inline"})
 public class Get_int_inline extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
