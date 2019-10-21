@@ -29,6 +29,12 @@
     </build>       
 
     <dependencies>
+	<!-- commons-collections is needed for Java deserialization RCE -->
+	<dependency>
+	    <groupId>commons-collections</groupId>
+	    <artifactId>commons-collections</artifactId>
+	    <version>3.2</version>
+	</dependency>
         <dependency> <!-- commons-fileupload is needed for CVE-2013-2186 -->
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
