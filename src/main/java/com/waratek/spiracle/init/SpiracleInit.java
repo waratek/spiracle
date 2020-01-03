@@ -47,6 +47,7 @@ public class SpiracleInit implements ServletContextListener {
         ((ComboPooledDataSource) application.getAttribute(Constants.MSSQL_CONNECTION_POOL)).close();
         ((ComboPooledDataSource) application.getAttribute(Constants.DB2_CONNECTION_POOL)).close();
         ((ComboPooledDataSource) application.getAttribute(Constants.SYBASE_CONNECTION_POOL)).close();
+        ((ComboPooledDataSource) application.getAttribute(Constants.POSTGRES_CONNECTION_POOL)).close();
     }
 
     public void contextInitialized(ServletContextEvent arg0) {
@@ -71,6 +72,9 @@ public class SpiracleInit implements ServletContextListener {
         ComboPooledDataSource sybaseSqlDs = getConnectionPool(props, Constants.SYBASE);
         setNamedConnectionPool(application, sybaseSqlDs, Constants.SYBASE_CONNECTION_POOL, Constants.SYBASE_CONNECTION_DATA);
 
+        ComboPooledDataSource postgresSqlDs = getConnectionPool(props, Constants.POSTGRES);
+        setNamedConnectionPool(application, postgresSqlDs, Constants.POSTGRES_CONNECTION_POOL, Constants.POSTGRES_CONNECTION_DATA);
+
         setDefaultConnection(application, props);
         setFetchSize(application, props);
         try {
@@ -79,6 +83,7 @@ public class SpiracleInit implements ServletContextListener {
             Class.forName(props.getProperty(Constants.C3P0_MSSQL_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_DB2_CLASSNAME));
             Class.forName(props.getProperty(Constants.C3P0_SYBASE_CLASSNAME));
+            Class.forName(props.getProperty(Constants.C3P0_POSTGRES_CLASSNAME));
         } catch (ClassNotFoundException e) {
             logger.error("Unable to load JDBC connector classes from config.");
             e.printStackTrace();

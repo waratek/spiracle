@@ -88,6 +88,22 @@
                 </div>
             </div>
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Postgres C3P0 Connection Pool</h5>
+                </div>
+                <%
+                    String postgresSqlConnectionData = (String) application
+                            .getAttribute(Constants.POSTGRES_CONNECTION_DATA);
+                    if (postgresSqlConnectionData == null) {
+                        postgresSqlConnectionData = "";
+                    }
+                %>
+                <div class="panel-footer">
+                    Connection Information
+                    <pre><%=postgresSqlConnectionData%></pre>
+                </div>
+            </div>
+            <div class="panel panel-default">
                 <div class="panel-heading">Injectable URLS</div>
                 <div class="panel-body">
                     <h3>Oracle</h3>
@@ -384,6 +400,35 @@
                             </tr>
                             <tr>
                                 <td><a href="Sybase_Implicit_Join_Namespace?id=1">Sybase_Implicit_Join_Namespace?id=1</a></td>
+                                <td><code>"SELECT * FROM dbo.users, dbo.address WHERE
+                                        dbo.users.id = " + id + " AND dbo.users.id = dbo.address.id";</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-body">
+                    <h3>Postgres</h3>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Request</th>
+                                <th>SQL Statement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="Postgres_Get_string_unicode_identifier?name=wu">Postgres_Get_string_unicode_identifier?name=wu</a></td>
+                                <td><code>"SELECT * FROM U&"\0075\0073\0065\0072\0073" WHERE name = '" + name
+                                        + "'";</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Postgres_Get_Union?id=1">Postgres_Get_Union?id=1</a></td>
+                                <td><code>"SELECT name, surname, CONECRT(varchar(500), dod, 3)dob FROM users WHERE
+                                        id = " + id + " UNION SELECT address_1, address_2, address_3
+                                        FROM address WHERE id = " + id;</code></td>
+                            </tr>
+                            <tr>
+                                <td><a href="Postgres_Implicit_Join_Namespace?id=1">Postgres_Implicit_Join_Namespace?id=1</a></td>
                                 <td><code>"SELECT * FROM dbo.users, dbo.address WHERE
                                         dbo.users.id = " + id + " AND dbo.users.id = dbo.address.id";</code></td>
                             </tr>

@@ -576,6 +576,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Postgres_Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.postgres.Postgres_Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Postgres_Get_Union</servlet-name>
+        <url-pattern>/Postgres_Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Postgres_Get_string_unicode_identifier</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.postgres.Postgres_Get_string_unicode_identifier</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Postgres_Get_string_unicode_identifier</servlet-name>
+        <url-pattern>/Postgres_Get_string_unicode_identifier</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Postgres_Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.postgres.Postgres_Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Postgres_Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/Postgres_Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>CreateC3p0Connection</servlet-name>
         <servlet-class>com.waratek.spiracle.sql.c3p0.CreateC3p0Connection</servlet-class>
     </servlet>
