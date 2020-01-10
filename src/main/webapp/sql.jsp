@@ -423,14 +423,14 @@
                             </tr>
                             <tr>
                                 <td><a href="Postgres_Get_Union?id=1">Postgres_Get_Union?id=1</a></td>
-                                <td><code>"SELECT name, surname, CONECRT(varchar(500), dod, 3)dob FROM users WHERE
+                                <td><code>""SELECT name, surname, CAST (dob AS VARCHAR(500))  FROM users WHERE
                                         id = " + id + " UNION SELECT address_1, address_2, address_3
                                         FROM address WHERE id = " + id;</code></td>
                             </tr>
                             <tr>
                                 <td><a href="Postgres_Implicit_Join_Namespace?id=1">Postgres_Implicit_Join_Namespace?id=1</a></td>
-                                <td><code>"SELECT * FROM dbo.users, dbo.address WHERE
-                                        dbo.users.id = " + id + " AND dbo.users.id = dbo.address.id";</code></td>
+                                <td><code>"SELECT * FROM public.users, public.address WHERE
+                                        public.users.id = " + id + " AND public.users.id = public.address.id";</code></td>
                             </tr>
                         </tbody>
                     </table>
