@@ -423,7 +423,7 @@
                             </tr>
                             <tr>
                                 <td><a href="Postgres_Get_Union?id=1">Postgres_Get_Union?id=1</a></td>
-                                <td><code>""SELECT name, surname, CAST (dob AS VARCHAR(500))  FROM users WHERE
+                                <td><code>"SELECT name, surname, CAST (dob AS VARCHAR(500)) FROM users WHERE
                                         id = " + id + " UNION SELECT address_1, address_2, address_3
                                         FROM address WHERE id = " + id;</code></td>
                             </tr>
