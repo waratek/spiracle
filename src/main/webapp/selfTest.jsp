@@ -50,7 +50,7 @@
         $(document).ready(function(){
         $.ajax({ url: 'FileServlet03',
                 type: 'POST',
-                data: { File01: '/etc/hosts'  },
+                data: { File03: '/etc/hosts'  },
                 context: document.body,
                 success: function(){
                    $('#pathTraversalAbsoluteCheck').html("<b>Done</b>");
