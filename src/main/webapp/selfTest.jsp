@@ -80,13 +80,20 @@
         <h1>Diagnostic Self-tests</h1>
         <p>&nbsp;</p>
 
-        <div id="block_container"><p>File Read Test: &nbsp;<div id="fileReadCheck" style="display:inline;"></div></p></div>
-        <div id="block_container"><p>File Write Test: &nbsp;<div id="fileWriteCheck" style="display:inline;"></div></p></div>
+        <div id="block_container"><p>File Read Test (/etc/passwd): &nbsp;<div id="fileReadCheck" style="display:inline;"></div></p></div>
+        <div id="block_container"><p>File Write Test (/tmp/dummy): &nbsp;<div id="fileWriteCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>Path Traversal Relative Test: &nbsp;<div id="pathTraversalRelativeCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>Path Traversal Absolute Test: &nbsp;<div id="pathTraversalAbsoluteCheck" style="display:inline;"></div></p></div>
-        <div id="block_container"><p>Network Accept Test: &nbsp;<div id="networkAcceptCheck" style="display:inline;"></div></p></div>
+        <div id="block_container"><p>Network Accept Test (localhost:<% out.print(request.getLocalPort()); %>): &nbsp;<div id="networkAcceptCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>XSS Test: &nbsp;<div id="xssCheck" style="display:inline;"></div></p></div>
+    
+        <p>&nbsp;</p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Please check the logs and events of your RASP/IAST/WAF solution to confirm the attacks were detected or protected.
+            </div>
+        </div>
 
-    </div>
+        </div>
 
     <%@ include file="footer.jsp" %>
