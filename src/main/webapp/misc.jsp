@@ -21,6 +21,17 @@
             %>
             <h1>Misc</h1>
             <div class="panel panel-default">
+                <div class="panel-heading">Diagnostic Self-tests</div>
+                <div class="panel-body">
+                    <form action="selfTest.jsp" method="get">
+                        <input type="submit" class="btn btn-danger btn-lg active" title="This will start the self-tests" value="Run Self-Tests">
+                    </form>
+                </div>
+                <div class="panel-footer">Automatic tests that trigger common web attacks.
+                    It can be used as a sanity test to confirm basic appsec protection and configuration of RASP, IAST and WAF products.</div>
+            </div>
+
+            <div class="panel panel-default">
                 <div class="panel-heading">HttpServletRequest Method Return</div>
                 <div class="panel-body">
                     <form action="HttpRequestMethod" method="post">

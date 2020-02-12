@@ -82,6 +82,8 @@ public class ServerSocketServlet extends HttpServlet {
 		} catch (Throwable e) {
 			if(ss != null) {
 				ss.close();
+			}
+			if(s != null) {
 				s.close();
 			}
 			e.printStackTrace();
