@@ -28,6 +28,16 @@
         });
 
         $(document).ready(function(){
+        $.ajax({ url: "FileExecServlet",
+                type: 'POST',
+                data: { cmd: 'ping'  },
+                context: document.body,
+                success: function(){
+                   $('#processForkingCheck').html("<b>Done</b>");
+                }});
+        });
+
+        $(document).ready(function(){
         $.ajax({ url: "SocketServlet",
                 type: 'POST',
                 data: { bindHost: '', bindPort: '', remoteHost: 'localhost', remotePort: '<% out.print(request.getLocalPort()); %>'  },
@@ -82,6 +92,7 @@
 
         <div id="block_container"><p>File Read Test (/etc/passwd): &nbsp;<div id="fileReadCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>File Write Test (/tmp/dummy): &nbsp;<div id="fileWriteCheck" style="display:inline;"></div></p></div>
+        <div id="block_container"><p>Process Forking (ping): &nbsp;<div id="processForkingCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>Path Traversal Relative Test (../../): &nbsp;<div id="pathTraversalRelativeCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>Path Traversal Absolute Test (/etc/hosts): &nbsp;<div id="pathTraversalAbsoluteCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>Network Accept Test (localhost:<% out.print(request.getLocalPort()); %>): &nbsp;<div id="networkAcceptCheck" style="display:inline;"></div></p></div>
