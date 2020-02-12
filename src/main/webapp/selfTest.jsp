@@ -48,7 +48,7 @@
         });
 
         $(document).ready(function(){
-        $.ajax({ url: 'FileServlet01',
+        $.ajax({ url: 'FileServlet03',
                 type: 'POST',
                 data: { File01: '/etc/hosts'  },
                 context: document.body,
@@ -82,8 +82,8 @@
 
         <div id="block_container"><p>File Read Test (/etc/passwd): &nbsp;<div id="fileReadCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>File Write Test (/tmp/dummy): &nbsp;<div id="fileWriteCheck" style="display:inline;"></div></p></div>
-        <div id="block_container"><p>Path Traversal Relative Test: &nbsp;<div id="pathTraversalRelativeCheck" style="display:inline;"></div></p></div>
-        <div id="block_container"><p>Path Traversal Absolute Test: &nbsp;<div id="pathTraversalAbsoluteCheck" style="display:inline;"></div></p></div>
+        <div id="block_container"><p>Path Traversal Relative Test (../../): &nbsp;<div id="pathTraversalRelativeCheck" style="display:inline;"></div></p></div>
+        <div id="block_container"><p>Path Traversal Absolute Test (/etc/hosts): &nbsp;<div id="pathTraversalAbsoluteCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>Network Accept Test (localhost:<% out.print(request.getLocalPort()); %>): &nbsp;<div id="networkAcceptCheck" style="display:inline;"></div></p></div>
         <div id="block_container"><p>XSS Test: &nbsp;<div id="xssCheck" style="display:inline;"></div></p></div>
     
