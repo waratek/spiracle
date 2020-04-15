@@ -35,10 +35,26 @@
                     <h4>Reflected Parameters</h4>
                 </div>
                 <div class="panel-body">
+		    <form id="reflectedXSS" action="xss.jsp">
+                      <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Set the Payload</th>
+                                <th><input type="text" name="payload" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><input type="submit" name="submit" /></th>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </form>
+
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Payload</th>
+                                <th>Reflected Payload</th>
                             </tr>
 
                         </thead>
