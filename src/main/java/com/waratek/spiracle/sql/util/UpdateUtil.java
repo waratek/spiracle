@@ -10,9 +10,7 @@
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
+ *  See the License for the specific language governing permissions.
 package com.waratek.spiracle.sql.util;
 
 import java.io.IOException;
@@ -81,37 +79,6 @@ public class UpdateUtil {
 			}
 			while((e = e.getNextException()) != null) {
 				out.println(e.getMessage() + "<BR>");
-			}
-		} finally {
-			try {
-				if(stmt != null) {
-					logger.info("Closing PreparedStatement " + stmt);
-					stmt.close();
-					logger.info("Closed PreparedStatement " + stmt);
-				}
-			} catch (SQLException stmtCloseException) {
-				if(logger.isDebugEnabled()) {
-					logger.debug(stmtCloseException.getMessage(), stmtCloseException);
-				} else {
-					logger.error(stmtCloseException);
-				}
-			}
-			try {
-				if(con != null) {
-					logger.info("Closing Connection " + con);
-					con.close();
-					logger.info("Closed Connection " + con);
-				}
-			} catch (SQLException conCloseException) {
-				if(logger.isDebugEnabled()) {
-					logger.debug(conCloseException.getMessage(), conCloseException);
-				} else {
-					logger.error(conCloseException);
-				}
-			}
-
-			out.println("</DIV>");
-			TagUtil.printPageFooter(out);
 			out.close();
 		}
 	}
