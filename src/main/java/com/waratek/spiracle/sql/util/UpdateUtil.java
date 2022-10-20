@@ -79,37 +79,6 @@ public class UpdateUtil {
 			}
 			while((e = e.getNextException()) != null) {
 				out.println(e.getMessage() + "<BR>");
-			}
-		} finally {
-			try {
-				if(stmt != null) {
-					logger.info("Closing PreparedStatement " + stmt);
-					stmt.close();
-					logger.info("Closed PreparedStatement " + stmt);
-				}
-			} catch (SQLException stmtCloseException) {
-				if(logger.isDebugEnabled()) {
-					logger.debug(stmtCloseException.getMessage(), stmtCloseException);
-				} else {
-					logger.error(stmtCloseException);
-				}
-			}
-			try {
-				if(con != null) {
-					logger.info("Closing Connection " + con);
-					con.close();
-					logger.info("Closed Connection " + con);
-				}
-			} catch (SQLException conCloseException) {
-				if(logger.isDebugEnabled()) {
-					logger.debug(conCloseException.getMessage(), conCloseException);
-				} else {
-					logger.error(conCloseException);
-				}
-			}
-
-			out.println("</DIV>");
-			TagUtil.printPageFooter(out);
 			out.close();
 		}
 	}
