@@ -44,23 +44,10 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException	{
-		final HttpSession session = request.getSession();
-
-		final String method = request.getParameter("fileFromDatabaseArg");
-		final String textData = request.getParameter("fileText");
 		putFilePathInDatabase(request);
 		final String pathFromDatabase = retrieveFilePathFromDatabase(request);
 
-		if (method.equals("read")) {
-			read(session, pathFromDatabase);
-		} else if(method.equals("write")) {
-			write(session, pathFromDatabase, textData);
-		} else if(method.equals("delete")) {
-			delete(session, pathFromDatabase);
-		}
-
-		logger.info(method + " " + pathFromDatabase + " " + textData);
-
+		performFileAction(request, pathFromDatabase);
 		response.sendRedirect("file.jsp");
 	}
 

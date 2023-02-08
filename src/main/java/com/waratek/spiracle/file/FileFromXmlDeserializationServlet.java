@@ -46,24 +46,11 @@ public class FileFromXmlDeserializationServlet extends AbstractFileServlet {
 
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		final HttpSession session = request.getSession();
-
-		final String method = request.getParameter("fileXmlDeserializationArg");
-		final String textData = request.getParameter("fileText");
 		final String userProvidedPath = request.getParameter("fileXmlDeserializationPath");
 		final String deserializedPath = xmlSerializeAndDeserializePath(userProvidedPath);
 
 
-		if (method.equals("read")) {
-			read(session, deserializedPath);
-		} else if(method.equals("write")) {
-			write(session, deserializedPath, textData);
-		} else if(method.equals("delete")) {
-			delete(session, deserializedPath);
-		}
-
-		logger.info(method + " " + deserializedPath + " " + textData);
-
+		performFileAction(request, deserializedPath);
 		response.sendRedirect("file.jsp");
 	}
 
