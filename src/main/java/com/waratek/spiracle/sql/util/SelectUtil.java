@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -33,29 +34,23 @@ public class SelectUtil {
 	private static final Logger logger = Logger.getLogger(SelectUtil.class);
 
 
-	public static void executeQuery(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
+	private static void executeQuery(
+			String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput, boolean setString)
+			throws IOException
+	{
 		response.setHeader("Content-Type", "text/html;charset=UTF-8");
 		ServletOutputStream out = response.getOutputStream();
-		String connectionType = null;
 		Connection con = null;
-		int fetchSize = (Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE);
-		String defaultConnection = (String) application.getAttribute(Constants.DEFAULT_CONNECTION);
+		int fetchSize = getFetchSize(application);
 
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
 		TagUtil.printPageHead(out);
 		TagUtil.printPageNavbar(out);
 		TagUtil.printContentDiv(out);
 
 		try {
-			//Checking if connectionType is set, defaulting it to c3p0 if not set.
-			if(request.getParameter("connectionType") == null) {
-				connectionType = defaultConnection;
-			} else {
-				connectionType = request.getParameter("connectionType");
-			}
-			con = ConnectionUtil.getConnection(application, connectionType);
+			con = ConnectionUtil.getConnection(application, request);
 			out.println("<div class=\"panel-body\">");
 			out.println("<h1>SQL Query:</h1>");
 			out.println("<pre>");
@@ -66,68 +61,104 @@ public class SelectUtil {
 
 			stmt = con.prepareStatement(sql);
 			logger.info("Created PreparedStatement: " + sql);
-			executePreparedStatement(stmt, fetchSize, rs, sql, out, allResults, showOutput);
+			if (setString){
+				stmt.setString(1, "something");
+				logger.info("Substituted parameter in PreparedStatement: " + sql);
+			}
+			executePreparedStatement(stmt, fetchSize, sql, out, allResults, showOutput);
 		} catch(SQLException sqlexception) {
 			verifySQLException(sqlexception, application, response, out);
 		} finally {
-			cleanup(rs, stmt, con);
+			cleanup(stmt, con);
 			TagUtil.printPageFooter(out);
 			out.close();
 		}
 	}
 
-        	public static void executeQuerySetString(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
-		response.setHeader("Content-Type", "text/html;charset=UTF-8");
-		ServletOutputStream out = response.getOutputStream();
-		String connectionType = null;
+	public static void executeQuery(
+			String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput)
+			throws IOException
+	{
+		boolean setString = false;
+		executeQuery(sql, application, request, response, showErrors, allResults, showOutput, setString);
+	}
+
+	public static void executeQuerySetString(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
+		boolean setString = true;
+		executeQuery(sql, application, request, response, showErrors, allResults, showOutput, setString);
+	}
+
+	public static ArrayList<ArrayList<Object>> executeQueryWithoutNewPage(String sql, ServletContext application, HttpServletRequest request)
+			throws IOException, SQLException
+	{
 		Connection con = null;
-		int fetchSize = (Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE);
-		String defaultConnection = (String) application.getAttribute(Constants.DEFAULT_CONNECTION);
-
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
-
-		TagUtil.printPageHead(out);
-		TagUtil.printPageNavbar(out);
-		TagUtil.printContentDiv(out);
-
+		ArrayList<ArrayList<Object>> resultList;
 		try {
-			//Checking if connectionType is set, defaulting it to c3p0 if not set.
-			if(request.getParameter("connectionType") == null) {
-				connectionType = defaultConnection;
-			} else {
-				connectionType = request.getParameter("connectionType");
-			}
-			con = ConnectionUtil.getConnection(application, connectionType);
-			out.println("<div class=\"panel-body\">");
-			out.println("<h1>SQL Query:</h1>");
-			out.println("<pre>");
-			out.println(sql);
-			out.println("</pre>");
-
+			con = ConnectionUtil.getConnection(application, request);
 			logger.info(sql);
-
 			stmt = con.prepareStatement(sql);
 			logger.info("Created PreparedStatement: " + sql);
-                        stmt.setString(1, "something");
-                        logger.info("Substituted parameter in PreparedStatement: " + sql);
-			executePreparedStatement(stmt, fetchSize, rs, sql, out, allResults, showOutput);
-		} catch(SQLException sqlexception) {
-			verifySQLException(sqlexception, application, response, out);
+			ResultSet rs = executePreparedStatementWithoutWriting(stmt, getFetchSize(application), sql);
+			resultList = convertResultSetToList(rs);
 		} finally {
-			cleanup(rs, stmt, con);
-			TagUtil.printPageFooter(out);
-			out.close();
+			cleanup(stmt, con);
 		}
+		return resultList;
 	}
 
-        private static void executePreparedStatement(PreparedStatement stmt, int fetchSize, ResultSet rs, String sql, ServletOutputStream out, Boolean allResults, Boolean showOutput) throws IOException, SQLException {
-            stmt.setFetchSize(fetchSize);
-            rs = stmt.executeQuery();
-            logger.info("Executed: " + sql);
+	private static Integer getFetchSize(ServletContext application) {
+		return (Integer) application.getAttribute(Constants.JDBC_FETCH_SIZE);
+	}
 
-            writeToResponse(allResults, showOutput, out, rs);
-        }
+	private static void executePreparedStatement(PreparedStatement stmt, int fetchSize, String sql, ServletOutputStream out, Boolean allResults, Boolean showOutput)
+			throws IOException, SQLException
+	{
+		boolean shouldWriteToResponse = true;
+		executePreparedStatement(stmt, fetchSize, sql, out, allResults, showOutput, shouldWriteToResponse);
+	}
+
+	private static ResultSet executePreparedStatement(
+			PreparedStatement stmt, int fetchSize, String sql, ServletOutputStream out, boolean allResults, boolean showOutput, boolean shouldWriteToResponse)
+			throws IOException, SQLException
+	{
+		stmt.setFetchSize(fetchSize);
+		ResultSet rs = stmt.executeQuery();
+		logger.info("Executed: " + sql);
+
+		if (shouldWriteToResponse)
+		{
+			writeToResponse(allResults, showOutput, out, rs);
+		}
+		return rs;
+	}
+
+	private static ResultSet executePreparedStatementWithoutWriting(PreparedStatement stmt, int fetchSize, String sql)
+			throws IOException, SQLException
+	{
+		ServletOutputStream out = null;
+		boolean allResults = false;
+		boolean showOutput = false;
+		boolean shouldWriteToResponse = false;
+
+		return executePreparedStatement(stmt, fetchSize, sql, out, allResults, showOutput, shouldWriteToResponse);
+	}
+
+	private static ArrayList<ArrayList<Object>> convertResultSetToList(ResultSet rs) throws SQLException
+	{
+		ArrayList<ArrayList<Object>> resultList = new ArrayList<ArrayList<Object>>();
+		int columnCount = rs.getMetaData().getColumnCount();
+		while (rs.next())
+		{
+			ArrayList<Object> resultRow = new ArrayList<Object>();
+			for (int i = 1; i <= columnCount; i++)
+			{
+				resultRow.add(rs.getObject(i));
+			}
+			resultList.add(resultRow);
+		}
+		return resultList;
+	}
 
 	private static void writeToResponse(Boolean allResults, Boolean showOutput, ServletOutputStream out, ResultSet rs) throws SQLException, IOException {
 		ResultSetMetaData metaData = rs.getMetaData();
@@ -170,69 +201,55 @@ public class SelectUtil {
 		out.println("</TR>");
 	}
 
-        private static void verifySQLException(SQLException sqlexception, ServletContext application, HttpServletResponse response, ServletOutputStream out) throws IOException{
-                if(sqlexception.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
-                        int error = Integer.parseInt((String) application.getAttribute("defaultError"));
-                        response.setStatus(error);
-                } else {
-                        response.setStatus(500);
-                }
+	public static void verifySQLException(SQLException sqlexception, ServletContext application, HttpServletResponse response, ServletOutputStream out) throws IOException{
+		if(sqlexception.getMessage().equals("Attempted to execute a query with one or more bad parameters.")) {
+			int error = Integer.parseInt((String) application.getAttribute("defaultError"));
+			response.setStatus(error);
+		} else {
+			response.setStatus(500);
+		}
 
-                out.println("<div class=\"alert alert-danger\" role=\"alert\">");
-                out.println("<strong>SQLException:</strong> " + sqlexception.getMessage() + "<BR>");
+		out.println("<div class=\"alert alert-danger\" role=\"alert\">");
+		out.println("<strong>SQLException:</strong> " + sqlexception.getMessage() + "<BR>");
 
-                if(logger.isDebugEnabled()) {
-                        logger.debug(sqlexception.getMessage(), sqlexception);
-                } else {
-                        logger.error(sqlexception);
-                }
+		if(logger.isDebugEnabled()) {
+			logger.debug(sqlexception.getMessage(), sqlexception);
+		} else {
+			logger.error(sqlexception);
+		}
 
-                while((sqlexception = sqlexception.getNextException()) != null) {
-                        out.println(sqlexception.getMessage() + "<BR>");
-            }
-        }
+		while((sqlexception = sqlexception.getNextException()) != null) {
+			out.println(sqlexception.getMessage() + "<BR>");
+	    }
+	}
 
-        private static void cleanup(ResultSet rs, PreparedStatement stmt, Connection con) throws IOException{
-                try {
-        	        if(rs != null) {
-                                logger.info("Closing ResultSet " + rs);
-                                rs.close();
-                                logger.info("Closed ResultSet " + rs);
-                        }
-                } catch (SQLException rsCloseException) {
-                        if(logger.isDebugEnabled()) {
-                                logger.debug(rsCloseException.getMessage(), rsCloseException);
-                        } else {
-                                logger.error(rsCloseException);
-                        }
-                }
+	public static void cleanup(PreparedStatement stmt, Connection con) {
+		try {
+			if(stmt != null) {
+				logger.info("Closing PreparedStatement " + stmt);
+				stmt.close();
+				logger.info("Closed PreparedStatement " + stmt);
+			}
+		} catch (SQLException stmtCloseException) {
+			if(logger.isDebugEnabled()) {
+				logger.debug(stmtCloseException.getMessage(), stmtCloseException);
+			} else {
+				logger.error(stmtCloseException);
+			}
+		}
 
-                try {
-        	        if(stmt != null) {
-                	            logger.info("Closing PreparedStatement " + stmt);
-                                    stmt.close();
-                                    logger.info("Closed PreparedStatement " + stmt);
-                        }
-                } catch (SQLException stmtCloseException) {
-                        if(logger.isDebugEnabled()) {
-                                logger.debug(stmtCloseException.getMessage(), stmtCloseException);
-                        } else {
-                                logger.error(stmtCloseException);
-                        }
-                }
-
-                try {
-                        if(con != null) {
-                                logger.info("Closing Connection " + con);
-                                con.close();
-                                logger.info("Closed Connection " + con);
-                        }
-                } catch (SQLException conCloseException) {
-                        if(logger.isDebugEnabled()) {
-                                logger.debug(conCloseException.getMessage(), conCloseException);
-                        } else {
-                                logger.error(conCloseException);
-                        }
-                }
+		try {
+			if(con != null) {
+				logger.info("Closing Connection " + con);
+				con.close();
+				logger.info("Closed Connection " + con);
+			}
+		} catch (SQLException conCloseException) {
+			if(logger.isDebugEnabled()) {
+				logger.debug(conCloseException.getMessage(), conCloseException);
+			} else {
+				logger.error(conCloseException);
+			}
+		}
 	}
 }
