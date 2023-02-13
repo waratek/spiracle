@@ -101,23 +101,18 @@ public abstract class AbstractFileServlet extends HttpServlet {
 		}
 	}
 
-	protected void performFileAction(HttpServletRequest request, String path) throws IOException
+	protected void performFileAction(HttpServletRequest request, String path, String method) throws IOException
 	{
 		final HttpSession session = request.getSession();
 		final String textData = request.getParameter("fileText");
-		final String method = request.getParameter("fileFromDatabaseArg");
-		switch (method) {
-			case "read":
-				read(session, path);
-				break;
-			case "write":
-				write(session, path, textData);
-				break;
-			case "delete":
-				delete(session, path);
-				break;
-			default:
-				throw new RuntimeException("Unknown file method: " + method);
+		if (method.equals("read")) {
+			read(session, path);
+		} else if (method.equals("write")) {
+			write(session, path, textData);
+		} else if (method.equals("delete")) {
+			delete(session, path);
+		} else {
+			throw new RuntimeException("Unknown file method: " + method);
 		}
 
 		logger.info(method + " " + path + " " + textData);

@@ -38,7 +38,8 @@ public class FileServlet extends AbstractFileServlet {
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		final String path = request.getParameter("filePath");
-		performFileAction(request, path);
+		String method = request.getParameter("fileArg");
+		performFileAction(request, path, method);
 		response.sendRedirect("file.jsp");
 	}
 }

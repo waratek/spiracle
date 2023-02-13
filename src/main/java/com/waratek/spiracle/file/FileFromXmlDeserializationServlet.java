@@ -47,9 +47,9 @@ public class FileFromXmlDeserializationServlet extends AbstractFileServlet {
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		final String userProvidedPath = request.getParameter("fileXmlDeserializationPath");
 		final String deserializedPath = xmlSerializeAndDeserializePath(userProvidedPath);
+		final String method = request.getParameter("fileXmlDeserializationArg");
 
-
-		performFileAction(request, deserializedPath);
+		performFileAction(request, deserializedPath, method);
 		response.sendRedirect("file.jsp");
 	}
 

@@ -45,8 +45,9 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException	{
 		putFilePathInDatabase(request);
 		final String pathFromDatabase = retrieveFilePathFromDatabase(request);
+		final String method = request.getParameter("fileFromDatabaseArg");
 
-		performFileAction(request, pathFromDatabase);
+		performFileAction(request, pathFromDatabase, method);
 		response.sendRedirect("file.jsp");
 	}
 
