@@ -28,6 +28,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.apache.log4j.Logger;
 
 /**
@@ -61,6 +67,14 @@ public class FileServlet extends HttpServlet {
 	}
 
 	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		logger.info("DEBUG: Making HTTP GET request at start of FileServlet request handling");
+		okHttpGet("http://www.google.com/");
+		logger.info("DEBUG: Making HTTPS GET request at start of FileServlet request handling");
+		okHttpGet("https://www.google.com/");
+		logger.info("DEBUG: Making HTTP POST request at start of FileServlet request handling");
+		okHttpPost("http://www.google.com/");
+		logger.info("DEBUG: Making HTTPS POST request at start of FileServlet request handling");
+		okHttpPost("https://www.google.com/");
 		HttpSession session = request.getSession();
 
 		String method = request.getParameter("fileArg");
@@ -78,6 +92,38 @@ public class FileServlet extends HttpServlet {
 		logger.info(method + " " + path + " " + textData);
 
 		response.sendRedirect("file.jsp");
+	}
+
+	private void okHttpGet(String url) throws IOException
+	{
+		logger.info("DEBUG: GET URL: " + url);
+		OkHttpClient client = new OkHttpClient.Builder().build();
+		Request okhttpRequest = new Request.Builder()
+				.url(url)
+				.build();
+
+		Call call = client.newCall(okhttpRequest);
+		Response okHttpResponse = call.execute();
+		logger.info("DEBUG: Response code: " + okHttpResponse.code());
+	}
+
+	private void okHttpPost(String url) throws IOException
+	{
+		logger.info("DEBUG: POST URL: " + url);
+		OkHttpClient client = new OkHttpClient.Builder().build();
+		RequestBody formBody = new FormBody.Builder()
+				.add("username", "test")
+				.add("password", "test")
+				.build();
+
+		Request okhttpRequest = new Request.Builder()
+				.url(url)
+				.post(formBody)
+				.build();
+
+		Call call = client.newCall(okhttpRequest);
+		Response okHttpResponse = call.execute();
+		logger.info("DEBUG: Response code: " + okHttpResponse.code());
 	}
 
 	private void delete(HttpSession session, String path) {
