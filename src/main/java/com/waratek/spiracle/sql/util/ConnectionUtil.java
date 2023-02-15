@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -64,5 +65,19 @@ public class ConnectionUtil {
 
         logger.info("Returning connection: " + con.toString());
         return con;
+    }
+
+    public static Connection getConnection(ServletContext application, HttpServletRequest request) throws SQLException
+    {
+        String defaultConnection = (String) application.getAttribute(Constants.DEFAULT_CONNECTION);
+        //Checking if connectionType is set, defaulting it to c3p0 if not set.
+        String connectionType;
+        if(request.getParameter("connectionType") == null) {
+            logger.warn("'connectionType' parameter not set, defaulting to: " + defaultConnection);
+            connectionType = defaultConnection;
+        } else {
+            connectionType = request.getParameter("connectionType");
+        }
+        return getConnection(application, connectionType);
     }
 }

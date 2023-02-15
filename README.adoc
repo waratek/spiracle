@@ -150,7 +150,7 @@ To clean the build infrastructure, run:
 
 The WAR file will be output to:
 
- ./target/Spiracle.war
+ ./target/spiracle.war
 
 == License
 
