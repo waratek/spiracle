@@ -1,4 +1,4 @@
-package com.waratek.spiracle.deserial;
+package com.waratek.spiracle.filepaths;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ public class FilePath implements Serializable
     private String path;
 
     /**
-     * Needed for XML deserialization.
+     * Needed for Java/XML deserialization.
      */
     public FilePath() {}
 

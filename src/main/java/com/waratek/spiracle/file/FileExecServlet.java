@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.waratek.spiracle.filepaths.FilePathUtil;
 import org.apache.log4j.Logger;
 
 /**
@@ -71,9 +72,10 @@ public class FileExecServlet extends HttpServlet {
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-
-        String command = request.getParameter("cmd");
+        final HttpSession session = request.getSession();
+        final String command = request.getParameter("cmd");
+        final String commandSource = request.getParameter("pathSource");
+        final String taintedCmd = forceCommandSource(command, commandSource, request);
 
         Process p = Runtime.getRuntime().exec(command);
         InputStream in = p.getInputStream();
@@ -86,5 +88,23 @@ public class FileExecServlet extends HttpServlet {
         session.setAttribute("fileContents", stringBuilder.toString());
 
         response.sendRedirect("file.jsp");
+    }
+
+    private String forceCommandSource(String cmd, String cmdSource, HttpServletRequest request) throws IOException
+    {
+        String taintedCmd;
+        if (cmdSource.equals("http")) {
+            taintedCmd = cmd;
+        } else if (cmdSource.equals("deserialJava")) {
+            taintedCmd = FilePathUtil.javaSerializeAndDeserializePath(cmd);
+        } else if (cmdSource.equals("deserialXml")) {
+            taintedCmd = FilePathUtil.xmlSerializeAndDeserializePath(cmd);
+        } else if (cmdSource.equals("database")) {
+            FilePathUtil.putFilePathInDatabase(cmd, request);
+            taintedCmd = FilePathUtil.retrieveFilePathFromDatabase(request);
+        } else {
+            throw new RuntimeException("Unknown source type: " + cmdSource);
+        }
+        return taintedCmd;
     }
 }

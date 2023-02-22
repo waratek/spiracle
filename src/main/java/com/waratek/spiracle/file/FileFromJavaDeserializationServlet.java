@@ -15,17 +15,13 @@
  */
 package com.waratek.spiracle.file;
 
-import com.waratek.spiracle.deserial.FilePath;
+import com.waratek.spiracle.filepaths.FilePathUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * Servlet for performing read/write operations on a filepath from a deserialization source.
@@ -33,7 +29,6 @@ import java.io.ObjectOutputStream;
  */
 @WebServlet("/FileFromJavaDeserializationServlet")
 public class FileFromJavaDeserializationServlet extends AbstractFileServlet {
-	private static final String SERIALIZED_FILE = "javaObjectSerialized";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,7 +41,7 @@ public class FileFromJavaDeserializationServlet extends AbstractFileServlet {
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		final String userProvidedPath = request.getParameter("fileJavaDeserializationPath");
-		final String deserializedPath = javaSerializeAndDeserializePath(userProvidedPath);
+		final String deserializedPath = FilePathUtil.javaSerializeAndDeserializePath(userProvidedPath);
 		final String method = request.getParameter("fileJavaDeserializationArg");
 		final String textData = "Writing text to path from source: Java deserialization";
 
@@ -54,35 +49,5 @@ public class FileFromJavaDeserializationServlet extends AbstractFileServlet {
 		response.sendRedirect("file.jsp");
 	}
 
-	private String javaSerializeAndDeserializePath(String path) throws IOException
-	{
-		FilePath filePath = new FilePath(path);
-		serializeFilePathToJava(filePath);
-		return deserializeFilePathFromJava().getPath();
-	}
 
-	private static void serializeFilePathToJava (FilePath filePath) throws IOException {
-		FileOutputStream fos = new FileOutputStream(SERIALIZED_FILE);
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(filePath);
-		oos.close();
-		fos.close();
-	}
-
-	private static FilePath deserializeFilePathFromJava() throws IOException {
-		FileInputStream fis = new FileInputStream(SERIALIZED_FILE);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		FilePath deserializedFilePath;
-		try
-		{
-			deserializedFilePath = (FilePath) ois.readObject();
-		}
-		catch (ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-		ois.close();
-		fis.close();
-		return deserializedFilePath;
-	}
 }
