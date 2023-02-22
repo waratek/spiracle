@@ -46,8 +46,9 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 		putFilePathInDatabase(request);
 		final String pathFromDatabase = retrieveFilePathFromDatabase(request);
 		final String method = request.getParameter("fileFromDatabaseArg");
+		final String textData = "Writing text to path from source: Database";
 
-		performFileAction(request, pathFromDatabase, method);
+		performFileAction(request, pathFromDatabase, method, textData);
 		response.sendRedirect("file.jsp");
 	}
 
@@ -56,8 +57,8 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 		final ServletContext application = this.getServletConfig().getServletContext();
 		final String filePath = request.getParameter("fileFromDatabasePath");
 		dropFilePathTableIfExists(application, request);
-		final String sqlCreateTable = "CREATE TABLE FilePath (path varchar(255));";
-		final String sqlInsertPath = "INSERT INTO FilePath VALUES('" + filePath + "');";
+		final String sqlCreateTable = "CREATE TABLE FilePath (path varchar(255))";
+		final String sqlInsertPath = getSqlInsertPathCommand(filePath);
 		try	{
 			UpdateUtil.executeUpdateWithoutNewPage(sqlCreateTable, application, request);
 			UpdateUtil.executeUpdateWithoutNewPage(sqlInsertPath, application, request);
@@ -67,6 +68,12 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 			logger.error(e.getMessage());
 			throw new RuntimeException(e);
 		}
+	}
+
+	private String getSqlInsertPathCommand(String filePath)
+	{
+		final String escapedPath = filePath.replace("\\", "\\\\"); // Double backslashes required for windows paths
+		return "INSERT INTO FilePath VALUES('" + escapedPath + "')";
 	}
 
 	private String retrieveFilePathFromDatabase(HttpServletRequest request) throws IOException
@@ -88,7 +95,7 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 
 	private static void dropFilePathTableIfExists(ServletContext application, HttpServletRequest request)
 	{
-		final String sqlDropTable = "DROP TABLE FilePath;";
+		final String sqlDropTable = "DROP TABLE FilePath";
 		try {
 			UpdateUtil.executeUpdateWithoutNewPage(sqlDropTable, application, request);
 		}
