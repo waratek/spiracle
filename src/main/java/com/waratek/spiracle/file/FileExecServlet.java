@@ -77,17 +77,33 @@ public class FileExecServlet extends HttpServlet {
         final String commandSource = request.getParameter("pathSource");
         final String taintedCmd = forceCommandSource(command, commandSource, request);
 
-        Process p = Runtime.getRuntime().exec(command);
-        InputStream in = p.getInputStream();
-        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            stringBuilder.append(line).append(LINE_SEPARATOR);
-        }
-        session.setAttribute("fileContents", stringBuilder.toString());
+        final String commandOutput = executeCommand(taintedCmd);
+        session.setAttribute("fileContents", commandOutput);
 
         response.sendRedirect("file.jsp");
+    }
+
+    private String executeCommand(String command) {
+        String output;
+        try
+        {
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                stringBuilder.append(line).append(LINE_SEPARATOR);
+            }
+            output = stringBuilder.toString();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            output = e.getMessage();
+        }
+
+        return output;
+
     }
 
     private String forceCommandSource(String cmd, String cmdSource, HttpServletRequest request) throws IOException
