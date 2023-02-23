@@ -15,16 +15,8 @@
  */
 package com.waratek.spiracle.file;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Scanner;
+import com.waratek.spiracle.filepaths.FilePathUtil;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,9 +24,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.waratek.spiracle.filepaths.FilePathUtil;
-import org.apache.log4j.Logger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Servlet implementation class FileServlet
@@ -42,7 +34,6 @@ import org.apache.log4j.Logger;
 @WebServlet("/FileExecServlet")
 public class FileExecServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(FileExecServlet.class);
     private static final long serialVersionUID = 1L;
     
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
