@@ -48,8 +48,9 @@ public class FileFromJavaDeserializationServlet extends AbstractFileServlet {
 		final String userProvidedPath = request.getParameter("fileJavaDeserializationPath");
 		final String deserializedPath = javaSerializeAndDeserializePath(userProvidedPath);
 		final String method = request.getParameter("fileJavaDeserializationArg");
+		final String textData = "Writing text to path from source: Java deserialization";
 
-		performFileAction(request, deserializedPath, method);
+		performFileAction(request, deserializedPath, method, textData);
 		response.sendRedirect("file.jsp");
 	}
 

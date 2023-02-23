@@ -70,6 +70,7 @@ public abstract class AbstractFileServlet extends HttpServlet {
 
 	protected void write(HttpSession session, String path, String textData)
 			throws IOException {
+		logger.info("Attempting to write '" + textData + "'at filepath: " + path);
 		File f = new File(path);
 		FileWriter fw = new FileWriter(f);
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -101,10 +102,9 @@ public abstract class AbstractFileServlet extends HttpServlet {
 		}
 	}
 
-	protected void performFileAction(HttpServletRequest request, String path, String method) throws IOException
+	protected void performFileAction(HttpServletRequest request, String path, String method, String textData) throws IOException
 	{
 		final HttpSession session = request.getSession();
-		final String textData = request.getParameter("fileText");
 		if (method.equals("read")) {
 			read(session, path);
 		} else if (method.equals("write")) {
