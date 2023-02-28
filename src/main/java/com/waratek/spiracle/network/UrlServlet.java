@@ -25,6 +25,7 @@ import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import javax.net.ssl.SSLHandshakeException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -92,6 +93,9 @@ public class UrlServlet extends HttpServlet {
 			e.printStackTrace();
 			return "Please enter a valid URL";
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return getStackTraceString(e);
+		} catch (SSLHandshakeException e) {
 			e.printStackTrace();
 			return getStackTraceString(e);
 		}
