@@ -17,7 +17,6 @@ package com.waratek.spiracle.file;
 
 import com.waratek.spiracle.filepaths.FilePathUtil;
 
-import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +39,6 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException	{
-		final ServletContext application = this.getServletConfig().getServletContext();
 		final String method = request.getParameter("fileFromDatabaseArg");
 		final String filePath = request.getParameter("fileFromDatabasePath");
 		final String textData = "Writing text to path from source: Database";

@@ -15,7 +15,10 @@
  */
 package com.waratek.spiracle.network;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -88,6 +91,17 @@ public class UrlServlet extends HttpServlet {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return "Please enter a valid URL";
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return getStackTraceString(e);
 		}
+	}
+
+	private static String getStackTraceString(Exception e) {
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+		e.printStackTrace(printWriter);
+		return stringWriter.toString();
+
 	}
 }
