@@ -108,7 +108,7 @@ public class FilePathUtil
         logger.info("Dropping FilePath table if it exists already");
         dropFilePathTableIfExists(application, request);
 
-        try	{
+        try {
             logger.info("Creating FilePath table");
             UpdateUtil.executeUpdateWithoutNewPage(sqlCreateTable, application, request);
             logger.info("Adding '" + filePath + "' to FilePath table");
