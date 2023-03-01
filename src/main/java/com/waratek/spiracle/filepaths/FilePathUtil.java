@@ -105,10 +105,13 @@ public class FilePathUtil
         final String sqlCreateTable = "CREATE TABLE FilePath (path varchar(255))";
         final String sqlInsertPath = getSqlInsertPathCommand(filePath);
 
+        logger.info("Dropping FilePath table if it exists already");
         dropFilePathTableIfExists(application, request);
 
         try	{
+            logger.info("Creating FilePath table");
             UpdateUtil.executeUpdateWithoutNewPage(sqlCreateTable, application, request);
+            logger.info("Adding '" + filePath + "' to FilePath table");
             UpdateUtil.executeUpdateWithoutNewPage(sqlInsertPath, application, request);
         }
         catch (SQLException e)
