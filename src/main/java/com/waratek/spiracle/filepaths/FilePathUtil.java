@@ -1,6 +1,5 @@
 package com.waratek.spiracle.filepaths;
 
-import com.waratek.spiracle.file.AbstractFileServlet;
 import com.waratek.spiracle.sql.util.SelectUtil;
 import com.waratek.spiracle.sql.util.UpdateUtil;
 import org.apache.log4j.Logger;
@@ -136,6 +135,24 @@ public class FilePathUtil
         final String filePath = resultList.get(0).get(0).toString();
         logger.info("Filepath retrieved from database: " + filePath);
         return filePath;
+    }
+
+    public static String forcePathSource(String path, String pathSource, HttpServletRequest request) throws IOException
+    {
+        String taintedPath;
+        if (pathSource.equals("http")) {
+            taintedPath = path;
+        } else if (pathSource.equals("deserialJava")) {
+            taintedPath = javaSerializeAndDeserializePath(path);
+        } else if (pathSource.equals("deserialXml")) {
+            taintedPath = xmlSerializeAndDeserializePath(path);
+        } else if (pathSource.equals("database")) {
+            putFilePathInDatabase(path, request);
+            taintedPath = retrieveFilePathFromDatabase(request);
+        } else {
+            throw new RuntimeException("Unknown source type: " + pathSource);
+        }
+        return taintedPath;
     }
 
     private static String getSqlInsertPathCommand(String filePath)
