@@ -17,8 +17,8 @@
 			<div class="panel-heading">File</div>
 			<div class="panel-body">
 				<form id="fileForm" action="FileServlet" method="post">
-					Path: <input type="text" name="filePath"><br> Read <input
-						type="radio" name="fileArg" value="read" checked><br>
+					Path: <input type="text" name="filePath"><br>
+					Read <input type="radio" name="fileArg" value="read" checked><br>
 					Write <input type="radio" name="fileArg" value="write"><br>
 					Delete <input type="radio" name="fileArg" value="delete"><br>
 					<input type="submit" value=Submit>
@@ -44,8 +44,14 @@
 			<div class="panel-body">
 				<form id="fileExec" action="FileExecServlet"
 					method="post">
-					Path: <input type="text" name="cmd"> <input
-						type="submit" value=Submit>
+					Path: <input type="text" name="cmd"> <br>
+					ConnectionType (DB only): <input type="text" name="connectionType"><br>
+					Path Source: <br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="http" checked> HTTP<br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialJava"> Deserialization(Java)<br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialXml"> Deserialization(XML)<br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="database"> Database<br>
+					<input type="submit" value=Submit>
 				</form>
 			</div>
 

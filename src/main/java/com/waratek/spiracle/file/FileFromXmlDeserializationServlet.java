@@ -15,17 +15,12 @@
  */
 package com.waratek.spiracle.file;
 
-import com.waratek.spiracle.deserial.FilePath;
+import com.waratek.spiracle.filepaths.FilePathUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.beans.ExceptionListener;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -34,8 +29,6 @@ import java.io.IOException;
  */
 @WebServlet("/FileFromXmlDeserializationServlet")
 public class FileFromXmlDeserializationServlet extends AbstractFileServlet {
-	private static final String XML_FILE = "filePath.xml";
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -46,44 +39,12 @@ public class FileFromXmlDeserializationServlet extends AbstractFileServlet {
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		final String userProvidedPath = request.getParameter("fileXmlDeserializationPath");
-		final String deserializedPath = xmlSerializeAndDeserializePath(userProvidedPath);
+		final String deserializedPath = FilePathUtil.xmlSerializeAndDeserializePath(userProvidedPath);
 		final String method = request.getParameter("fileXmlDeserializationArg");
 		final String textData = "Writing text to path from source: XML deserialization";
 
 		performFileAction(request, deserializedPath, method, textData);
 		response.sendRedirect("file.jsp");
-	}
-
-	/**
-	 * Write path to an XML file, and then deserialize the same path from that file.
-	 * If nothing interrupts the process, the input will be the same as the output
-	 */
-	private String xmlSerializeAndDeserializePath(String path) throws IOException {
-		FilePath filePath = new FilePath(path);
-		serializeFilePathToXml(filePath);
-		return deserializeFilePathFromXml().getPath();
-	}
-
-	private static void serializeFilePathToXml (FilePath filePath) throws IOException {
-		FileOutputStream fos = new FileOutputStream(XML_FILE);
-		XMLEncoder encoder = new XMLEncoder(fos);
-		encoder.setExceptionListener(new ExceptionListener() {
-			public void exceptionThrown(Exception e) {
-				System.out.println("Exception! :"+e.toString());
-			}
-		});
-		encoder.writeObject(filePath);
-		encoder.close();
-		fos.close();
-	}
-
-	private static FilePath deserializeFilePathFromXml() throws IOException {
-		FileInputStream fis = new FileInputStream(XML_FILE);
-		XMLDecoder decoder = new XMLDecoder(fis);
-		FilePath deserializedFilePath = (FilePath) decoder.readObject();
-		decoder.close();
-		fis.close();
-		return deserializedFilePath;
 	}
 
 }

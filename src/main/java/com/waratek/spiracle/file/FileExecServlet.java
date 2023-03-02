@@ -15,16 +15,8 @@
  */
 package com.waratek.spiracle.file;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Scanner;
+import com.waratek.spiracle.filepaths.FilePathUtil;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,8 +24,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Servlet implementation class FileServlet
@@ -41,7 +34,6 @@ import org.apache.log4j.Logger;
 @WebServlet("/FileExecServlet")
 public class FileExecServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(FileExecServlet.class);
     private static final long serialVersionUID = 1L;
     
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -71,20 +63,55 @@ public class FileExecServlet extends HttpServlet {
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+        final HttpSession session = request.getSession();
+        final String command = request.getParameter("cmd");
+        final String commandSource = request.getParameter("pathSource");
+        final String taintedCmd = forceCommandSource(command, commandSource, request);
 
-        String command = request.getParameter("cmd");
-
-        Process p = Runtime.getRuntime().exec(command);
-        InputStream in = p.getInputStream();
-        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            stringBuilder.append(line).append(LINE_SEPARATOR);
-        }
-        session.setAttribute("fileContents", stringBuilder.toString());
+        final String commandOutput = executeCommand(taintedCmd);
+        session.setAttribute("fileContents", commandOutput);
 
         response.sendRedirect("file.jsp");
+    }
+
+    private String executeCommand(String command) {
+        String output;
+        try
+        {
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                stringBuilder.append(line).append(LINE_SEPARATOR);
+            }
+            output = stringBuilder.toString();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            output = e.getMessage();
+        }
+
+        return output;
+
+    }
+
+    private String forceCommandSource(String cmd, String cmdSource, HttpServletRequest request) throws IOException
+    {
+        String taintedCmd;
+        if (cmdSource.equals("http")) {
+            taintedCmd = cmd;
+        } else if (cmdSource.equals("deserialJava")) {
+            taintedCmd = FilePathUtil.javaSerializeAndDeserializePath(cmd);
+        } else if (cmdSource.equals("deserialXml")) {
+            taintedCmd = FilePathUtil.xmlSerializeAndDeserializePath(cmd);
+        } else if (cmdSource.equals("database")) {
+            FilePathUtil.putFilePathInDatabase(cmd, request);
+            taintedCmd = FilePathUtil.retrieveFilePathFromDatabase(request);
+        } else {
+            throw new RuntimeException("Unknown source type: " + cmdSource);
+        }
+        return taintedCmd;
     }
 }

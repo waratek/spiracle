@@ -15,8 +15,7 @@
  */
 package com.waratek.spiracle.file;
 
-import com.waratek.spiracle.sql.util.SelectUtil;
-import com.waratek.spiracle.sql.util.UpdateUtil;
+import com.waratek.spiracle.filepaths.FilePathUtil;
 
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +23,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Servlet for performing read/write operations on a filepath from a database source.
@@ -43,65 +40,17 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException	{
-		putFilePathInDatabase(request);
-		final String pathFromDatabase = retrieveFilePathFromDatabase(request);
+		final ServletContext application = this.getServletConfig().getServletContext();
 		final String method = request.getParameter("fileFromDatabaseArg");
+		final String filePath = request.getParameter("fileFromDatabasePath");
 		final String textData = "Writing text to path from source: Database";
+
+		FilePathUtil.putFilePathInDatabase(filePath, request);
+		final String pathFromDatabase = FilePathUtil.retrieveFilePathFromDatabase(request);
 
 		performFileAction(request, pathFromDatabase, method, textData);
 		response.sendRedirect("file.jsp");
 	}
 
-	private void putFilePathInDatabase(HttpServletRequest request)
-	{
-		final ServletContext application = this.getServletConfig().getServletContext();
-		final String filePath = request.getParameter("fileFromDatabasePath");
-		dropFilePathTableIfExists(application, request);
-		final String sqlCreateTable = "CREATE TABLE FilePath (path varchar(255))";
-		final String sqlInsertPath = getSqlInsertPathCommand(filePath);
-		try	{
-			UpdateUtil.executeUpdateWithoutNewPage(sqlCreateTable, application, request);
-			UpdateUtil.executeUpdateWithoutNewPage(sqlInsertPath, application, request);
-		}
-		catch (SQLException e)
-		{
-			logger.error(e.getMessage());
-			throw new RuntimeException(e);
-		}
-	}
 
-	private String getSqlInsertPathCommand(String filePath)
-	{
-		final String escapedPath = filePath.replace("\\", "\\\\"); // Double backslashes required for windows paths
-		return "INSERT INTO FilePath VALUES('" + escapedPath + "')";
-	}
-
-	private String retrieveFilePathFromDatabase(HttpServletRequest request) throws IOException
-	{
-		final ServletContext application = this.getServletConfig().getServletContext();
-		final String sqlSelect = "SELECT * FROM FilePath";
-		ArrayList<ArrayList<Object>> resultList;
-		try
-		{
-			resultList = SelectUtil.executeQueryWithoutNewPage(sqlSelect, application, request);
-		}
-		catch (SQLException e)
-		{
-			logger.error(e.getMessage());
-			throw new RuntimeException(e);
-		}
-		return resultList.get(0).get(0).toString();
-	}
-
-	private static void dropFilePathTableIfExists(ServletContext application, HttpServletRequest request)
-	{
-		final String sqlDropTable = "DROP TABLE FilePath";
-		try {
-			UpdateUtil.executeUpdateWithoutNewPage(sqlDropTable, application, request);
-		}
-		catch (SQLException e)
-		{
-			logger.info("'" + sqlDropTable + "' failed, probably the table doesn't exist. Error msg = " + e.getMessage());
-		}
-	}
 }
