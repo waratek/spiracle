@@ -66,7 +66,7 @@ public class FileExecServlet extends HttpServlet {
         final HttpSession session = request.getSession();
         final String command = request.getParameter("cmd");
         final String commandSource = request.getParameter("pathSource");
-        final String taintedCmd = forceCommandSource(command, commandSource, request);
+        final String taintedCmd = FilePathUtil.forcePathSource(command, commandSource, request);
 
         final String commandOutput = executeCommand(taintedCmd);
         session.setAttribute("fileContents", commandOutput);
@@ -95,23 +95,5 @@ public class FileExecServlet extends HttpServlet {
 
         return output;
 
-    }
-
-    private String forceCommandSource(String cmd, String cmdSource, HttpServletRequest request) throws IOException
-    {
-        String taintedCmd;
-        if (cmdSource.equals("http")) {
-            taintedCmd = cmd;
-        } else if (cmdSource.equals("deserialJava")) {
-            taintedCmd = FilePathUtil.javaSerializeAndDeserializePath(cmd);
-        } else if (cmdSource.equals("deserialXml")) {
-            taintedCmd = FilePathUtil.xmlSerializeAndDeserializePath(cmd);
-        } else if (cmdSource.equals("database")) {
-            FilePathUtil.putFilePathInDatabase(cmd, request);
-            taintedCmd = FilePathUtil.retrieveFilePathFromDatabase(request);
-        } else {
-            throw new RuntimeException("Unknown source type: " + cmdSource);
-        }
-        return taintedCmd;
     }
 }

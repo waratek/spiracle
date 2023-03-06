@@ -15,19 +15,24 @@
  */
 package com.waratek.spiracle.network;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
-import java.util.Scanner;
+import com.waratek.spiracle.filepaths.FilePathUtil;
 
+import javax.net.ssl.SSLHandshakeException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 
 /**
  * Servlet implementation class UrlServlet
@@ -58,12 +63,13 @@ public class UrlServlet extends HttpServlet {
 		executeRequest(request, response);
 	}
 
-	private void executeRequest(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		HttpSession session = request.getSession();
-		String urlPath = request.getParameter("urlPath");
+	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		final HttpSession session = request.getSession();
+		final String urlPath = request.getParameter("urlPath");
+		final String urlSource = request.getParameter("urlSource");
+		final String taintedUrlPath = FilePathUtil.forcePathSource(urlPath, urlSource, request);
 
-		session.setAttribute("urlContents", readUrl(urlPath));
+		session.setAttribute("urlContents", readUrl(taintedUrlPath));
 		response.sendRedirect("network.jsp");
 	}
 
@@ -88,6 +94,20 @@ public class UrlServlet extends HttpServlet {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return "Please enter a valid URL";
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return getStackTraceString(e);
+		} catch (SSLHandshakeException e) {
+			e.printStackTrace();
+			return getStackTraceString(e);
 		}
+	}
+
+	private static String getStackTraceString(Exception e) {
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+		e.printStackTrace(printWriter);
+		return stringWriter.toString();
+
 	}
 }
