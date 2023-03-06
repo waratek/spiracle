@@ -140,6 +140,10 @@ public class FilePathUtil
         return filePath;
     }
 
+    /**
+     * Takes a path string (which is assumed to come from http by default), and if the requested source is not http, stores it in a database
+     *  or serialized format, and then retrieves and returns the same value from that format.
+     */
     public static String forcePathSource(String path, String pathSource, HttpServletRequest request) throws IOException
     {
         String taintedPath;
