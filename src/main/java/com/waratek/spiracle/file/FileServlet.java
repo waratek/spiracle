@@ -15,6 +15,8 @@
  */
 package com.waratek.spiracle.file;
 
+import com.waratek.spiracle.filepaths.FilePathUtil;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,10 +39,13 @@ public class FileServlet extends AbstractFileServlet {
 
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		final String path = request.getParameter("filePath");
+		final String userProvidedPath = request.getParameter("filePath");
 		final String method = request.getParameter("fileArg");
 		final String textData = request.getParameter("fileText");
-		performFileAction(request, path, method, textData);
+		final String pathSource = request.getParameter("pathSource");
+		final String taintedPath = FilePathUtil.forcePathSource(userProvidedPath, pathSource, request);
+
+		performFileAction(request, taintedPath, method, textData);
 		response.sendRedirect("file.jsp");
 	}
 }

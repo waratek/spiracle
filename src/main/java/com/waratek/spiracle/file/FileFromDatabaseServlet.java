@@ -50,5 +50,4 @@ public class FileFromDatabaseServlet extends AbstractFileServlet {
 		response.sendRedirect("file.jsp");
 	}
 
-
 }

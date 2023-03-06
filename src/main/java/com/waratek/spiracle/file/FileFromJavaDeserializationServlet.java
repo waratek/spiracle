@@ -38,8 +38,7 @@ public class FileFromJavaDeserializationServlet extends AbstractFileServlet {
 	}
 
 
-	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
-	{
+	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		final String userProvidedPath = request.getParameter("fileJavaDeserializationPath");
 		final String deserializedPath = FilePathUtil.javaSerializeAndDeserializePath(userProvidedPath);
 		final String method = request.getParameter("fileJavaDeserializationArg");
@@ -48,6 +47,5 @@ public class FileFromJavaDeserializationServlet extends AbstractFileServlet {
 		performFileAction(request, deserializedPath, method, textData);
 		response.sendRedirect("file.jsp");
 	}
-
 
 }
