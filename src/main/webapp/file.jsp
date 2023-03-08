@@ -18,10 +18,17 @@
 			<div class="panel-body">
 				<form id="fileForm" action="FileServlet" method="post">
 					Path: <input type="text" name="filePath"><br>
-					Read <input type="radio" name="fileArg" value="read" checked><br>
-					Write <input type="radio" name="fileArg" value="write"><br>
-					Delete <input type="radio" name="fileArg" value="delete"><br>
-					<input type="submit" value=Submit>
+					ConnectionType (DB only): <input type="text" name="connectionType"><br>
+					Path Source: <br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="http" checked> HTTP<br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialJava"> Deserialization(Java)<br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialXml"> Deserialization(XML)<br>
+					&nbsp;&nbsp; <input type="radio" name="pathSource" value="database"> Database<br>
+					Action: <br>
+					&nbsp;&nbsp; <input type="radio" name="fileArg" value="read" checked> Read<br>
+					&nbsp;&nbsp; <input type="radio" name="fileArg" value="write"> Write<br>
+					&nbsp;&nbsp; <input type="radio" name="fileArg" value="delete"> Delete<br>
+					&nbsp;&nbsp; <input type="submit" value=Submit>
 				</form>
 			</div>
 			<div class="panel-heading">File URL</div>
@@ -51,40 +58,6 @@
 					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialJava"> Deserialization(Java)<br>
 					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialXml"> Deserialization(XML)<br>
 					&nbsp;&nbsp; <input type="radio" name="pathSource" value="database"> Database<br>
-					<input type="submit" value=Submit>
-				</form>
-			</div>
-
-			<div class="panel-heading">File From XML-Deserialization</div>
-			<div class="panel-body">
-				<form id="fileFromXmlDeserializationForm" action="FileFromXmlDeserializationServlet" method="post">
-					Path: <input type="text" name="fileXmlDeserializationPath"><br> Read <input
-						type="radio" name="fileXmlDeserializationArg" value="read" checked><br>
-					Write <input type="radio" name="fileXmlDeserializationArg" value="write"><br>
-					Delete <input type="radio" name="fileXmlDeserializationArg" value="delete"><br>
-					<input type="submit" value=Submit>
-				</form>
-			</div>
-
-			<div class="panel-heading">File From Java-Deserialization</div>
-			<div class="panel-body">
-				<form id="fileFromJavaDeserializationForm" action="FileFromJavaDeserializationServlet" method="post">
-					Path: <input type="text" name="fileJavaDeserializationPath"><br> Read <input
-						type="radio" name="fileJavaDeserializationArg" value="read" checked><br>
-					Write <input type="radio" name="fileJavaDeserializationArg" value="write"><br>
-					Delete <input type="radio" name="fileJavaDeserializationArg" value="delete"><br>
-					<input type="submit" value=Submit>
-				</form>
-			</div>
-
-			<div class="panel-heading">File From Database</div>
-			<div class="panel-body">
-				<form id="fileFromDatabaseForm" action="FileFromDatabaseServlet" method="post">
-					Path: <input type="text" name="fileFromDatabasePath"><br>
-					connectionType: <input type="text" name="connectionType"><br>
-					Read <input type="radio" name="fileFromDatabaseArg" value="read" checked><br>
-					Write <input type="radio" name="fileFromDatabaseArg" value="write"><br>
-					Delete <input type="radio" name="fileFromDatabaseArg" value="delete"><br>
 					<input type="submit" value=Submit>
 				</form>
 			</div>
