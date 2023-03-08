@@ -18,6 +18,7 @@
 			<div class="panel-body">
 				<form id="fileForm" action="FileServlet" method="post">
 					Path: <input type="text" name="filePath"><br>
+					ConnectionType (DB only): <input type="text" name="connectionType"><br>
 					Path Source: <br>
 					&nbsp;&nbsp; <input type="radio" name="pathSource" value="http" checked> HTTP<br>
 					&nbsp;&nbsp; <input type="radio" name="pathSource" value="deserialJava"> Deserialization(Java)<br>
