@@ -17,14 +17,12 @@ package com.waratek.spiracle.network;
 
 import com.waratek.spiracle.filepaths.FilePathUtil;
 
-import javax.net.ssl.SSLHandshakeException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -94,10 +92,7 @@ public class UrlServlet extends HttpServlet {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return "Please enter a valid URL";
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return getStackTraceString(e);
-		} catch (SSLHandshakeException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return getStackTraceString(e);
 		}
