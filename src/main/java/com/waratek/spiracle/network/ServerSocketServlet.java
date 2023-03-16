@@ -15,6 +15,9 @@
  */
 package com.waratek.spiracle.network;
 
+import com.waratek.spiracle.file.AbstractFileServlet;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -32,6 +35,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/ServerSocketServlet")
 public class ServerSocketServlet extends HttpServlet {
+	protected static final Logger logger = Logger.getLogger(ServerSocketServlet.class);
 	private static final long serialVersionUID = 1L;
 	private static ServerSocket ss;
 	private static Socket s;
@@ -76,6 +80,7 @@ public class ServerSocketServlet extends HttpServlet {
 			}
 			ss.setSoTimeout(20000);
 			s = ss.accept();
+			logger.info("ServerSocket accepted socket: " + s.toString());
 			session.setAttribute("serverSocketInfo", ss.toString());
 			response.sendRedirect("network.jsp");
 
