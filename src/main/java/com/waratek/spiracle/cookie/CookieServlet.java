@@ -17,12 +17,10 @@ public class CookieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        final String name = req.getParameter("cookieName");
-        final String value = req.getParameter("cookieValue");
-        final String secure = req.getParameter("secure");
-        final String path = req.getParameter("cookiePath");
-        final String domain = req.getParameter("cookieDomain");
-        final String comment = req.getParameter("cookieComment");
+        String name = req.getParameter("cookieName");
+        String value = req.getParameter("cookieValue");
+        String secure = req.getParameter("secure");
+        String path = req.getParameter("cookiePath");
 
         Cookie cookie = new Cookie(name, value);
         if (secure.equals("yes")) {
@@ -31,14 +29,6 @@ public class CookieServlet extends HttpServlet {
 
         if (path != null) {
             cookie.setPath(path);
-        }
-        if (domain != null && !domain.isEmpty()) {
-            logger.info("Domain: " + domain);
-            cookie.setDomain(domain);
-        }
-        if (comment != null && !comment.isEmpty()) {
-            logger.info("Comment: " + comment);
-            cookie.setComment(domain);
         }
 
         res.addCookie(cookie);

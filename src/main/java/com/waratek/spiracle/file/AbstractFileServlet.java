@@ -115,6 +115,10 @@ public abstract class AbstractFileServlet extends HttpServlet {
 		}
 	}
 
+	protected void performFileAction(HttpServletRequest request, String path, String method) throws IOException {
+		performFileAction(request, path, method, "");
+	}
+
 	protected void performFileAction(HttpServletRequest request, String path, String method, String textData) throws IOException
 	{
 		final HttpSession session = request.getSession();

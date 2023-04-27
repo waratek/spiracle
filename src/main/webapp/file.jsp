@@ -69,6 +69,18 @@
 						style="width: 100%; height: 20em"><%=textData%></textarea>
 				</pre>
 			</div>
+			
+			<div class="panel-heading">File from Cookie</div>
+			<div class="panel-body">
+				<form id="fileCookieForm" action="CookieFileServlet" method="post">
+					Cookie name: <input type="text" name="cookieName"><br>
+					Action: <br>
+					&nbsp;&nbsp; <input type="radio" name="fileArg" value="read" checked> Read<br>
+					&nbsp;&nbsp; <input type="radio" name="fileArg" value="write"> Write<br>
+					&nbsp;&nbsp; <input type="radio" name="fileArg" value="delete"> Delete<br>
+					&nbsp;&nbsp; <input type="submit" value=Submit>
+				</form>
+			</div>
 		</div>
 	</div>
 

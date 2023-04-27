@@ -24,12 +24,6 @@
                         <tr><td>
                             Cookie Path (Optional): <input type=text name="cookiePath">
                         </td></tr>
-                        <tr><td>
-                            Cookie Domain (Optional): <input type=text name="cookieDomain">
-                        </td></tr>
-                        <tr><td>
-                            Cookie Comment (Optional): <input type=text name="cookieComment">
-                        </td></tr>
 
                         <tr><td>
                             <input type="radio" name="secure" value="yes"required/>secure
@@ -52,10 +46,6 @@
                     Cookie Value: <%= request.getParameter("cookieValue") %>
                     <br>
                     Cookie Path: <%= request.getParameter("cookiePath") %>
-                    <br>
-                    Cookie Domain: <%= request.getParameter("cookieDomain") %>
-                    <br>
-                    Cookie Comment: <%= request.getParameter("cookieComment") %>
                     <br>
                     Secure Cookie: <%= request.getParameter("secure") %>
                     <br>
