@@ -41,7 +41,7 @@ public class CookieFileServlet extends AbstractFileServlet
 
 
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		final String method = "read";
+		final String method = request.getParameter("fileArg");
 		final String cookieName = request.getParameter("cookieName");
 		final String taintedPath = getCookieValue(cookieName, request);
 
