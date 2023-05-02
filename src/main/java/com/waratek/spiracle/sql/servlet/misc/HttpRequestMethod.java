@@ -83,7 +83,6 @@ public class HttpRequestMethod extends HttpServlet {
 	public void invoke(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		Cookie [] cookies = request.getCookies();
-		logger.info("DEBUG Cookies: " + cookies);
 		String method = request.getParameter("method");
 		String arg = request.getParameter("arg");
 
