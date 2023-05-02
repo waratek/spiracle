@@ -1,7 +1,5 @@
 package com.waratek.spiracle.cookie;
 
-import org.apache.log4j.Logger;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,6 @@ import java.io.IOException;
 
 @WebServlet("/CookieServlet")
 public class CookieServlet extends HttpServlet {
-    protected static final Logger logger = Logger.getLogger(CookieServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
@@ -36,37 +33,11 @@ public class CookieServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = req
                 .getRequestDispatcher("/cookie.jsp");
         requestDispatcher.forward(req, res);
-
-        debugCookies(req);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         doGet(req, resp);
-    }
-
-    private void debugCookies(HttpServletRequest req){
-//        Cookie [] cookies = req.getCookies();
-//        for (Cookie cookie : cookies)
-//        {
-//            logger.info("\nCookie name:" + cookie.getName());
-//            logger.info("Cookie value:" + cookie.getValue());
-//            logger.info("Cookie domain:" + cookie.getDomain());
-//            logger.info("Cookie comment: " + cookie.getComment());
-//            logger.info("Cookie path: " + cookie.getPath());
-//        }
-        String someTaintedString = "someTaintedString";
-        Cookie cookie = new Cookie("name", "value");
-        cookie.setPath(someTaintedString);
-        String cookiePath = cookie.getPath();
-        if (cookiePath == someTaintedString)
-        {
-            logger.info("Same object");
-        }
-        else
-        {
-            logger.info("Different object");
-        }
     }
 }

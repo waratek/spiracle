@@ -39,7 +39,6 @@ public class CookieFileServlet extends AbstractFileServlet
 		super();
 	}
 
-
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		final String method = request.getParameter("fileArg");
 		final String cookieName = request.getParameter("cookieName");
