@@ -110,8 +110,6 @@ c3p0.username=test
 c3p0.password=test
 ----
 
-NOTE: Spiracle is bundled with MySQL Connector 5.1.34. If this version is not compatible with your MySQL installation replace `mysql-connector-java-5.1.34.jar` under `WEB-INF/lib/` with a compatible version.
-
 == Running
 
 After deployment, the Spiracle application will be available at:
