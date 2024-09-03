@@ -14,7 +14,7 @@ public class ReadHTML {
             throws IOException {
         String line = "";
         String XSS = "XSS";
-        String htmlFile = req.getRealPath("/") + "xss.html";
+        String htmlFile = req.getServletContext().getRealPath("/") + "xss.html";
 
         BufferedReader in = new BufferedReader(new FileReader(htmlFile));
         while ((line = in.readLine()) != null) {
