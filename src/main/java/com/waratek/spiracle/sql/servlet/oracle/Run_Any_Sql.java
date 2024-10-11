@@ -15,6 +15,7 @@
  */
 package com.waratek.spiracle.sql.servlet.oracle;
 
+import com.waratek.spiracle.misc.CookieUtil;
 import com.waratek.spiracle.misc.DataSourceUtil;
 import com.waratek.spiracle.sql.servlet.util.ParameterNullFix;
 import com.waratek.spiracle.sql.util.SelectUtil;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +79,7 @@ public class Run_Any_Sql extends HttpServlet
         String[] argSourcesArray = argSources.split(ARRAY_SPLITTER);
         if (sqlArgs.length != argSourcesArray.length)
         {
-            throw new RuntimeException("Different number of args and argSources not allowed");
+            throw new RuntimeException("Different number of args and argSources not allowed.\nargs=" + Arrays.toString(sqlArgs) + "\nargSources=" + Arrays.toString(argSourcesArray));
         }
         String[] newArgArray = new String[sqlArgs.length];
         for (int i = 0; i < sqlArgs.length; i++)
@@ -85,6 +87,23 @@ public class Run_Any_Sql extends HttpServlet
             newArgArray[i] = DataSourceUtil.forceStringInputSource(sqlArgs[i], argSourcesArray[i], request);
         }
         return newArgArray;
+    }
+
+    private String[] getSqlArgs(HttpServletRequest request)
+    {
+        String sqlArgs;
+        if (CookieUtil.containsCookie(request, ARGS)) //take args from cookie if it exists
+        {
+            sqlArgs = CookieUtil.getCookieValue(ARGS, request);
+            sqlArgs = sqlArgs.replace("%20", " ");
+        }
+        else
+        {
+            List<String> queryStringList = new ArrayList<>();
+            queryStringList.add(ARGS);
+            sqlArgs = ParameterNullFix.sanitizeNull(queryStringList, request).get(ARGS); //take args from URL param if args cookie doesn't exist
+        }
+        return sqlArgs.split(ARRAY_SPLITTER);
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -99,12 +118,11 @@ public class Run_Any_Sql extends HttpServlet
 
         String unformattedSql = nullSanitizedMap.get(SQL);
         unformattedSql = DataSourceUtil.makeStringUntainted(unformattedSql);
-
-        final String sqlArgs = nullSanitizedMap.get(ARGS);
         final String argSources = nullSanitizedMap.get(ARG_SOURCES);
-        String[] sqlArgsArray = sqlArgs.split(ARRAY_SPLITTER);
-        sqlArgsArray = setArgDataSource(sqlArgsArray, argSources, request);
-        final String sql = String.format(unformattedSql, (Object[]) sqlArgsArray);
+        String[] sqlArgs = getSqlArgs(request);
+        sqlArgs = setArgDataSource(sqlArgs, argSources, request);
+
+        final String sql = String.format(unformattedSql, (Object[]) sqlArgs);
 
         SelectUtil.executeQuery(sql, application, request, response);
     }

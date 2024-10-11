@@ -63,8 +63,6 @@ public class DataSourceUtil
         dropTmpTableIfExists(application, request);
 
         final String sqlCreateTable = getSqlCreateTmpCommand(input);
-        System.out.println("DEBUGH " + input);
-        System.out.println("DEBUGI " + sqlCreateTable);
         final String sqlInsert = getSqlInsertStringCommand(input);
 
         try {
