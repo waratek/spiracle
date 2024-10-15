@@ -16,6 +16,7 @@
 package com.waratek.spiracle.cookie;
 
 import com.waratek.spiracle.file.AbstractFileServlet;
+import com.waratek.spiracle.misc.CookieUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -42,19 +43,9 @@ public class CookieFileServlet extends AbstractFileServlet
 	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		final String method = request.getParameter("fileArg");
 		final String cookieName = request.getParameter("cookieName");
-		final String taintedPath = getCookieValue(cookieName, request);
+		final String taintedPath = CookieUtil.getCookieValue(cookieName, request);
 
 		performFileAction(request, taintedPath, method);
 		response.sendRedirect("file.jsp");
-	}
-
-	private String getCookieValue(String cookieName, HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies){
-			if (cookie.getName().equals(cookieName)){
-				return cookie.getValue();
-			}
-		}
-		throw new NoSuchElementException("Could not find cookie with name: " + cookieName);
 	}
 }

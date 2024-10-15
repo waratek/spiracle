@@ -83,6 +83,13 @@ public class SelectUtil {
 		executeQuery(sql, application, request, response, showErrors, allResults, showOutput, setString);
 	}
 
+	public static void executeQuery(
+			String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response)
+			throws IOException
+	{
+		executeQuery(sql, application, request, response, true, true, true);
+	}
+
 	public static void executeQuerySetString(String sql, ServletContext application, HttpServletRequest request, HttpServletResponse response, Boolean showErrors, Boolean allResults, Boolean showOutput) throws IOException {
 		boolean setString = true;
 		executeQuery(sql, application, request, response, showErrors, allResults, showOutput, setString);
