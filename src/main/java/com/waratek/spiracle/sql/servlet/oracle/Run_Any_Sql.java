@@ -102,7 +102,7 @@ public class Run_Any_Sql extends HttpServlet
         }
         else
         {
-            List<String> queryStringList = new ArrayList<>();
+            List<String> queryStringList = new ArrayList<String>();
             queryStringList.add(ARGS);
             sqlArgs = ParameterNullFix.sanitizeNull(queryStringList, request).get(ARGS); //take args from URL param if args cookie doesn't exist
         }
@@ -112,7 +112,7 @@ public class Run_Any_Sql extends HttpServlet
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<>();
+        List<String> queryStringList = new ArrayList<String>();
         queryStringList.add(SQL);
         queryStringList.add(ARGS);
         queryStringList.add(ARG_SOURCES);
