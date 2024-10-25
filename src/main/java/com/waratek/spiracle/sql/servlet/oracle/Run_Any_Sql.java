@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -89,17 +92,17 @@ public class Run_Any_Sql extends HttpServlet
         return newArgArray;
     }
 
-    private String[] getSqlArgs(HttpServletRequest request)
+    private String[] getSqlArgs(HttpServletRequest request) throws UnsupportedEncodingException
     {
         String sqlArgs;
         if (CookieUtil.containsCookie(request, ARGS)) //take args from cookie if it exists
         {
             sqlArgs = CookieUtil.getCookieValue(ARGS, request);
-            sqlArgs = sqlArgs.replace("%20", " ");
+            sqlArgs = URLDecoder.decode(sqlArgs, StandardCharsets.UTF_8.name());
         }
         else
         {
-            List<String> queryStringList = new ArrayList<>();
+            List<String> queryStringList = new ArrayList<String>();
             queryStringList.add(ARGS);
             sqlArgs = ParameterNullFix.sanitizeNull(queryStringList, request).get(ARGS); //take args from URL param if args cookie doesn't exist
         }
@@ -109,7 +112,7 @@ public class Run_Any_Sql extends HttpServlet
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         ServletContext application = this.getServletConfig().getServletContext();
-        List<String> queryStringList = new ArrayList<>();
+        List<String> queryStringList = new ArrayList<String>();
         queryStringList.add(SQL);
         queryStringList.add(ARGS);
         queryStringList.add(ARG_SOURCES);
