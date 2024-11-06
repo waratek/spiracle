@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,7 +97,7 @@ public class Run_Any_Sql extends HttpServlet
         if (CookieUtil.containsCookie(request, ARGS)) //take args from cookie if it exists
         {
             sqlArgs = CookieUtil.getCookieValue(ARGS, request);
-            sqlArgs = URLDecoder.decode(sqlArgs, StandardCharsets.UTF_8.name());
+            sqlArgs = URLDecoder.decode(sqlArgs, "UTF-8");
         }
         else
         {
