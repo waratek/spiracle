@@ -101,10 +101,6 @@ public class DataSourceUtil
 
     private static String getSqlInsertStringCommand(String input)
     {
-        if (input.contains("\\"))
-        {
-            throw new RuntimeException("");
-        }
         final String escapedString = input.replace("\\", "\\\\") // Escape backslash, so it's inserted literally, not as an escape character
                 .replace("'", "\\'"); // Escape quote characters so they are inserted literally
         return "INSERT INTO Tmp VALUES('" + escapedString + "')";
