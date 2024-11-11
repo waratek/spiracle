@@ -62,8 +62,10 @@ public class DataSourceUtil
         logger.info("Dropping Tmp table if it exists already");
         dropTmpTableIfExists(application, request);
 
-        final String sqlCreateTable = getSqlCreateTmpCommand(input);
-        final String sqlInsert = getSqlInsertStringCommand(input);
+        final String escapedInput = input.replace("\\", "\\\\") // Escape backslash, so it's inserted literally, not as an escape character
+                .replace("'", "\\'"); // Escape quote characters so they are inserted literally
+        final String sqlCreateTable = getSqlCreateTmpCommand(escapedInput);
+        final String sqlInsert = getSqlInsertStringCommand(escapedInput);
 
         try {
             logger.info("Creating Tmp table");
@@ -101,8 +103,6 @@ public class DataSourceUtil
 
     private static String getSqlInsertStringCommand(String input)
     {
-        final String escapedString = input.replace("\\", "\\\\") // Escape backslash, so it's inserted literally, not as an escape character
-                .replace("'", "\\'"); // Escape quote characters so they are inserted literally
         return "INSERT INTO Tmp VALUES('" + escapedString + "')";
     }
 
