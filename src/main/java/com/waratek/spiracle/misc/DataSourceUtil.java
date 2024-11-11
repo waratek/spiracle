@@ -103,7 +103,7 @@ public class DataSourceUtil
 
     private static String getSqlInsertStringCommand(String input)
     {
-        return "INSERT INTO Tmp VALUES('" + escapedString + "')";
+        return "INSERT INTO Tmp VALUES('" + input + "')";
     }
 
     private static String getSqlCreateTmpCommand(String input)
