@@ -1,8 +1,6 @@
 package com.waratek.spiracle.file;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +58,8 @@ public class FileResourceStreamServlet extends HttpServlet {
 			response.sendRedirect("file.jsp");
 		} else {
 			logger.info("Found path: '" + filePath + "'");
-			session.setAttribute("fileContents", read(inStream));
+//			session.setAttribute("fileContents", read(inStream));
+			session.setAttribute("fileContents", readChatGpt(filePath));
 			response.sendRedirect("file.jsp");
 		}
 	}
@@ -78,5 +77,19 @@ public class FileResourceStreamServlet extends HttpServlet {
 		}
 
 		return new String(byteArr, "UTF-8");
+	}
+
+	private String readChatGpt(String filePath) {
+		// Read and print the file contents
+		String fileContents = "";
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				fileContents += line + "\n";
+			}
+		} catch (IOException e) {
+			fileContents += "Error reading the file: " + e.getMessage();
+		}
+		return fileContents;
 	}
 }
