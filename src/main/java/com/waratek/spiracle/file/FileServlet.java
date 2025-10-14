@@ -103,7 +103,7 @@ public class FileServlet extends HttpServlet {
 	private String readFile(String filePath) {
 		StringBuilder fileContents = new StringBuilder();
 		try {
-			String filePathDecoded = URLDecoder.decode(filePath);
+			String filePathDecoded = URLDecoder.decode(filePath, "UTF-8");
 			File file = new File(filePathDecoded);
 			Scanner scanner = new Scanner(file);
 			String lineSeparator = System.getProperty("line.separator");
