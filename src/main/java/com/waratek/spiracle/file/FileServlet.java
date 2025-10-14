@@ -111,6 +111,7 @@ public class FileServlet extends HttpServlet {
 			//todo
 			fileContents.append("filePath: " + filePath + "\n");
 			fileContents.append("filePathDecoded: " + filePathDecoded + "\n");
+			fileContents.append("\n" + "File contents: " + "\n");
 
 			try {
 				while(scanner.hasNextLine()) {
@@ -124,23 +125,5 @@ public class FileServlet extends HttpServlet {
 			fileContents.append(e.getMessage());
 		}
 		return fileContents.toString();
-	}
-
-	private String readChatGpt(String filePath) {
-		String filePathDecoded = URLDecoder.decode(filePath);
-
-		// Read and print the file contents
-		String fileContents = "";
-		fileContents += "filePath: " + filePath + "\n";
-		fileContents += "filePathDecoded: " + filePathDecoded + "\n";
-		try (BufferedReader br = new BufferedReader(new FileReader(filePathDecoded))) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				fileContents += line + "\n";
-			}
-		} catch (IOException e) {
-			fileContents += "Error reading the file: " + e.getMessage();
-		}
-		return fileContents;
 	}
 }
