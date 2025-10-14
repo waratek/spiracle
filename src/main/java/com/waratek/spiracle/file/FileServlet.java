@@ -126,6 +126,8 @@ public class FileServlet extends HttpServlet {
 
 		// Read and print the file contents
 		String fileContents = "";
+		fileContents += "filePath: " + filePath + "\n";
+		fileContents += "filePathDecoded: " + filePathDecoded + "\n";
 		try (BufferedReader br = new BufferedReader(new FileReader(filePathDecoded))) {
 			String line;
 			while ((line = br.readLine()) != null) {
