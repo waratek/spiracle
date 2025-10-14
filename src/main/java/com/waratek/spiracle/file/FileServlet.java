@@ -85,7 +85,7 @@ public class FileServlet extends HttpServlet {
 	}
 
 	private void read(HttpSession session, String path) {
-		session.setAttribute("fileContents", readChatGpt(path));
+		session.setAttribute("fileContents", readFile(path));
 	}
 
 	private void write(HttpSession session, String path, String textData)
@@ -100,25 +100,30 @@ public class FileServlet extends HttpServlet {
 		read(session, path);
 	}
 
-	private String readFile(String pathname) {
+	private String readFile(String filePath) {
+		StringBuilder fileContents = new StringBuilder();
 		try {
-			File file = new File(pathname);
-			StringBuilder fileContents = new StringBuilder((int)file.length());
+			String filePathDecoded = URLDecoder.decode(filePath);
+			File file = new File(filePathDecoded);
 			Scanner scanner = new Scanner(file);
 			String lineSeparator = System.getProperty("line.separator");
+
+			//todo
+			fileContents.append("filePath: " + filePath + "\n");
+			fileContents.append("filePathDecoded: " + filePathDecoded + "\n");
 
 			try {
 				while(scanner.hasNextLine()) {
 					fileContents.append(scanner.nextLine() + lineSeparator);
 				}
-				return fileContents.toString();
 			} finally {
 				scanner.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			return e.getMessage();
+			fileContents.append(e.getMessage());
 		}
+		return fileContents.toString();
 	}
 
 	private String readChatGpt(String filePath) {
