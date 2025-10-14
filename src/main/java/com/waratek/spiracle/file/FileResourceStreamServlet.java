@@ -1,6 +1,7 @@
 package com.waratek.spiracle.file;
 
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,9 +81,11 @@ public class FileResourceStreamServlet extends HttpServlet {
 	}
 
 	private String readChatGpt(String filePath) {
+		String filePathDecoded = URLDecoder.decode(filePath);
+
 		// Read and print the file contents
 		String fileContents = "";
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(filePathDecoded))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				fileContents += line + "\n";
