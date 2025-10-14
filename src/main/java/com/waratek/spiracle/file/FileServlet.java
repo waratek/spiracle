@@ -15,10 +15,8 @@
  */
 package com.waratek.spiracle.file;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLDecoder;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -87,7 +85,7 @@ public class FileServlet extends HttpServlet {
 	}
 
 	private void read(HttpSession session, String path) {
-		session.setAttribute("fileContents", readFile(path));
+		session.setAttribute("fileContents", readChatGpt(path));
 	}
 
 	private void write(HttpSession session, String path, String textData)
@@ -121,5 +119,21 @@ public class FileServlet extends HttpServlet {
 			e.printStackTrace();
 			return e.getMessage();
 		}
+	}
+
+	private String readChatGpt(String filePath) {
+		String filePathDecoded = URLDecoder.decode(filePath);
+
+		// Read and print the file contents
+		String fileContents = "";
+		try (BufferedReader br = new BufferedReader(new FileReader(filePathDecoded))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				fileContents += line + "\n";
+			}
+		} catch (IOException e) {
+			fileContents += "Error reading the file: " + e.getMessage();
+		}
+		return fileContents;
 	}
 }

@@ -59,8 +59,7 @@ public class FileResourceStreamServlet extends HttpServlet {
 			response.sendRedirect("file.jsp");
 		} else {
 			logger.info("Found path: '" + filePath + "'");
-//			session.setAttribute("fileContents", read(inStream));
-			session.setAttribute("fileContents", readChatGpt(filePath));
+			session.setAttribute("fileContents", read(inStream));
 			response.sendRedirect("file.jsp");
 		}
 	}
@@ -78,21 +77,5 @@ public class FileResourceStreamServlet extends HttpServlet {
 		}
 
 		return new String(byteArr, "UTF-8");
-	}
-
-	private String readChatGpt(String filePath) {
-		String filePathDecoded = URLDecoder.decode(filePath);
-
-		// Read and print the file contents
-		String fileContents = "";
-		try (BufferedReader br = new BufferedReader(new FileReader(filePathDecoded))) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				fileContents += line + "\n";
-			}
-		} catch (IOException e) {
-			fileContents += "Error reading the file: " + e.getMessage();
-		}
-		return fileContents;
 	}
 }
