@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.apache.log4j.Logger;
 /**
  * Servlet implementation class HttpRequestMethod
  */
-
 public class HttpRequestMethod extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(HttpRequestMethod.class);
 	private static final long serialVersionUID = 1L;
@@ -67,7 +65,6 @@ public class HttpRequestMethod extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		invoke(request, response);
 	}
@@ -75,7 +72,6 @@ public class HttpRequestMethod extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		invoke(request, response);
 	}
@@ -89,7 +85,7 @@ public class HttpRequestMethod extends HttpServlet {
 		String methodReturn = "";
 
 		if(method != null && method.length() != 0) {
-			int invokeVar = ((Integer)methodMap.get(method)).intValue();
+			int invokeVar = ((Integer) methodMap.get(method)).intValue();
 			switch (invokeVar) {
 			case 0:
 				if(arg != null && arg.length() != 0) {

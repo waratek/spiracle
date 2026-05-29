@@ -20,7 +20,6 @@ import java.io.RandomAccessFile;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,7 +76,7 @@ public class RandomAccessFileServlet03 extends HttpServlet {
 
         } finally {
 
-            System.out.println(newLine + getClass().getName() + newLine + s);
+            System.out.println(newLine + getClass().getSimpleName() + newLine + s);
             session.setAttribute("outputRandomAccessFile", s.toString());
             response.sendRedirect("pathTraversal.jsp");
         }

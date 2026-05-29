@@ -72,7 +72,7 @@ public class FileInputStreamServlet01 extends HttpServlet {
 
         } finally {
 
-            System.out.println(newLine + getClass().getName() + newLine + s);
+            System.out.println(newLine + getClass().getSimpleName() + newLine + s);
             session.setAttribute("outputFileInputStream", s.toString());
             response.sendRedirect("pathTraversal.jsp");
         }

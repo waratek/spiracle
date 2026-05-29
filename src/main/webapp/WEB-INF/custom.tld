@@ -1,0 +1,15 @@
+<taglib>
+   <tlib-version>1.0</tlib-version>
+   <jsp-version>2.0</jsp-version>
+   <short-name>Waratek</short-name>
+   
+   <tag>
+      <name>HelloUser</name>
+      <tag-class>com.waratek.spiracle.xss.HelloUserTag</tag-class>
+      <body-content>scriptless</body-content>
+      <attribute>
+         <name>username</name>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+   </tag>
+</taglib>

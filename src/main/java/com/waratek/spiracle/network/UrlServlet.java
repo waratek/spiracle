@@ -15,24 +15,25 @@
  */
 package com.waratek.spiracle.network;
 
+import com.waratek.spiracle.filepaths.FilePathUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 /**
  * Servlet implementation class UrlServlet
  */
-
 public class UrlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -58,50 +59,48 @@ public class UrlServlet extends HttpServlet {
 		executeRequest(request, response);
 	}
 
-	private void executeRequest(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		HttpSession session = request.getSession();
-		String urlPath = request.getParameter("urlPath");
+	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		final HttpSession session = request.getSession();
+		final String urlPath = request.getParameter("urlPath");
+		final String urlSource = request.getParameter("urlSource");
+		final String taintedUrlPath = FilePathUtil.forcePathSource(urlPath, urlSource, request);
 
-		session.setAttribute("urlContents", readUrl(urlPath));
+		session.setAttribute("urlContents", readUrl(taintedUrlPath));
 		response.sendRedirect("network.jsp");
 	}
 
 	private String readUrl(String pathname) throws IOException {
 		try {
 			URLConnection con = new URL(pathname).openConnection();
-			InputStream inStream = con.getInputStream();
+			Scanner scanner = new Scanner(con.getInputStream());
+			StringBuffer fileContents = new StringBuffer();
 			String lineSeparator = System.getProperty("line.separator");
 
-			BufferedReader br = null;
-			String out = "";
-
-			String line;
 			try {
-
-				br = new BufferedReader(new InputStreamReader(inStream));
-				while ((line = br.readLine()) != null) {
-					out += line + lineSeparator;
+				while(scanner.hasNextLine()) {
+					fileContents.append(scanner.nextLine() + lineSeparator);
 				}
-
+				return fileContents.toString();
 			} finally {
-				if (br != null) {
-					try {
-						br.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				scanner.close();
 			}
-
-			return out;
-
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return "Please enter a valid URL";
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return "Please enter a valid URL";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return getStackTraceString(e);
 		}
+	}
+
+	private static String getStackTraceString(Exception e) {
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+		e.printStackTrace(printWriter);
+		return stringWriter.toString();
+
 	}
 }

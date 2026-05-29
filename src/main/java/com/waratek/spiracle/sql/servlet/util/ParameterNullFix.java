@@ -16,6 +16,7 @@
 package com.waratek.spiracle.sql.servlet.util;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +29,8 @@ public class ParameterNullFix {
 
 	public static Map sanitizeNull(List inputList, HttpServletRequest request) {
 		Map outputMap = new HashMap();
-		for(int i = 0 ; i < inputList.size() ; i++) {
-			String item = (String)inputList.get(i);
+		for (Iterator it = inputList.iterator(); it.hasNext();) {
+			String item = (String) it.next();
 			String val = request.getParameter(item);
 			if(val == null) {
 				logger.info("Expected parameter {" + item + "} is null");

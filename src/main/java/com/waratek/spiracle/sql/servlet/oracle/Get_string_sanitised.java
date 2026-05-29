@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_string
  */
-
 public class Get_string_sanitised extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
@@ -46,13 +44,13 @@ public class Get_string_sanitised extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List queryStringList = new ArrayList();
+        List queryStringList = new ArrayList();     
         queryStringList.add("name");
         
         Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String name = (String)nullSanitizedMap.get("name");
-        String newName = (String)name.replaceAll( "'", "''" );
+        String name = (String) nullSanitizedMap.get("name");
+        String newName = name.replace( "'", "''" );
         
         String sql = "SELECT * FROM users WHERE name = '" + newName + "'";
 

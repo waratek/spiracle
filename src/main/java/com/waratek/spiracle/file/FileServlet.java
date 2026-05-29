@@ -15,22 +15,17 @@
  */
 package com.waratek.spiracle.file;
 
-import org.apache.log4j.Logger;
+import com.waratek.spiracle.filepaths.FilePathUtil;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.IOException;
 
 /**
  * Servlet implementation class FileServlet
  */
-
-public class FileServlet extends HttpServlet {
-	private static final Logger logger = Logger.getLogger(FileServlet.class);
-	private static final long serialVersionUID = 1L;
+public class FileServlet extends AbstractFileServlet {
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,85 +35,15 @@ public class FileServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		executeRequest(request, response);
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		executeRequest(request, response);
-	}
+	protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		final String userProvidedPath = request.getParameter("filePath");
+		final String method = request.getParameter("fileArg");
+		final String textData = request.getParameter("fileText");
+		final String pathSource = request.getParameter("pathSource");
+		final String taintedPath = FilePathUtil.forcePathSource(userProvidedPath, pathSource, request);
 
-	private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		HttpSession session = request.getSession();
-
-		String method = request.getParameter("fileArg");
-		String path = request.getParameter("filePath");
-		String textData = request.getParameter("fileText");
-
-		if(method.equals("read")) {
-			read(session, path);
-		} else if(method.equals("write")) {
-			write(session, path, textData);
-		} else if(method.equals("delete")) {
-			delete(session, path);
-		}
-
-		logger.info(method + " " + path + " " + textData);
-
+		performFileAction(request, taintedPath, method, textData);
 		response.sendRedirect("file.jsp");
-	}
-
-	private void delete(HttpSession session, String path) {
-		File f = new File(path);
-		f.delete();
-		session.setAttribute("fileContents", "");
-	}
-
-	private void read(HttpSession session, String path) {
-		session.setAttribute("fileContents", readFile(path));
-	}
-
-	private void write(HttpSession session, String path, String textData)
-			throws IOException {
-		File f = new File(path);
-		FileWriter fw = new FileWriter(f);
-		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write(textData);
-		bw.close();
-		fw.close();
-
-		read(session, path);
-	}
-
-	private String readFile(String pathname) {
-		try {
-			File file = new File(pathname);
-			String fileContents = "";
-			String lineSeparator = System.getProperty("line.separator");
-
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			try {
-				String line;
-				while ((line = br.readLine()) != null) {
-					fileContents += line + lineSeparator;
-				}
-			}
-			finally {
-				br.close();
-			}
-
-			return fileContents;
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.getMessage();
-		}
-
 	}
 }

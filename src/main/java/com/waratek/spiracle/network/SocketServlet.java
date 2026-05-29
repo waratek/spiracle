@@ -20,7 +20,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +28,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class SocketServlet
  */
-
 public class SocketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Socket s;
@@ -66,19 +64,19 @@ public class SocketServlet extends HttpServlet {
 			String bindHost = request.getParameter("bindHost");
 			String remoteHost = request.getParameter("remoteHost");
 
-			Integer bindPort;
-			Integer remotePort;
+			Integer bindPort = new Integer(0);
+			Integer remotePort = new Integer(0);
 
 			String bindPortRaw = request.getParameter("bindPort");
 			String remotePortRaw = request.getParameter("remotePort");
 
 			if(bindPortRaw.length() > 0) {
-				bindPort = new Integer(bindPortRaw);
+				bindPort = new Integer(Integer.parseInt((String)bindPortRaw));
 			} else {
 				bindPort = null;
 			}
 			if(remotePortRaw.length() > 0) {
-				remotePort = new Integer(remotePortRaw);
+				remotePort = new Integer(Integer.parseInt((String)remotePortRaw));
 			} else {
 				remotePort = null;
 			}

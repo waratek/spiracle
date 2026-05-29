@@ -65,8 +65,14 @@
             }
           %>
           <form action="UrlServlet" method="post">
-            Url: <input type="text" name="urlPath"> <input
-              type="submit" value=Submit>
+            Url: <input type="text" name="urlPath"> <br>
+            ConnectionType (DB only): <input type="text" name="connectionType"><br>
+            Path Source: <br>
+            &nbsp;&nbsp; <input type="radio" name="urlSource" value="http" checked> HTTP<br>
+            &nbsp;&nbsp; <input type="radio" name="urlSource" value="deserialJava"> Deserialization(Java)<br>
+            &nbsp;&nbsp; <input type="radio" name="urlSource" value="deserialXml"> Deserialization(XML)<br>
+            &nbsp;&nbsp; <input type="radio" name="urlSource" value="database"> Database<br>
+            <input type="submit" value=Submit>
           </form>
         </div>
         <div class="panel-footer">

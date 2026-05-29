@@ -20,11 +20,9 @@
                 </div>
             </div>
             <%
-                List attrList = new ArrayList();
-                Enumeration attrs = request.getParameterNames();
-                List attrsList = Collections.list(attrs);
-				for(int i =0; i < attrsList.size(); i++){
-					String str = (String) attrsList.get(i);
+                List<String> attrList = new ArrayList<String>();
+                Enumeration<String> attrs = request.getParameterNames();
+                for (String str : Collections.list(attrs)) {
                     String buf = (String) request.getParameter(str);
                     if (buf != null) {
                         attrList.add(buf);
@@ -37,10 +35,26 @@
                     <h4>Reflected Parameters</h4>
                 </div>
                 <div class="panel-body">
+		    <form id="reflectedXSS" action="xss.jsp">
+                      <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Set the Payload</th>
+                                <th><input type="text" name="payload" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><input type="submit" name="submit" /></th>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </form>
+
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Payload</th>
+                                <th>Reflected Payload</th>
                             </tr>
 
                         </thead>

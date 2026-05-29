@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Implicit_Join_Namespace
  */
-
 public class MsSql_Implicit_Join_Namespace extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +31,6 @@ public class MsSql_Implicit_Join_Namespace extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
 	}
@@ -41,7 +38,6 @@ public class MsSql_Implicit_Join_Namespace extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
 	}
@@ -53,7 +49,7 @@ public class MsSql_Implicit_Join_Namespace extends HttpServlet {
 
         Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String id = (String)nullSanitizedMap.get("id");
+        String id = (String) nullSanitizedMap.get("id");
 
         String sql = "SELECT * FROM dbo.users, dbo.address WHERE dbo.users.id = " + id + " AND dbo.users.id = dbo.address.id";
 
