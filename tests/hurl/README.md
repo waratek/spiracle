@@ -32,6 +32,13 @@ The RASP suite will fail entirely without the agent — this is expected.
 tests/hurl/
 ├── generate.py            # Generator: mysql.txt + oracle.txt → .hurl files
 ├── run.sh                 # Runner wrapper
+├── functional/            # Endpoint-level functional suite (no agent required)
+│   ├── local.env          # Variables: host=localhost, port=8080
+│   ├── redirect.hurl      # 2 tests: SendRedirect regression (#8 Content-Type fix)
+│   ├── sql.hurl           # 5 tests: benign queries + unprotected SQLi demo
+│   ├── xss.hurl           # 2 tests: reflected XSS via customTag.jsp
+│   ├── traversal.hurl     # 4 tests: benign file + path traversal demo
+│   └── negative.hurl      # 3 tests: 404, empty result set, no-param graceful
 ├── rasp/                  # RASP-efficacy suite (needs Waratek agent)
 │   ├── protected.env      # Variables: host, port, block_status=550
 │   ├── mysql/             # MySQL servlet tests (139 cases, 5 files)
@@ -44,7 +51,7 @@ tests/hurl/
 │       ├── get_int.hurl
 │       ├── get_string.hurl
 │       └── ...
-└── smoke/                 # Functional smoke suite (no agent required)
+└── smoke/                 # Smoke suite (no agent required)
     ├── local.env          # Variables: host=localhost, port=8080
     └── smoke.hurl         # 3 tests: up-check, benign query, SQLi succeeds
 ```
@@ -52,6 +59,36 @@ tests/hurl/
 Source of truth for the RASP payload matrices:
 - `tests/mysql.txt` (139 cases)
 - `tests/oracle.txt` (301 cases)
+
+---
+
+## Running the functional suite (plain Docker / CI)
+
+The functional suite validates endpoint behaviour without any RASP agent:
+
+| File             | Requests | What it covers |
+|------------------|----------|----------------|
+| `redirect.hurl`  | 2        | SendRedirect: no-param→200+text/plain (#8 regression); param→302+Location |
+| `sql.hurl`       | 5        | MySql_Get_int, MySql_Get_string, MySql_Get_Implicit_Join (benign + SQLi), MySql_Get_Union |
+| `xss.hurl`       | 2        | customTag.jsp benign name; `<script>alert(1)</script>` reflected unescaped |
+| `traversal.hurl` | 4        | FileInputStreamServlet01 benign TestFile; `../TestFile` traversal succeeds |
+| `negative.hurl`  | 3        | 404 on unknown path; empty result set; no-param graceful 200 |
+
+```sh
+# Start the Docker MySQL stack
+docker compose -f docker-compose.mysql.yml up -d
+
+# Run functional tests
+./tests/hurl/run.sh functional localhost 8080
+
+# Or with hurl directly
+hurl --test --variables-file tests/hurl/functional/local.env \
+     tests/hurl/functional/*.hurl
+```
+
+**XSS note:** The ReadHTML-based servlets (`XSSWebAppHSRPW` etc.) do NOT reflect
+the `taintedtext` param because `xss.html` contains no literal `"XSS"` token.
+`customTag.jsp` is the GET-accessible reflected-XSS endpoint used here.
 
 ---
 
