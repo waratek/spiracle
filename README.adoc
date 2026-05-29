@@ -1,6 +1,6 @@
 = Spiracle
 
-Spiracle is an insecure web application used to test system security controls. 
+Spiracle is an insecure web application used to test system security controls.
 
 It can be used to read/write arbitrary files and open network connections.
 The application is also vulnerable to numerous other vulnerabilities such as:
@@ -12,7 +12,7 @@ The application is also vulnerable to numerous other vulnerabilities such as:
 * Deserialization (CWE-502)
 * and many more...
 
-CAUTION: Due to its insecure design, this application should NOT be deployed on an unsecured network or system.
+CAUTION: Due to its insecure design, this application should NOT be deployed on an unsecured network or system. Run on localhost or throwaway networks only.
 
 This application has been tested on the following application servers:
 
@@ -20,6 +20,35 @@ This application has been tested on the following application servers:
 * IBM WebSphere Liberty Core 8.5.5.3
 
 Your mileage may vary with other application servers.
+
+== Docker (quickstart)
+
+The fastest way to run Spiracle. No local Tomcat or database install needed.
+
+Pick a database and run its compose file from the repo root:
+
+----
+# MySQL (smallest image — recommended for first run)
+$ docker compose -f docker-compose.mysql.yml up --build
+
+# Microsoft SQL Server (~1.5 GB image)
+$ docker compose -f docker-compose.mssql.yml up --build
+
+# Oracle XE (~2–4 GB image; first pull takes several minutes)
+$ docker compose -f docker-compose.oracle.yml up --build
+----
+
+Once healthy, browse to: http://localhost:8080/spiracle/
+
+Tear down (removes volumes):
+
+----
+$ docker compose -f docker-compose.mysql.yml down -v
+----
+
+The multi-stage `Dockerfile` builds the WAR with JDK 8 / Maven and deploys it on Tomcat 9. MySQL, MSSQL, and Oracle JDBC drivers are bundled in the image; `docker/entrypoint.sh` rewrites `conf/Spiracle.properties` from environment variables at startup.
+
+Full Docker reference: link:docker/README.md[docker/README.md]
 
 == Installation
 
@@ -54,21 +83,23 @@ $ jar xvf /path/to/downloaded/spiracle.war
   <webApplication contextRoot="spiracle" location="spiracle"/> <!--2-->
   <httpSession idLength="28" /> <!--3-->
 
-  <httpEndpoint id="defaultHttpEndpoint" 
+  <httpEndpoint id="defaultHttpEndpoint"
                 host="*" <!--4-->
-                httpPort="9080" 
+                httpPort="9080"
                 httpsPort="9443"/>
 </server>
 ----
 +
 <1> Enable `Servlet-3.0` as a feature
 <2> Add a `webApplication` tag referencing Spiracle
-<3> Change `httpSession` parameter length 
+<3> Change `httpSession` parameter length
 <4> Add a `host` attribute
 
 === Database setup
 
 If you would like to run the SQL injection tests, the database should be populated as follows. Data files are available in the web applications `spiracle/conf/` directory after the `spiracle.war` file has been deployed and exploded.
+
+NOTE: When using Docker, database initialisation is handled automatically by the compose stack. Manual setup is only needed for bare-metal deployments.
 
 ==== Oracle
 
@@ -124,23 +155,72 @@ Properties file can be overridden when submitting the request by appending the n
 &connectionType=c3p0.mysql
 ----
 
+== Testing
+
+Spiracle ships with a link:tests/hurl/README.md[Hurl] test harness under `tests/hurl/`. Tests are endpoint-based and run against any deployment (Docker or bare-metal).
+
+=== Suites
+
+[cols="1,1,3",options="header"]
+|===
+|Suite |Agent required |What it covers
+
+|`smoke/`
+|No
+|App root responds 200; benign query returns data; unblocked SQLi widens result set (confirming injections succeed without agent)
+
+|`functional/`
+|No
+|SendRedirect, SQL queries, reflected XSS via `customTag.jsp`, path traversal, 404/empty-result/no-param negative cases
+
+|`rasp/`
+|Yes (Waratek RASP)
+|440-case SQL injection matrix (139 MySQL, 301 Oracle); asserts status `550`, which is only emitted when the Waratek agent intercepts the query
+|===
+
+=== Quick run (plain Docker stack)
+
+----
+# Bring up MySQL stack
+$ docker compose -f docker-compose.mysql.yml up -d
+
+# Smoke
+$ ./tests/hurl/run.sh smoke localhost 8080
+
+# Functional
+$ ./tests/hurl/run.sh functional localhost 8080
+----
+
+The `rasp/` suite will fail on a plain deployment — expected. Run it only with the Waratek agent attached to Tomcat.
+
+Full harness reference: link:tests/hurl/README.md[tests/hurl/README.md]
+
 == Building
 
 Prerequisites:
 
-* Java >= 1.6
+* Java 5–8 (see toolchain note below)
 * Apache Maven
 * link:http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html[Oracle Database JDBC Driver] (ojdbc6.jar)
 
 If you wish to use the database features, ensure that the Oracle database JDBC driver file `ojdbc6.jar` is available under `./src/main/webapp/WEB-INF/lib`
 
-To build the Spiracle Test Application WAR file, run:
+=== Build flags
 
- $ mvn install -Dversion.webxml=30
+Two flags parameterise the build:
 
-or
+`-Dversion.jdk=<level>`:: Sets the Java source and target compiler level. Supported values on `master`: `1.5`, `1.6`, `1.7`, `1.8`.
+`-Dversion.webxml=<25|30>`:: Selects the Servlet descriptor version (2.5 or 3.0).
 
- $ mvn install -Dversion.webxml=25
+Representative invocations:
+
+----
+# Java 8, Servlet 3.0 (recommended)
+$ mvn install -Dversion.jdk=1.8 -Dversion.webxml=30
+
+# Java 6, Servlet 2.5
+$ mvn install -Dversion.jdk=1.6 -Dversion.webxml=25
+----
 
 To clean the build infrastructure, run:
 
@@ -149,6 +229,28 @@ To clean the build infrastructure, run:
 The WAR file will be output to:
 
  ./target/spiracle.war
+
+=== Toolchain
+
+The repo carries a `mise.toml` pinning Temurin 8 and Maven 3.9. With link:https://mise.jdx.dev[mise] installed:
+
+----
+$ mise install   # installs pinned JDK + Maven
+$ mvn install -Dversion.jdk=1.8 -Dversion.webxml=30
+----
+
+The Docker image pins its own JDK via its base image — no local JDK is needed when building through Docker.
+
+=== Branch model
+
+`master`:: Modern, parameterised source tree. Java 5–8 source level. Use `-Dversion.jdk` to select.
+`java4`:: Java-1.4-source-compatible variant. Annotations replaced by `web.xml` registration; uses a legacy dependency set. Check out this branch if you need Java 4 compatibility.
+
+== Recent fixes
+
+* *#8* — `Content-Type: text/plain` is now set on the `SendRedirect` fallback response (no-parameter case).
+* *#33* — `setupdb_mysql.sql` is idempotent; uses `IF [NOT] EXISTS` guards so re-running does not error.
+* *#103* — Oracle connection NPE fixed in `CreateC3p0Connection`; was reading non-existent property keys from `Spiracle.properties`.
 
 == License
 
@@ -167,4 +269,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ----
-

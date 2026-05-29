@@ -101,8 +101,8 @@ The smoke suite validates:
    (documenting that injections are NOT blocked without the agent)
 
 ```sh
-# Start the Docker MySQL stack (requires docker-compose from feat/docker branch)
-docker-compose up -d
+# Start the Docker MySQL stack
+docker compose -f docker-compose.mysql.yml up -d
 
 # Run smoke tests
 ./tests/hurl/run.sh smoke localhost 8080
