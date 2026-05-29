@@ -2,11 +2,12 @@
 # run.sh — Spiracle Hurl test runner
 #
 # Usage:
-#   ./tests/hurl/run.sh smoke [host] [port]
-#   ./tests/hurl/run.sh rasp  [host] [port]
+#   ./tests/hurl/run.sh smoke      [host] [port]
+#   ./tests/hurl/run.sh functional [host] [port]
+#   ./tests/hurl/run.sh rasp       [host] [port]
 #
 # Arguments:
-#   suite   — "smoke" or "rasp"
+#   suite   — "smoke", "functional", or "rasp"
 #   host    — hostname/IP of Spiracle (default: localhost)
 #   port    — TCP port          (default: 8080)
 #
@@ -43,13 +44,18 @@ case "$SUITE" in
         FILES="$SCRIPT_DIR/smoke/smoke.hurl"
         REPORT_DIR="${REPORT_DIR:-/tmp/spiracle-smoke-report}"
         ;;
+    functional)
+        VARS_FILE="$SCRIPT_DIR/functional/local.env"
+        FILES="$SCRIPT_DIR/functional/redirect.hurl $SCRIPT_DIR/functional/sql.hurl $SCRIPT_DIR/functional/xss.hurl $SCRIPT_DIR/functional/traversal.hurl $SCRIPT_DIR/functional/negative.hurl"
+        REPORT_DIR="${REPORT_DIR:-/tmp/spiracle-functional-report}"
+        ;;
     rasp)
         VARS_FILE="$SCRIPT_DIR/rasp/protected.env"
         FILES="$SCRIPT_DIR/rasp/mysql/*.hurl $SCRIPT_DIR/rasp/oracle/*.hurl"
         REPORT_DIR="${REPORT_DIR:-/tmp/spiracle-rasp-report}"
         ;;
     *)
-        echo "ERROR: unknown suite '$SUITE'. Use 'smoke' or 'rasp'." >&2
+        echo "ERROR: unknown suite '$SUITE'. Use 'smoke', 'functional', or 'rasp'." >&2
         exit 1
         ;;
 esac
