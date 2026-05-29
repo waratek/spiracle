@@ -1,7 +1,9 @@
 services:
   db:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
+    # java4 bundles the legacy mysql-connector 3.1.14, which cannot negotiate
+    # MySQL 8's utf8mb4 (charset index 255). Pin to 5.7 (also the floor for the
+    # CREATE USER IF NOT EXISTS seed) so the old connector can connect.
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: test
