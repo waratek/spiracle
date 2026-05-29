@@ -1,6 +1,10 @@
 package com.waratek.spiracle.file;
 
-import org.apache.log4j.Logger;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,15 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import org.apache.log4j.Logger;
 
 /**
  * Servlet implementation class FileResourceStream
  */
-
 public class FileResourceStreamServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(FileResourceStreamServlet.class);
 	private static final long serialVersionUID = 1L;
@@ -32,7 +33,6 @@ public class FileResourceStreamServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		executeRequest(request, response);
 	}
@@ -40,7 +40,6 @@ public class FileResourceStreamServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		executeRequest(request, response);
 	}
@@ -62,28 +61,18 @@ public class FileResourceStreamServlet extends HttpServlet {
 		}
 	}
 
-	private String read(InputStream inStream) throws IOException {
-		BufferedReader br = null;
-		String out = "";
-
-		String line;
-		try {
-
-			br = new BufferedReader(new InputStreamReader(inStream));
-			while ((line = br.readLine()) != null) {
-				out += line;
-			}
-
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+	private String read(InputStream inStream) throws IOException, UnsupportedEncodingException {
+		List byteList = new ArrayList();
+		int streamBuf = inStream.read();
+		while(streamBuf != -1) {
+			byteList.add(new Byte((byte) streamBuf));
+			streamBuf = inStream.read();
+		}
+		byte [] byteArr = new byte[byteList.size()];
+		for(int i = 0; i < byteList.size(); i++) {
+			byteArr[i] = ((Byte) byteList.get(i)).byteValue();
 		}
 
-		return out;
+		return new String(byteArr, "UTF-8");
 	}
 }

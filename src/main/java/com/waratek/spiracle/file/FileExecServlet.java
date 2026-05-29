@@ -15,6 +15,7 @@
  */
 package com.waratek.spiracle.file;
 
+import com.waratek.spiracle.filepaths.FilePathUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -24,16 +25,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
  * Servlet implementation class FileServlet
  */
-
 public class FileExecServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(FileExecServlet.class);
     private static final long serialVersionUID = 1L;
     
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -63,20 +61,37 @@ public class FileExecServlet extends HttpServlet {
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+        final HttpSession session = request.getSession();
+        final String command = request.getParameter("cmd");
+        final String commandSource = request.getParameter("pathSource");
+        final String taintedCmd = FilePathUtil.forcePathSource(command, commandSource, request);
 
-        String command = request.getParameter("cmd");
-
-        Process p = Runtime.getRuntime().exec(command);
-        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String stringBuilder = "";
-        String line;
-        while ((line = br.readLine()) != null) {
-            stringBuilder += line;
-            stringBuilder += LINE_SEPARATOR;
-        }
-        session.setAttribute("fileContents", stringBuilder);
+        final String commandOutput = executeCommand(taintedCmd);
+        session.setAttribute("fileContents", commandOutput);
 
         response.sendRedirect("file.jsp");
+    }
+
+    private String executeCommand(String command) {
+        String output;
+        try
+        {
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            StringBuffer stringBuilder = new StringBuffer();
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                stringBuilder.append(line).append(LINE_SEPARATOR);
+            }
+            output = stringBuilder.toString();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            output = e.getMessage();
+        }
+
+        return output;
+
     }
 }

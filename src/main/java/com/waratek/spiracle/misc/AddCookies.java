@@ -1,13 +1,21 @@
 package com.waratek.spiracle.misc;
 
-import javax.servlet.ServletConfig;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 
 public class AddCookies extends HttpServlet {
 
@@ -27,11 +35,11 @@ public class AddCookies extends HttpServlet {
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ServletConfig config = getServletConfig();
-        //int servletMajorVersion = config.getServletContext().getMajorVersion();
-        //int httpOnlyMinServletVersion = 3;
+        int servletMajorVersion = config.getServletContext().getMajorVersion();
+        int httpOnlyMinServletVersion = 3;
 
         String secureString = "Secure";
-        //String httpOnlyString = "HttpOnly";
+        String httpOnlyString = "HttpOnly";
         String cookiePath = "/";
         int cookieMaxAge = 86400; // 24 hours
 
@@ -48,8 +56,8 @@ public class AddCookies extends HttpServlet {
         Cookie testCookieSecureHttpOnly2 = new Cookie("TestCookieNameSecureHttpOnly2", "TestCookieValueSecureHttpOnly2");
 
         Cookie[] cookies = {testCookieDefault1, testCookieDefault2, testCookieSecure1, testCookieSecure2,
-                testCookieHttpOnly1, testCookieHttpOnly2, testCookieSecureHttpOnly1,
-                testCookieSecureHttpOnly2};
+                            testCookieHttpOnly1, testCookieHttpOnly2, testCookieSecureHttpOnly1,
+                            testCookieSecureHttpOnly2};
 
         for (int i = 0; i < cookies.length; i++) {
             Cookie newCookie = cookies[i];
@@ -57,20 +65,22 @@ public class AddCookies extends HttpServlet {
             newCookie.setPath(cookiePath);
             newCookie.setMaxAge(cookieMaxAge);
 
-            if (newCookie.getName().indexOf(secureString) != -1) {
+            if(newCookie.getName().contains(secureString)){
                 newCookie.setSecure(true);
             }
 
-            /** java4
-             if(newCookie.getName().indexOf(httpOnlyString) != -1){
+            if(newCookie.getName().contains(httpOnlyString)){
 
+                if(servletMajorVersion >= httpOnlyMinServletVersion){
+                    try {
+                        java.lang.reflect.Method setHttpOnly = newCookie.getClass().getMethod("setHttpOnly", new Class[]{boolean.class});
+                        setHttpOnly.invoke(newCookie, new Object[]{Boolean.TRUE});
+                    } catch (Exception e) {
+                        // setHttpOnly not available in this servlet container
+                    }
+                }
 
-             if(servletMajorVersion >= httpOnlyMinServletVersion){
-             newCookie.setHttpOnly(true);
-             }
-
-             }
-             */
+            }
 
             response.addCookie(newCookie);
         }
