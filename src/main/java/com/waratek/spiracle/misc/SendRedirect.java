@@ -34,6 +34,7 @@ public class SendRedirect extends HttpServlet {
             response.sendRedirect(redirectURI);
         }
         else {
+            response.setHeader("Content-Type", "text/plain;charset=UTF-8");
             response.getWriter().println("Parameter '" + inputUriParam + "' not set in the URI.");
             response.getWriter().println("Please update URI to include '?" + inputUriParam + "=URI_TO_REDIRECT_TO'");
         }
