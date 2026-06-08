@@ -5,7 +5,7 @@ Replaces the old `tests/spiracle_sqli_test.py` (Python 2, bespoke `<split>` form
 
 ---
 
-## The critical semantic: 550 requires the Waratek RASP agent
+## The 550 status requires the Waratek RASP agent
 
 The number `550` is **not** a standard HTTP status code.
 `SelectUtil.verifySQLException` emits it **only** when the SQLException
@@ -28,37 +28,10 @@ The RASP suite will fail entirely without the agent — this is expected.
 
 ## Suite layout
 
-```
-tests/hurl/
-├── generate.py            # Generator: mysql.txt + oracle.txt → .hurl files
-├── run.sh                 # Runner wrapper
-├── functional/            # Endpoint-level functional suite (no agent required)
-│   ├── local.env          # Variables: host=localhost, port=8080
-│   ├── redirect.hurl      # 2 tests: SendRedirect regression (#8 Content-Type fix)
-│   ├── sql.hurl           # 5 tests: benign queries + unprotected SQLi demo
-│   ├── xss.hurl           # 2 tests: reflected XSS via customTag.jsp
-│   ├── traversal.hurl     # 4 tests: benign file + path traversal demo
-│   └── negative.hurl      # 3 tests: 404, empty result set, no-param graceful
-├── rasp/                  # RASP-efficacy suite (needs Waratek agent)
-│   ├── protected.env      # Variables: host, port, block_status=550
-│   ├── mysql/             # MySQL servlet tests (139 cases, 5 files)
-│   │   ├── get_int.hurl
-│   │   ├── get_string.hurl
-│   │   ├── get_union.hurl
-│   │   ├── get_implicit_join.hurl
-│   │   └── implicit_join_namespace.hurl
-│   └── oracle/            # Oracle servlet tests (301 cases, 12 files)
-│       ├── get_int.hurl
-│       ├── get_string.hurl
-│       └── ...
-└── smoke/                 # Smoke suite (no agent required)
-    ├── local.env          # Variables: host=localhost, port=8080
-    └── smoke.hurl         # 3 tests: up-check, benign query, SQLi succeeds
-```
+`tests/hurl/` holds three suites:
 
-Source of truth for the RASP payload matrices:
-- `tests/mysql.txt` (139 cases)
-- `tests/oracle.txt` (301 cases)
+- `smoke/` and `functional/` — endpoint behaviour on a plain (no-agent) deployment.
+- `rasp/` — the RASP-efficacy matrix under `mysql/` and `oracle/`; requires the Waratek agent.
 
 ---
 
@@ -134,26 +107,6 @@ hurl --test \
 
 Reports are written as JUnit XML to `/tmp/spiracle-{smoke,rasp}-report/junit.xml`.
 Override with `REPORT_DIR=/path/to/dir ./tests/hurl/run.sh ...`.
-
----
-
-## Regenerating the .hurl files
-
-If `mysql.txt` or `oracle.txt` are updated, regenerate:
-
-```sh
-python3 tests/hurl/generate.py
-```
-
-The generator:
-- Reads `tests/mysql.txt` and `tests/oracle.txt` (one case per line, `<split>` delimiter)
-- Groups cases by servlet path
-- Encodes URL-illegal characters (`space`, `|`, `"`, `<`, `>`) in query strings
-- Emits `status == {{block_status}}` for 550-expected cases (variable-driven)
-- Emits `status == 200` (literal) for the one benign probe case in mysql.txt
-- Overwrites all files under `tests/hurl/rasp/`
-
-Commit the regenerated files — the suite must run without needing to regenerate.
 
 ---
 
