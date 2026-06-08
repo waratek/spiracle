@@ -33,8 +33,6 @@ The RASP suite will fail entirely without the agent — this is expected.
 - `smoke/` and `functional/` — endpoint behaviour on a plain (no-agent) deployment.
 - `rasp/` — the RASP-efficacy matrix under `mysql/` and `oracle/`; requires the Waratek agent.
 
-The `rasp/` payload matrices are generated from `tests/mysql.txt` and `tests/oracle.txt`.
-
 ---
 
 ## Running the functional suite (plain Docker / CI)
@@ -109,26 +107,6 @@ hurl --test \
 
 Reports are written as JUnit XML to `/tmp/spiracle-{smoke,rasp}-report/junit.xml`.
 Override with `REPORT_DIR=/path/to/dir ./tests/hurl/run.sh ...`.
-
----
-
-## Regenerating the .hurl files
-
-If `mysql.txt` or `oracle.txt` are updated, regenerate:
-
-```sh
-python3 tests/hurl/generate.py
-```
-
-The generator:
-- Reads `tests/mysql.txt` and `tests/oracle.txt` (one case per line, `<split>` delimiter)
-- Groups cases by servlet path
-- Encodes URL-illegal characters (`space`, `|`, `"`, `<`, `>`) in query strings
-- Emits `status == {{block_status}}` for 550-expected cases (variable-driven)
-- Emits `status == 200` (literal) for the one benign probe case in mysql.txt
-- Overwrites all files under `tests/hurl/rasp/`
-
-Commit the regenerated files — the suite must run without needing to regenerate.
 
 ---
 
