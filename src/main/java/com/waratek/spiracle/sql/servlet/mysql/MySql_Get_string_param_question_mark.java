@@ -22,7 +22,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +32,6 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_string
  */
-
 public class MySql_Get_string_param_question_mark extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +46,6 @@ public class MySql_Get_string_param_question_mark extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
@@ -56,19 +53,18 @@ public class MySql_Get_string_param_question_mark extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ServletContext application = this.getServletConfig().getServletContext();
-        List queryStringList = new ArrayList ();
+        List queryStringList = new ArrayList();
         queryStringList.add("name");
 
         Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String name = (String)nullSanitizedMap.get("name");
+        String name = (String) nullSanitizedMap.get("name");
 
         // The '?' syntax is invalid for MySQL, so this query never successfully execute.
         String sql = "SELECT top 5 id, name, surname FROM users where name <> ? and name = '" + name + "'";

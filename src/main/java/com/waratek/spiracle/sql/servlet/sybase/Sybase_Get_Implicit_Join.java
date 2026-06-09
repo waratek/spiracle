@@ -22,7 +22,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +32,6 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Get_Inner_Join
  */
-
 public class Sybase_Get_Implicit_Join extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +46,6 @@ public class Sybase_Get_Implicit_Join extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
@@ -56,7 +53,6 @@ public class Sybase_Get_Implicit_Join extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeRequest(request, response);
     }
@@ -68,7 +64,7 @@ public class Sybase_Get_Implicit_Join extends HttpServlet {
 
         Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String id = (String)nullSanitizedMap.get("id");
+        String id = (String) nullSanitizedMap.get("id");
 
         String sql = "SELECT * FROM users, address WHERE users.id = " + id + " AND users.id = address.id";
 

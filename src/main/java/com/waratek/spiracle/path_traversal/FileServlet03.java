@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,7 +70,7 @@ public class FileServlet03 extends HttpServlet {
             s = s + fileDoesNotExistMessage;
         }
 
-        System.out.println(newLine + getClass().getName() + newLine + s);
+        System.out.println(newLine + getClass().getSimpleName() + newLine + s);
         session.setAttribute("outputFile", s.toString());
         response.sendRedirect("pathTraversal.jsp");
 	}

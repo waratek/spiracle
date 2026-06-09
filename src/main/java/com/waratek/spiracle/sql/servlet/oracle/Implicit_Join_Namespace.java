@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import com.waratek.spiracle.sql.util.SelectUtil;
 /**
  * Servlet implementation class Implicit_Join_Namespace
  */
-
 public class Implicit_Join_Namespace extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,12 +45,12 @@ public class Implicit_Join_Namespace extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List queryStringList = new ArrayList();
+        List queryStringList = new ArrayList();     
         queryStringList.add("id");
         
         Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
         
-        String id = (String)nullSanitizedMap.get("id");
+        String id = (String) nullSanitizedMap.get("id");
         
         String sql = "SELECT users.id FROM users, address WHERE users.id = address.id AND users.id = " + id; 
 

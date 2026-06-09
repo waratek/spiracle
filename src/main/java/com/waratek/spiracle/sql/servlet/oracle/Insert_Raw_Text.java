@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import com.waratek.spiracle.sql.util.UpdateUtil;
 /**
  * Servlet implementation class Insert_Raw_Text
  */
-
 public class Insert_Raw_Text extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,15 +44,15 @@ public class Insert_Raw_Text extends HttpServlet {
 
     private void executeRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {          
         ServletContext application = this.getServletConfig().getServletContext();
-        List queryStringList = new ArrayList();
+        List queryStringList = new ArrayList();     
 
         queryStringList.add("id");
         queryStringList.add("text");
 
         Map nullSanitizedMap = ParameterNullFix.sanitizeNull(queryStringList, request);
 
-        String id = (String)nullSanitizedMap.get("id");
-        String text = (String)nullSanitizedMap.get("text");
+        String id = (String) nullSanitizedMap.get("id");
+        String text = (String) nullSanitizedMap.get("text");
 
         String sql = "INSERT INTO TEXT_STORE VALUES (" + id + ", '" + text + "')";
 

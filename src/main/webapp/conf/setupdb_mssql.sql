@@ -1,5 +1,7 @@
 create database spiracle;
 
+use spiracle;
+
 DROP TABLE users;
 DROP TABLE address;
 DROP TABLE TEXT_STORE;

@@ -20,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +28,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class FileInputStreamServlet03
  */
-
 public class FileInputStreamServlet03 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -70,7 +68,7 @@ public class FileInputStreamServlet03 extends HttpServlet {
             s = "Couldn't open file input stream for file:" + newLine + "'" + absolutePathToTestFile + "'";
         } finally {
 
-            System.out.println(newLine + getClass().getName() + newLine + s);
+            System.out.println(newLine + getClass().getSimpleName() + newLine + s);
             session.setAttribute("outputFileInputStream", s.toString());
             response.sendRedirect("pathTraversal.jsp");
         }

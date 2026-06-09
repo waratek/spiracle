@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class ReadHTML {
 
@@ -14,14 +16,14 @@ public class ReadHTML {
             throws IOException {
         String line = "";
         String XSS = "XSS";
-        String htmlFile = req.getRealPath("/") + "xss.html";
+        String htmlFile = ((HttpServletRequest) req).getSession().getServletContext().getRealPath("/") + "xss.html";
 
         BufferedReader in = new BufferedReader(new FileReader(htmlFile));
         while ((line = in.readLine()) != null) {
             if (line.indexOf(XSS) != -1) {
                 System.out.println("Transforming:");
                 System.out.println(line);
-                line = line.replaceAll(XSS, taintedInput);
+                line = line.replace(XSS, taintedInput);
                 System.out.println(line);
             }
 

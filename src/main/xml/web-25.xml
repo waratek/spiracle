@@ -334,6 +334,14 @@
         <servlet-name>Get_int_inline</servlet-name>
         <url-pattern>/Get_int_inline</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_inline</servlet-name>
+        <url-pattern>/MsSql_Get_int_inline</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_inline</servlet-name>
+        <url-pattern>/MySql_Get_int_inline</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>Get_int_no_quote</servlet-name>
@@ -342,6 +350,14 @@
     <servlet-mapping>
         <servlet-name>Get_int_no_quote</servlet-name>
         <url-pattern>/Get_int_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_no_quote</servlet-name>
+        <url-pattern>/MsSql_Get_int_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_int_no_quote</servlet-name>
+        <url-pattern>/MySql_Get_int_no_quote</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -405,6 +421,14 @@
     <servlet-mapping>
         <servlet-name>Get_string_no_quote</servlet-name>
         <url-pattern>/Get_string_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_string_no_quote</servlet-name>
+        <url-pattern>/MsSql_Get_string_no_quote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Get_string_no_quote</servlet-name>
+        <url-pattern>/MySql_Get_string_no_quote</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -489,6 +513,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Run_Any_Sql</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.oracle.Run_Any_Sql</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Run_Any_Sql</servlet-name>
+        <url-pattern>/Run_Any_Sql</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Sybase_Get_Implicit_Join</servlet-name>
         <servlet-class>com.waratek.spiracle.sql.servlet.sybase.Sybase_Get_Implicit_Join</servlet-class>
     </servlet>
@@ -549,6 +582,33 @@
     <servlet-mapping>
         <servlet-name>Sybase_Implicit_Join_Namespace</servlet-name>
         <url-pattern>/Sybase_Implicit_Join_Namespace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Postgres_Get_Union</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.postgres.Postgres_Get_Union</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Postgres_Get_Union</servlet-name>
+        <url-pattern>/Postgres_Get_Union</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Postgres_Get_string_unicode_identifier</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.postgres.Postgres_Get_string_unicode_identifier</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Postgres_Get_string_unicode_identifier</servlet-name>
+        <url-pattern>/Postgres_Get_string_unicode_identifier</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Postgres_Implicit_Join_Namespace</servlet-name>
+        <servlet-class>com.waratek.spiracle.sql.servlet.postgres.Postgres_Implicit_Join_Namespace</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Postgres_Implicit_Join_Namespace</servlet-name>
+        <url-pattern>/Postgres_Implicit_Join_Namespace</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -645,6 +705,15 @@
         <servlet-name>XSSBufferTest</servlet-name>
         <url-pattern>/XSSBufferTest</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>XSSviaXMLDeserialization</servlet-name>
+        <servlet-class>com.waratek.spiracle.deserial.XSSviaXMLDeserialization</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>XSSviaXMLDeserialization</servlet-name>
+        <url-pattern>/XSSviaXMLDeserialization</url-pattern>
+    </servlet-mapping>
     <servlet>
 
         <servlet-name>AddHeaders</servlet-name>
@@ -716,6 +785,15 @@
     <servlet-mapping>
         <servlet-name>CookieServlet</servlet-name>
         <url-pattern>/CookieServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CookieFileServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.cookie.CookieFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CookieFileServlet</servlet-name>
+        <url-pattern>/CookieFileServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
