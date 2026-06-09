@@ -1,10 +1,13 @@
 create database spiracle;
+GO
 
 use spiracle;
+GO
 
-DROP TABLE users;
-DROP TABLE address;
-DROP TABLE TEXT_STORE;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS TEXT_STORE;
+GO
 
 CREATE TABLE users (
     id int,
@@ -27,6 +30,7 @@ CREATE TABLE TEXT_STORE
    ID    int,
    DATA  text
 );
+GO
 
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (1, 'Patrick', 'Moss', '1955-08-29', '5566 0717 3093 3773', 341);
 INSERT INTO users (id, name, surname, dob, credit_card, cvv) VALUES (2, 'Margaret', 'Thomas', '1959-01-15', '3461 7946 3370 838', 475);

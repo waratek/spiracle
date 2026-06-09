@@ -51,7 +51,7 @@ case "$SUITE" in
         ;;
     rasp)
         VARS_FILE="$SCRIPT_DIR/rasp/protected.env"
-        FILES="$SCRIPT_DIR/rasp/mysql/*.hurl $SCRIPT_DIR/rasp/oracle/*.hurl"
+        FILES="$SCRIPT_DIR/rasp/mysql/*.hurl $SCRIPT_DIR/rasp/oracle/*.hurl $SCRIPT_DIR/rasp/mssql/*.hurl"
         REPORT_DIR="${REPORT_DIR:-/tmp/spiracle-rasp-report}"
         ;;
     *)
