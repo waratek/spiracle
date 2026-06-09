@@ -39,7 +39,7 @@ body contains "Dubuisson"
 # ── 4. Unprotected SQL injection on MySql_Get_Implicit_Join ──────────
 # Payload: id=1 OR 1=1
 # Query becomes: SELECT * FROM users, address WHERE users.id = 1 OR 1=1 AND users.id = address.id
-# Without the Waratek RASP agent this executes and returns ALL users.
+# This executes and returns ALL users.
 # id=1 only returns Patrick Moss; injection adds Margaret Thomas (id=2).
 # Asserting both surnames proves injection executed and widened the result.
 GET http://{{host}}:{{port}}/spiracle/MySql_Get_Implicit_Join?id=1%20OR%201%3D1

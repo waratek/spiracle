@@ -5,39 +5,17 @@ Replaces the old `tests/spiracle_sqli_test.py` (Python 2, bespoke `<split>` form
 
 ---
 
-## The 550 status requires the Waratek RASP agent
-
-The number `550` is **not** a standard HTTP status code.
-`SelectUtil.verifySQLException` emits it **only** when the SQLException
-message is exactly `"Attempted to execute a query with one or more bad
-parameters."` — that string is produced by the **Waratek RASP agent**
-intercepting the query before it reaches the database.
-
-**Without the Waratek agent** (e.g. plain Tomcat, CI Docker stack):
-
-| Payload type             | Status code |
-|--------------------------|-------------|
-| Valid-SQL injection       | **200**     |
-| Malformed/syntax error   | **500**     |
-| Agent-blocked injection  | **550**     |
-
-You will **never** see 550 on a plain deployment.
-The RASP suite will fail entirely without the agent — this is expected.
-
----
-
 ## Suite layout
 
-`tests/hurl/` holds three suites:
+`tests/hurl/` holds two suites:
 
-- `smoke/` and `functional/` — endpoint behaviour on a plain (no-agent) deployment.
-- `rasp/` — the RASP-efficacy matrix under `mysql/` and `oracle/`; requires the Waratek agent.
+- `smoke/` and `functional/` — endpoint behaviour on a plain deployment.
 
 ---
 
 ## Running the functional suite (plain Docker / CI)
 
-The functional suite validates endpoint behaviour without any RASP agent:
+The functional suite validates endpoint behaviour end-to-end:
 
 | File             | Requests | What it covers |
 |------------------|----------|----------------|
@@ -71,7 +49,6 @@ The smoke suite validates:
 1. App root responds `200`
 2. `GET /spiracle/MySql_Get_string?name=Patrick` → `200`, body contains `Moss`
 3. SQLi payload widens the result set (body contains `Thomas`) → `200`
-   (documenting that injections are NOT blocked without the agent)
 
 ```sh
 # Start the Docker MySQL stack
@@ -85,27 +62,7 @@ hurl --test --variables-file tests/hurl/smoke/local.env \
      tests/hurl/smoke/smoke.hurl
 ```
 
----
-
-## Running the RASP suite (Waratek agent required)
-
-```sh
-# With agent attached to Tomcat:
-./tests/hurl/run.sh rasp localhost 8080
-
-# Override host/port:
-./tests/hurl/run.sh rasp myserver.internal 9090
-
-# Override expected block status (if agent uses a different code):
-BLOCK_STATUS=403 ./tests/hurl/run.sh rasp localhost 8080
-
-# Run a single servlet's cases:
-hurl --test \
-     --variables-file tests/hurl/rasp/protected.env \
-     tests/hurl/rasp/mysql/get_int.hurl
-```
-
-Reports are written as JUnit XML to `/tmp/spiracle-{smoke,rasp}-report/junit.xml`.
+Reports are written as JUnit XML to `/tmp/spiracle-{smoke,functional}-report/junit.xml`.
 Override with `REPORT_DIR=/path/to/dir ./tests/hurl/run.sh ...`.
 
 ---
@@ -118,7 +75,7 @@ All files use the `[Asserts]` form:
 ```
 HTTP *
 [Asserts]
-status == {{block_status}}
+status == 200
 ```
 
 This was verified against Hurl 5.0.1 before committing.
