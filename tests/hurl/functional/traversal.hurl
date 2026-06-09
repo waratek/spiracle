@@ -28,7 +28,7 @@ body contains "testFilesChild"
 # ── 2. Path traversal: ../TestFile escapes testFilesChild ────────────
 # %2F = /  so ../TestFile URL-encodes to ..%2FTestFile
 # The constructed path resolves to testFilesParent/TestFile.
-# Without a RASP agent the traversal is NOT blocked and the stream opens.
+# The traversal is NOT blocked and the stream opens.
 GET http://{{host}}:{{port}}/spiracle/FileInputStreamServlet01?FileInputStream01=..%2FTestFile
 [Options]
 location: true

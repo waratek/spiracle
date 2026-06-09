@@ -7,7 +7,7 @@
 #
 # Note: the ReadHTML-based XSS servlets (XSSWebAppHSRPW, XSSWebAppSRPW etc.)
 # do NOT reflect the param because xss.html contains no literal "XSS" token
-# to substitute — those are agent-trigger targets, not reflection endpoints.
+# to substitute — they are not reflection endpoints.
 # customTag.jsp is the cleanest GET-accessible reflected-XSS endpoint.
 
 # ── 1. Benign name: confirm normal reflection ────────────────────────
