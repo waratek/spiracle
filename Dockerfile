@@ -5,7 +5,7 @@ WORKDIR /build
 COPY pom.xml .
 COPY src ./src
 
-RUN mvn install -Dversion.webxml=30 -DskipTests -q
+RUN mvn install -Dversion.jdk=1.5 -Dversion.webxml=30 -DskipTests -q
 
 # ---------------------------------------------------------------------------
 # Stage 2: runtime — Tomcat 9 + JRE 8
