@@ -54,8 +54,8 @@ docker compose -f docker-compose.oracle.yml down -v
 
 ## How it works
 
-- A multi-stage Dockerfile builds the WAR with JDK 8 / Maven, then deploys it on Tomcat 9.
-- MySQL (Connector/J 5.1.49), MSSQL (mssql-jdbc jre8) and Oracle (ojdbc8) JDBC drivers are bundled in the image.
+- A multi-stage Dockerfile builds the WAR with JDK 8 / Maven (`-Dversion.jdk=1.6 -Dversion.webxml=30`), then deploys it on Tomcat 9.
+- No JDBC driver is bundled in the WAR; the drivers live in Tomcat's `lib/`: MySQL Connector/J 5.1.49, MSSQL mssql-jdbc 12.4.2.jre8, and Oracle ojdbc8 21.13. The MySQL stack runs `mysql:8.0` with `--default-authentication-plugin=mysql_native_password`, which Connector/J 5.1.49 can negotiate.
 - `docker/entrypoint.sh` rewrites `conf/Spiracle.properties` from environment variables before Tomcat starts. The committed `Spiracle.properties` is never modified.
 
 ## Environment variables (app service)
