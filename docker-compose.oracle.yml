@@ -18,6 +18,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # Defaults reproduce the historical Java 8 image. Override via the
+        # environment (see scripts/rasp-matrix.sh) to build for Java 6..25.
+        BUILD_JDK: "${BUILD_JDK:-8}"
+        VERSION_JDK: "${VERSION_JDK:-1.8}"
+        VERSION_WEBXML: "${VERSION_WEBXML:-30}"
+        RUNTIME_BASE: "${RUNTIME_BASE:-eclipse-temurin:8-jre}"
+        TOMCAT_MAJOR: "${TOMCAT_MAJOR:-9}"
+        TOMCAT_VERSION: "${TOMCAT_VERSION:-9.0.118}"
+        MAVEN_OPTS: "${MAVEN_OPTS:-}"
     ports:
       - "8080:8080"
     environment:
