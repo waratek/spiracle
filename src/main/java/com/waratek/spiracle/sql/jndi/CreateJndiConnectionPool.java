@@ -26,9 +26,8 @@ public class CreateJndiConnectionPool implements ServletContextListener {
 			ServletContext application = arg0.getServletContext();
 			application.setAttribute("jndiConnectionPool", ds);
 			logger.info("Added jndi connection pool " + ds + " to application context.");
-		} catch (NamingException e) {
-			logger.error("JNDI reference not found.");
-			e.printStackTrace();
+		} catch (Throwable e) {
+			logger.error("Optional JNDI resource jdbc/oracle not bound; continuing without it: " + e);
 		}
 	}
 }
