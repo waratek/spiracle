@@ -57,6 +57,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ReflectServlet</servlet-name>
+        <servlet-class>com.waratek.spiracle.reflect.ReflectServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReflectServlet</servlet-name>
+        <url-pattern>/ReflectServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>ServerSocketServlet</servlet-name>
         <servlet-class>com.waratek.spiracle.network.ServerSocketServlet</servlet-class>
     </servlet>

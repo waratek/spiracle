@@ -15,6 +15,7 @@
    namesMap.put("Deserialization", "deserial");
    namesMap.put("Misc", "misc");
    namesMap.put("Cookie", "cookie");
+   namesMap.put("Reflect", "reflect");
    request.setAttribute("pageNameMap", namesMap);
 %>
 <!DOCTYPE html>
