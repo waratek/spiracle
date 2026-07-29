@@ -1,0 +1,39 @@
+services:
+  db:
+    image: gvenzl/oracle-xe:21-slim
+    environment:
+      ORACLE_PASSWORD: oraclepassword
+      APP_USER: test
+      APP_USER_PASSWORD: test
+    volumes:
+      - ./src/main/webapp/conf/setupdb_oracle.sql:/container-entrypoint-initdb.d/setupdb_oracle.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+      start_period: 120s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Defaults reproduce the historical Java 8 image. Override via the
+        # environment (see scripts/rasp-matrix.sh) to build for Java 6..25.
+        BUILD_JDK: "${BUILD_JDK:-8}"
+        VERSION_JDK: "${VERSION_JDK:-1.8}"
+        VERSION_WEBXML: "${VERSION_WEBXML:-30}"
+        RUNTIME_BASE: "${RUNTIME_BASE:-eclipse-temurin:8-jre}"
+        TOMCAT_MAJOR: "${TOMCAT_MAJOR:-9}"
+        TOMCAT_VERSION: "${TOMCAT_VERSION:-9.0.118}"
+        MAVEN_OPTS: "${MAVEN_OPTS:-}"
+    ports:
+      - "8080:8080"
+    environment:
+      SPIRACLE_DEFAULT_CONNECTION: c3p0.oracle
+      # gvenzl runs initdb scripts in the PDB (XEPDB1); use service-name URL form
+      SPIRACLE_DB_URL: "jdbc:oracle:thin:@//db:1521/XEPDB1"
+    depends_on:
+      db:
+        condition: service_healthy

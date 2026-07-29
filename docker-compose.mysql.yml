@@ -1,0 +1,43 @@
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    volumes:
+      # Seed SQL mounted outside initdb.d so the shell script controls execution
+      - ./src/main/webapp/conf/setupdb_mysql.sql:/init/setupdb_mysql.sql:ro
+      # Shell script in initdb.d runs seed with --force (bare DROPs on fresh DB)
+      - ./docker/mysql-seed.sh:/docker-entrypoint-initdb.d/01-seed.sh:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--password=rootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Defaults reproduce the historical Java 8 image. Override via the
+        # environment (see scripts/rasp-matrix.sh) to build for Java 6..25.
+        BUILD_JDK: "${BUILD_JDK:-8}"
+        VERSION_JDK: "${VERSION_JDK:-1.8}"
+        VERSION_WEBXML: "${VERSION_WEBXML:-30}"
+        RUNTIME_BASE: "${RUNTIME_BASE:-eclipse-temurin:8-jre}"
+        TOMCAT_MAJOR: "${TOMCAT_MAJOR:-9}"
+        TOMCAT_VERSION: "${TOMCAT_VERSION:-9.0.118}"
+        MAVEN_OPTS: "${MAVEN_OPTS:-}"
+    ports:
+      - "8080:8080"
+    environment:
+      SPIRACLE_DEFAULT_CONNECTION: c3p0.mysql
+      SPIRACLE_DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy

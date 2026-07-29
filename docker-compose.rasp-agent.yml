@@ -1,0 +1,23 @@
+# =============================================================================
+# Overlay compose that attaches the Waratek RASP agent to the app container.
+#
+# The agent binary is NOT shipped in this repo. Point AGENT_DIR at a prepared
+# agent directory (waratek.jar, core.jar, compiler-8.jar, a standalone
+# waratek.properties and a SQL-injection rules.armr). scripts/rasp-matrix.sh
+# prepares that directory for you (`setup-agent`).
+#
+# Usage (layered on top of a database compose file):
+#
+#   AGENT_DIR=/abs/path/to/agent docker compose \
+#       -f docker-compose.mysql.yml -f docker-compose.rasp-agent.yml up -d
+#
+# The agent supports Java 6..25, so this overlay is version-independent — it
+# works against any image the parameterised Dockerfile produces.
+# =============================================================================
+services:
+  app:
+    environment:
+      # catalina.sh honours CATALINA_OPTS; this attaches the agent at JVM start.
+      CATALINA_OPTS: "-javaagent:/opt/waratek/waratek.jar -Dcom.waratek.WaratekProperties=/opt/waratek/waratek.properties"
+    volumes:
+      - "${AGENT_DIR:?set AGENT_DIR to a prepared Waratek agent directory}:/opt/waratek:rw"
